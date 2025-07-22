@@ -1,4 +1,5 @@
 🌾 AgriBazaar — E-commerce Platform for Agricultural Products
+
 Build License Stars
 📖 Project Overview
 AgriBazaar is an online platform that connects farmers, suppliers, and buyers of agricultural products. It simplifies the buying and selling of seeds, fertilizers, pesticides, and farm equipment through a user-friendly interface and secure payment system.
@@ -19,6 +20,9 @@ AgriBazaar is an online platform that connects farmers, suppliers, and buyers of
 - Spring Framework (MVC, Boot)
 - Hibernate / JPA
 - Java Servlet + JSP
+
+
+
 📥 Installation & Setup
 # Clone the repository
 git clone https://github.com/yourusername/agribazaar.git
