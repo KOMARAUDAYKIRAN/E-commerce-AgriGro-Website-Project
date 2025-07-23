@@ -141,7 +141,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact & Acknowledgements
 
-**Developer**: Venkat  
+**Developer**: Uday  
 **Email**: [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
 **LinkedIn**: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
 
