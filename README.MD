@@ -1,96 +1,150 @@
+# AgriBazaar
 
-
-🌾 AgriBazaar — E-Commerce Platform for Agricultural Products
-
-AgriBazaar is a full-stack Java-based web application that bridges farmers, suppliers, and buyers in a digital marketplace. Users can trade seeds, fertilizers, tools, and equipment seamlessly with secure payments and real-time tracking.
-
----
-
-## 📦 Key Features
-
-- 👤 **User Authentication** — Registration & login with session handling
-- 🔍 **Product Catalog** — Search, filter, and sort agricultural items
-- 🛒 **Shopping Cart** — Add products and place orders
-- 💳 **Payment Integration** — Supports PayPal and Stripe gateways
-- 🚚 **Order Management** — Track orders and update status
-- ⭐ **Ratings & Reviews** — User feedback system
-- 🛠️ **Admin Dashboard** — Manage users, products, and orders
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
+[![Tech Stack](https://img.shields.io/badge/Backend-Java%20(Spring%20Boot)-blue.svg)]()
+[![Frontend](https://img.shields.io/badge/Frontend-HTML%2C%20CSS%2C%20JS-yellow.svg)]()
+[![Database](https://img.shields.io/badge/Database-MySQL%20%7C%20PostgreSQL-orange.svg)]()
+[![Server](https://img.shields.io/badge/Server-Apache%20Tomcat-lightgrey.svg)]()
 
 ---
 
-## ⚙️ Tech Stack
+## Project Overview
 
-| Layer       | Tools & Technologies                             |
-|-------------|--------------------------------------------------|
-| Frontend    | HTML, CSS, JavaScript, JSP                       |
-| Backend     | Java, Spring Boot, Spring MVC, Servlets          |
-| Database    | MySQL / PostgreSQL                               |
-| ORM         | Hibernate / JPA                                  |
-| Server      | Apache Tomcat                                    |
-| Dev Tools   | Git, GitHub, Postman, Eclipse / VS Code          |
+*AgriBazaar* is a full-stack e-commerce platform designed for the agricultural sector. It connects *farmers, **suppliers, and **buyers*, enabling seamless transactions of seeds, fertilizers, pesticides, and farm equipment.
+
+Built with *Java, **Spring Boot, and **MySQL/PostgreSQL*, the platform ensures a scalable, secure, and user-friendly experience across devices.
 
 ---
 
-## 📥 Installation & Setup
+## Features
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/agribazaar.git
-   cd agribazaar
+- User registration, login, and role-based access
+- Product catalog with search, filter, and sort options
+- Shopping cart and checkout flow
+- Payment gateway integration (PayPal, Stripe)
+- Order tracking and management
+- Ratings and review system
+- Admin dashboard for user, product, and order management
 
-# Navigate to the project folder
+---
+
+## Table of Contents.
+
+1. [Project Overview](#project-overview)  
+2. [Features](#features)  
+3. [Tech Stack](#tech-stack)  
+4. [Installation & Setup](#installation--setup)  
+5. [Functionality Overview](#functionality-overview)  
+6. [Project Structure](#project-structure)  
+7. [Contribution Guidelines](#contribution-guidelines)  
+8. [License](#license)  
+9. [Contact & Acknowledgements](#contact--acknowledgements)
+
+---
+
+## Tech Stack
+
+| Layer     | Technologies                                |
+|-----------|---------------------------------------------|
+| Frontend  | HTML, CSS, JavaScript, JSP                  |
+| Backend   | Java, Spring Boot, Spring MVC, Servlets     |
+| Database  | MySQL / PostgreSQL                          |
+| Server    | Apache Tomcat                               |
+| ORM       | Hibernate / JPA                             |
+
+---
+
+## Java Technologies
+
+- Spring Boot & Spring MVC
+- Hibernate / JPA
+- Java Servlet & JSP
+
+---
+
+## Installation & Setup
+
+### Step 1: Clone the repository
+
+bash
+git clone https://github.com/yourusername/agribazaar.git
 cd agribazaar
 
-# Install dependencies (if any)
-<your commands>
 
-# Run the application
-<your commands>
+### Step 2: Configure the database
+
+Edit your application.properties file with your local database credentials:
+
+properties
+spring.datasource.url=jdbc:mysql://localhost:3306/agribazaar
+spring.datasource.username=your_username
+spring.datasource.password=your_password
 
 
-💡 Make sure to configure your database settings in application.properties.
+### Step 3: Build and run the application
 
-🎯 Functionality Overview
-- Buyers can browse products, place orders, and track shipments.
-- Farmers and suppliers can list items, view orders, and manage listings.
-- Admin has access to product/user/order control via dashboard.
-- Secure payments and real-time updates ensure smooth transactions.
+bash
+# If using Maven
+mvn clean install
+mvn spring-boot:run
 
-📂 Project Structure
+
+---
+
+## Functionality Overview
+
+- *Buyers*: Browse products, place orders, and track delivery
+- *Farmers/Suppliers*: List items, manage inventory and orders
+- *Admin*: Monitor system, manage users, products, and orders
+- *Payments*: Integrated with secure gateways like PayPal and Stripe
+
+---
+
+## Project Structure
+
+
 agribazaar/
 ├── src/
 │   └── main/
 │       ├── java/
 │       │   └── com/agribazaar/
-│       │       └── controllers/
-│       │       └── services/
-│       │       └── models/
-│       └── resources/
-│           └── application.properties
-├── webapp/
-│   └── WEB-INF/
-│       └── jsp/
+│       └── webapp/
+│           └── WEB-INF/
+│               └── jsp/
+├── resources/
 ├── pom.xml
-├── README.md
-└── ...
+└── README.md
 
 
-🤝 Contribution Guidelines
-We welcome new contributors! 🌟
-Here’s how to join:
-- Fork the repo and submit pull requests.
-- Open issues for suggestions or bugs.
-- Follow consistent code formatting and commit conventions (feat:, fix:, docs:).
-- Include meaningful documentation with your code.
-See CONTRIBUTING.md for full guidelines.
-📄 License
-This project is licensed under the MIT License.
-📬 Contact & Acknowledgements
-Developed by Venkat, final-year engineering student passionate about Java backend development and impactful software design.
-If you're participating in GSoC, SSOC, or internship programs — feel free to reach out and collaborate!
-📧 komaraudaykiran2003@gmail.com
-🔗 https://www.linkedin.com/in/udaykirankomara
-Special thanks to mentors, open-source communities, and frameworks powering this project.
+---
 
+## Contribution Guidelines
 
+We welcome contributions from developers and open-source enthusiasts.
 
+- Fork the repository
+- Create a new feature branch (feature/your-feature)
+- Use consistent commit messages: feat:, fix:, docs:, etc.
+- Add proper documentation to your changes
+- Submit a pull request with clear descriptions
+
+Please refer to CONTRIBUTING.md for full guidelines.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## Contact & Acknowledgements
+
+*Developer*: Uday  
+*Email* : [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
+*LinkedIn*: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
+
+Special thanks to open-source communities, mentors, and contributors supporting this project and similar initiatives.
+
+---
