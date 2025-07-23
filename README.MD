@@ -11,9 +11,9 @@
 
 ## Project Overview
 
-*AgriBazaar* is a full-stack e-commerce platform designed for the agricultural sector. It connects *farmers, **suppliers, and **buyers*, enabling seamless transactions of seeds, fertilizers, pesticides, and farm equipment.
+**AgriBazaar** is a full-stack e-commerce platform designed for the agricultural sector. It connects **farmers**, **suppliers**, and **buyers**, enabling seamless transactions of seeds, fertilizers, pesticides, and farm equipment.
 
-Built with *Java, **Spring Boot, and **MySQL/PostgreSQL*, the platform ensures a scalable, secure, and user-friendly experience across devices.
+Built with **Java**, **Spring Boot**, and **MySQL/PostgreSQL**, the platform ensures a scalable, secure, and user-friendly experience across devices.
 
 ---
 
@@ -29,7 +29,7 @@ Built with *Java, **Spring Boot, and **MySQL/PostgreSQL*, the platform ensures a
 
 ---
 
-## Table of Contents.
+## Table of Contents
 
 1. [Project Overview](#project-overview)  
 2. [Features](#features)  
@@ -67,44 +67,43 @@ Built with *Java, **Spring Boot, and **MySQL/PostgreSQL*, the platform ensures a
 
 ### Step 1: Clone the repository
 
-bash
+```bash
 git clone https://github.com/yourusername/agribazaar.git
 cd agribazaar
-
+```
 
 ### Step 2: Configure the database
 
-Edit your application.properties file with your local database credentials:
+Edit your `application.properties` file with your local database credentials:
 
-properties
+```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/agribazaar
 spring.datasource.username=your_username
 spring.datasource.password=your_password
-
+```
 
 ### Step 3: Build and run the application
 
-bash
+```bash
 # If using Maven
 mvn clean install
 mvn spring-boot:run
-
+```
 
 ---
 
 ## Functionality Overview
 
-- *Buyers*: Browse products, place orders, and track delivery
-- *Farmers/Suppliers*: List items, manage inventory and orders
-- *Admin*: Monitor system, manage users, products, and orders
-- *Payments*: Integrated with secure gateways like PayPal and Stripe
+- **Buyers**: Browse products, place orders, and track delivery
+- **Farmers/Suppliers**: List items, manage inventory and orders
+- **Admin**: Monitor system, manage users, products, and orders
+- **Payments**: Integrated with secure gateways like PayPal and Stripe
 
 ---
 
 ## Project Structure
 
-
-
+```
 agribazaar/
 ├── src/
 │   └── main/
@@ -116,8 +115,7 @@ agribazaar/
 ├── resources/
 ├── pom.xml
 └── README.md
-
-
+```
 
 ---
 
@@ -126,12 +124,12 @@ agribazaar/
 We welcome contributions from developers and open-source enthusiasts.
 
 - Fork the repository
-- Create a new feature branch (feature/your-feature)
-- Use consistent commit messages: feat:, fix:, docs:, etc.
+- Create a new feature branch (`feature/your-feature`)
+- Use consistent commit messages: `feat:`, `fix:`, `docs:`, etc.
 - Add proper documentation to your changes
 - Submit a pull request with clear descriptions
 
-Please refer to CONTRIBUTING.md for full guidelines.
+Please refer to `CONTRIBUTING.md` for full guidelines.
 
 ---
 
@@ -143,9 +141,9 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact & Acknowledgements
 
-*Developer*: Uday  
-*Email* : [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
-*LinkedIn*: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
+**Developer**: Venkat  
+**Email**: [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
+**LinkedIn**: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
 
 Special thanks to open-source communities, mentors, and contributors supporting this project and similar initiatives.
 
