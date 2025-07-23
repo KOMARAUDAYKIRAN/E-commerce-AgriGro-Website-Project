@@ -55,16 +55,21 @@ cd agribazaar
 - Farmers and suppliers can list items, view orders, and manage listings.
 - Admin has access to product/user/order control via dashboard.
 - Secure payments and real-time updates ensure smooth transactions.
+
 📂 Project Structure
 agribazaar/
 ├── src/
 │   └── main/
-│       └── java/
-│           └── com.agribazaar/
+│       ├── java/
+│       │   └── com/agribazaar/
+│       │       └── controllers/
+│       │       └── services/
+│       │       └── models/
+│       └── resources/
+│           └── application.properties
 ├── webapp/
 │   └── WEB-INF/
 │       └── jsp/
-├── resources/
 ├── pom.xml
 ├── README.md
 └── ...
