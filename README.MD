@@ -29,7 +29,7 @@ Built with **Java**, **Spring Boot**, and **MySQL/PostgreSQL**, the platform ens
 
 ---
 
-## Table of Contents
+## Table of Contents.
 
 1. [Project Overview](#project-overview)  
 2. [Features](#features)  
