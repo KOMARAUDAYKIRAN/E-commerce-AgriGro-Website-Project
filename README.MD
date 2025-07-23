@@ -1,31 +1,42 @@
-🌾 AgriBazaar — E-commerce Platform for Agricultural Products
-
-Build License Stars
-📖 Project Overview
-AgriBazaar is an online platform that connects farmers, suppliers, and buyers of agricultural products. It simplifies the buying and selling of seeds, fertilizers, pesticides, and farm equipment through a user-friendly interface and secure payment system.
-⚙️ Key Features
-- 👤 User registration and login
-- 🛍️ Product catalog with search, filter, and sort options
-- 🛒 Shopping cart and seamless checkout
-- 💳 Payment gateway integration (PayPal, Stripe)
-- 📦 Order management and real-time tracking
-- ⭐ User reviews and ratings
-- 🛠️ Admin dashboard to manage users, products, and orders
-🧰 Tech Stack
-| Frontend | Backend | Database | Server | 
-| HTML, CSS, JS, JSP | Java (Spring Boot, MVC), Servlet | MySQL / PostgreSQL | Apache Tomcat | 
 
 
-🧪 Java Technologies
-- Spring Framework (MVC, Boot)
-- Hibernate / JPA
-- Java Servlet + JSP
+🌾 AgriBazaar — E-Commerce Platform for Agricultural Products
 
+AgriBazaar is a full-stack Java-based web application that bridges farmers, suppliers, and buyers in a digital marketplace. Users can trade seeds, fertilizers, tools, and equipment seamlessly with secure payments and real-time tracking.
 
+---
 
-📥 Installation & Setup
-# Clone the repository
-git clone https://github.com/yourusername/agribazaar.git
+## 📦 Key Features
+
+- 👤 **User Authentication** — Registration & login with session handling
+- 🔍 **Product Catalog** — Search, filter, and sort agricultural items
+- 🛒 **Shopping Cart** — Add products and place orders
+- 💳 **Payment Integration** — Supports PayPal and Stripe gateways
+- 🚚 **Order Management** — Track orders and update status
+- ⭐ **Ratings & Reviews** — User feedback system
+- 🛠️ **Admin Dashboard** — Manage users, products, and orders
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer       | Tools & Technologies                             |
+|-------------|--------------------------------------------------|
+| Frontend    | HTML, CSS, JavaScript, JSP                       |
+| Backend     | Java, Spring Boot, Spring MVC, Servlets          |
+| Database    | MySQL / PostgreSQL                               |
+| ORM         | Hibernate / JPA                                  |
+| Server      | Apache Tomcat                                    |
+| Dev Tools   | Git, GitHub, Postman, Eclipse / VS Code          |
+
+---
+
+## 📥 Installation & Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/agribazaar.git
+   cd agribazaar
 
 # Navigate to the project folder
 cd agribazaar
