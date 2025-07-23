@@ -142,7 +142,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## Contact & Acknowledgements
 
 **Developer**: Uday  
-**Email**: [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
+**Email** : [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
 **LinkedIn**: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
 
 Special thanks to open-source communities, mentors, and contributors supporting this project and similar initiatives.
