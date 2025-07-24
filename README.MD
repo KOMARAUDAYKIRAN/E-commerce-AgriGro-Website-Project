@@ -14,7 +14,7 @@
 1. [Project Overview](#project-overview)
 2. [Features](#features)
 3. [Tech Stack](#tech-stack)
-4. [Prerequisites](#-prerequisites)
+4. [Prerequisites](#prerequisites)
 5. [Java Technologies Used](#java-technologies-used)
 6. [Installation & Setup](#installation--setup)
 7. [Functionality Overview](#functionality-overview)

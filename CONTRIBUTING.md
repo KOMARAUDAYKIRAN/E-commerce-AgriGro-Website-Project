@@ -6,7 +6,7 @@ Whether you're fixing a bug, improving the UI, adding documentation, or developi
 
 ---
 
-## 📌 Table of Contents
+## Table of Contents
 
 1. [How to Contribute](#how-to-contribute)
 2. [Code Guidelines](#code-guidelines)
