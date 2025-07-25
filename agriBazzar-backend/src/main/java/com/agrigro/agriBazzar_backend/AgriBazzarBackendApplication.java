@@ -1,13 +1,13 @@
-package com.agriBazaar.backend;
+package com.agrigro.agriBazzar_backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AgriBazaarBackendApplication {
+public class AgriBazzarBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AgriBazaarBackendApplication.class, args);
+		SpringApplication.run(AgriBazzarBackendApplication.class, args);
 	}
 
 }
