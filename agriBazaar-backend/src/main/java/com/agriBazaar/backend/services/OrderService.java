@@ -31,9 +31,18 @@ public class OrderService {
 
         List<Product> products = productRepository.findAllById(productIds);
 
-        double totalAmount = products.stream()
-                .mapToDouble(Product::getPrice)
-                .sum();
+        double totalAmount=0.0;
+
+        for(Product product:products){
+            if(product.getStock()<=0) {
+                throw new RuntimeException("Product out of stock: " + product.getName());
+            }
+            product.setStock(product.getStock()-1);
+            productRepository.save(product);
+
+            totalAmount+=product.getPrice();
+        }
+
 
         Order order = new Order();
         order.setUser(user);
@@ -43,6 +52,7 @@ public class OrderService {
 
         return orderRepository.save(order);
     }
+
 
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
