@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgriBazaar Cart</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .cart-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+      margin-top: 2em;
+    }
+    .cart-card {
+      background: #6fcf97;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      width: 260px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5em 1em 1em 1em;
+      margin-bottom: 1em;
+    }
+    .cart-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      background: #e0e0e0;
+    }
+    .cart-card h3 {
+      margin: 0.5em 0 0.2em 0;
+      font-size: 1.2em;
+      color: #fff;
+    }
+    .cart-card p {
+      margin: 0.2em 0;
+      color: #222;
+      font-weight: bold;
+    }
+    .cart-card .cart-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 0.5em;
+    }
+    .cart-card button {
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.4em 1em;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s;
+    }
+    .cart-card button:hover {
+      background: #388e3c;
+    }
+    .cart-summary {
+      margin: 2em auto 1em auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      padding: 1.5em 2em;
+      max-width: 400px;
+      text-align: left;
+    }
+    .cart-summary h2 {
+      margin-top: 0;
+      color: #4CAF50;
+    }
+    .cart-summary p {
+      font-size: 1.1em;
+      margin: 0.5em 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AgriBazaar Cart</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.jsp">Products</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cart-summary">
+      <h2>Your Cart</h2>
+      <p><strong>Total Items:</strong> 3</p>
+      <p><strong>Total Amount:</strong> ₹690</p>
+      <button>Proceed to Checkout</button>
+    </div>
+    <div class="cart-container">
+      <div class="cart-card">
+        <img src="https://via.placeholder.com/60" alt="Organic Fertilizer" />
+        <h3>Organic Fertilizer</h3>
+        <p>₹250 x 1</p>
+        <div class="cart-actions">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+          <button>Remove</button>
+        </div>
+      </div>
+      <div class="cart-card">
+        <img src="https://via.placeholder.com/60" alt="Hybrid Tomato Seeds" />
+        <h3>Hybrid Tomato Seeds</h3>
+        <p>₹120 x 2</p>
+        <div class="cart-actions">
+          <button>-</button>
+          <span>2</span>
+          <button>+</button>
+          <button>Remove</button>
+        </div>
+      </div>
+      <div class="cart-card">
+        <img src="https://via.placeholder.com/60" alt="Pesticide X" />
+        <h3>Pesticide X</h3>
+        <p>₹320 x 1</p>
+        <div class="cart-actions">
+          <button>-</button>
+          <span>1</span>
+          <button>+</button>
+          <button>Remove</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AgriBazaar. All rights reserved.</p>
+  </footer>
+</body>
+</html> 

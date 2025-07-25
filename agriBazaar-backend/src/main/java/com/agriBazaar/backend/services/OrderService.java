@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import com.agriBazaar.backend.entities.PaymentStatus;
+import com.agriBazaar.backend.entities.OrderStatus;
 
 @Service
 public class OrderService {
@@ -40,6 +42,8 @@ public class OrderService {
         order.setProducts(products);
         order.setTotalAmount(totalAmount);
         order.setOrderDate(LocalDateTime.now());
+        order.setPaymentStatus(PaymentStatus.PENDING);
+        order.setOrderStatus(OrderStatus.PLACED);
 
         return orderRepository.save(order);
     }
@@ -51,5 +55,18 @@ public class OrderService {
     public Optional<Order> getOrderById(Long id) {
         return orderRepository.findById(id);
     }
-}
 
+    public Order updatePaymentStatus(Long orderId, PaymentStatus paymentStatus) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setPaymentStatus(paymentStatus);
+        return orderRepository.save(order);
+    }
+
+    public Order updateOrderStatus(Long orderId, OrderStatus orderStatus) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+        order.setOrderStatus(orderStatus);
+        return orderRepository.save(order);
+    }
+}
