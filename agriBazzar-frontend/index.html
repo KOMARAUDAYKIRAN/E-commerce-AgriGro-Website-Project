@@ -3,31 +3,135 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgriBazaar</title>
+  <title>AgriBazaar Product Catalog</title>
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      background: #f4f4f4;
+    }
+    .catalog-header {
+      background: #4CAF50;
+      color: #fff;
+      padding: 2em 0 1.5em 0;
+      text-align: center;
+    }
+    .catalog-header h1 {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin: 0 0 0.5em 0;
+      letter-spacing: 1px;
+    }
+    .catalog-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin: 1.5em 0 2em 0;
+    }
+    .catalog-controls input[type="text"],
+    .catalog-controls select {
+      padding: 0.7em 1em;
+      border-radius: 8px;
+      border: none;
+      font-size: 1em;
+      min-width: 180px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2em;
+      justify-content: center;
+      margin: 0 2em 2em 2em;
+    }
+    .product-card {
+      background: #6fcf97;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      width: 260px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5em 1em 1em 1em;
+      margin-bottom: 1em;
+    }
+    .product-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1em;
+      background: #e0e0e0;
+    }
+    .product-card h3 {
+      margin: 0.5em 0 0.2em 0;
+      font-size: 1.2em;
+      color: #fff;
+    }
+    .product-card p {
+      margin: 0.2em 0;
+      color: #222;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Welcome to AgriBazaar</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <div class="catalog-header">
+    <h1>AgriBazaar Product Catalog</h1>
+    <div class="catalog-controls">
+      <input type="text" placeholder="Search products..." />
+      <select>
+        <option>All Categories</option>
+        <option>Fertilizer</option>
+        <option>Seeds</option>
+        <option>Pesticides</option>
+        <option>Compost</option>
+      </select>
+      <select>
+        <option>Sort By</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Name: A-Z</option>
+        <option>Name: Z-A</option>
+      </select>
+    </div>
+  </div>
   <main>
-    <h2>Explore our organic marketplace!</h2>
-    <p>We connect farmers directly with customers.</p>
+    <div class="product-grid">
+      <div class="product-card">
+        <img src="https://via.placeholder.com/60" alt="Organic Fertilizer" />
+        <div style="width:100%;text-align:left;color:#fff;font-weight:bold;">Organic Fertilizer</div>
+        <h3>Organic Fertilizer</h3>
+        <p>₹250</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/60" alt="Hybrid Tomato Seeds" />
+        <div style="width:100%;text-align:left;color:#fff;font-weight:bold;">Hybrid Tomato Seeds</div>
+        <h3>Hybrid Tomato Seeds</h3>
+        <p>₹120</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/60" alt="Pesticide X" />
+        <div style="width:100%;text-align:left;color:#fff;font-weight:bold;">Pesticide X</div>
+        <h3>Pesticide X</h3>
+        <p>₹320</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/60" alt="Natural Compost" />
+        <div style="width:100%;text-align:left;color:#fff;font-weight:bold;">Natural Compost</div>
+        <h3>Natural Compost</h3>
+        <p>₹180</p>
+      </div>
+      <div class="product-card">
+        <img src="https://via.placeholder.com/60" alt="Wheat Seeds (High Yield)" />
+        <div style="width:100%;text-align:left;color:#fff;font-weight:bold;">Wheat Seeds (High Yield)</div>
+        <h3>Wheat Seeds (High Yield)</h3>
+        <p>₹200</p>
+      </div>
+    </div>
   </main>
-
   <footer>
     <p>&copy; 2025 AgriBazaar. All rights reserved.</p>
   </footer>
-
-  <script src="js/script.js"></script>
 </body>
 </html>
