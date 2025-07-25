@@ -1,5 +1,7 @@
 package com.agriBazaar.backend.entities;
 
+import com.agriBazaar.backend.entities.PaymentStatus;
+import com.agriBazaar.backend.entities.OrderStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,6 +12,7 @@ import java.util.List;
 @Table(name = "orders")
 @Data
 public class Order {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,5 +31,10 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
-}
 
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
+}

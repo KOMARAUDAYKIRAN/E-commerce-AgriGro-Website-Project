@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.agriBazaar.backend.entities.PaymentStatus;
+import com.agriBazaar.backend.entities.OrderStatus;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -31,5 +33,24 @@ public class OrderController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-}
 
+    @PutMapping("/{id}/payment-status")
+    public ResponseEntity<Order> updatePaymentStatus(@PathVariable Long id, @RequestParam PaymentStatus paymentStatus) {
+        try {
+            Order updatedOrder = orderService.updatePaymentStatus(id, paymentStatus);
+            return ResponseEntity.ok(updatedOrder);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}/order-status")
+    public ResponseEntity<Order> updateOrderStatus(@PathVariable Long id, @RequestParam OrderStatus orderStatus) {
+        try {
+            Order updatedOrder = orderService.updateOrderStatus(id, orderStatus);
+            return ResponseEntity.ok(updatedOrder);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+}
