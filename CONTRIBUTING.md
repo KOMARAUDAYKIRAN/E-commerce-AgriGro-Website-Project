@@ -1,93 +1,75 @@
-# 🌱 Contributing to AgriBazaar
+# 🌾 Contributing to E-commerce AgriGro Website Project
 
-Welcome! 👋 We're excited that you're interested in contributing to **AgriBazaar**, an e-commerce platform for agriculture built with Java, Spring Boot, and MySQL/PostgreSQL.
+Hi there! 👋
+Welcome, We're excited that you're interested in contributing to AgriBazaar, an e-commerce platform for agriculture built with Java, Spring Boot, and MySQL/PostgreSQL.  
 
-Whether you're fixing a bug, improving the UI, adding documentation, or developing new features — your help is appreciated.
+Thank you for your interest in contributing to the **E-commerce AgriGro** platform. Whether you're a developer, designer, documenter, or tester — we welcome your support and collaboration. 🤝
 
----
-
-## Table of Contents
-
-1. [How to Contribute](#how-to-contribute)
-2. [Code Guidelines](#code-guidelines)
-3. [Commit Message Format](#commit-message-format)
-4. [Pull Request Process](#pull-request-process)
-5. [Need Help?](#need-help)
+This project is part of **GSSoC'25**, and we encourage all open-source contributors to participate!
 
 ---
 
-## How to Contribute
+## 📌 Project Overview
+
+This is an agricultural e-commerce platform that connects **farmers directly with consumers** via a unique **Harvest Subscription Marketplace**.
+
+Some of the key features we're building:
+- Subscription plan UI for crop bundles
+- Farmer dashboards
+- Dynamic pricing engine
+- Recommendation system
+- Contributor-friendly documentation
+
+Developers can contribute to Frontend/Backend
+
+---
+
+## 🛠 How to Get Started
 
 ### 1. Fork the Repository
+Click on the **Fork** button at the top-right corner of this repo to create your own copy.
 
-Click the **"Fork"** button on GitHub to create your copy.
-
-### 2. Clone Your Fork Locally
-
-```bash
-git clone https://github.com/your-username/agribazaar.git
-cd agribazaar
-```
-
-### 3. Create a new branch
+### 2. Clone the Repository
 
 ```bash
-git checkout -b feature/your-feature-name
+git clone https://github.com/<your-username>/E-commerce-AgriGro-Website-Project.git
+cd E-commerce-AgriGro-Website-Project
+
 ```
 
-### 4. Make Your Changes
-
-1. Add your feature or fix a bug.
-2. Run and test your code locally.
-3. Make sure your changes don’t break existing features.
-
-### 5. Stage and commit
+### 3. Set Up the Project Locally
 
 ```bash
-git add .
-git commit -m "feat: add product filtering on catalog page"
+npm install
+npm start
 ```
 
-### 6. Push to GitHub
+### 4.  Branching & Naming Convention
+Always create a new branch for your task:
 
 ```bash
-git push origin feature/your-feature-name
+git checkout -b feat/<your-feature-name>
 ```
-
-## Code Guidelines
-
-1. Write clean, readable Java code.
-2. Follow Spring Boot & Java naming conventions.
-3. Keep logic in service layers, not in controllers.
-4. Avoid hardcoding — use constants/config.
-5. Comment your code where necessary.
-
-## Pull Request Process
-
-1. Ensure your branch is up to date with main:
+### 5. Making a Pull Request (PR)
+Push Your Changes
 
 ```bash
-git pull origin main
+git push origin feat/<your-feature-name>
 ```
 
-2. Push your branch and go to GitHub.
-3. Click "Compare & pull request".
-4. Write a clear title and description.
-5. Submit your PR.
+Create a Pull Request
 
-## Commit Message Format
+### 🔍 Code Guidelines
+- Follow clean code principles
 
-| Type        | Description                   |
-| ----------- | ----------------------------- |
-| `feat:`     | New feature                   |
-| `fix:`      | Bug fix                       |
-| `docs:`     | Documentation only changes    |
-| `style:`    | Code style (no logic changes) |
-| `refactor:` | Code restructure              |
-| `test:`     | Adding or fixing tests        |
+- Write meaningful commit messages (e.g., feat: add CONTRIBUTING.md)
 
-## Need Help?
+- Keep code modular and readable
 
-**Developer**: Venkat  
-**Email**: [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
-**LinkedIn**: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
+- Avoid committing .env, node_modules, or large binaries.
+
+### 🙋 Need Help?
+Feel free to tag or mention the project maintainer in your issue or PR.
+
+You can also comment on the issue you're working on to get clarifications.
+
