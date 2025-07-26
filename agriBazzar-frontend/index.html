@@ -2,32 +2,191 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgriBazaar</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>AgriConnect</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+   
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #4CAF50, #3e8e41);
+      color: white;
+      padding: 1.5em 2em;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    nav {
+      background-color: white;
+      padding: 1em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      font-weight: 600;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #4CAF50;
+    }
+
+    main {
+      padding: 2em;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section {
+      margin-bottom: 3em;
+    }
+
+    h2 {
+      margin-bottom: 1em;
+      border-left: 5px solid #4CAF50;
+      padding-left: 10px;
+      font-size: 1.8em;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+    }
+
+    .card {
+      background: white;
+      padding: 1.2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #4CAF50;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1em;
+      background: #4CAF50;
+      color: white;
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #388e3c;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      margin-top: 2em;
+    }
+
+    
+    @media (max-width: 600px) {
+      nav ul {
+        flex-direction: column;
+        gap: 1em;
+      }
+    }
+  </style>
 </head>
 <body>
+
   <header>
-    <h1>Welcome to AgriBazaar</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
+   <h1>AgriBazaar</h1>
+
+    <p>Empowering Farmers with Technology & Knowledge</p>
   </header>
 
+  <nav>
+    <ul>
+      <li><a href="#community">Community Forum</a></li>
+      <li><a href="#news">Agri News</a></li>
+    </ul>
+  </nav>
+
   <main>
-    <h2>Explore our organic marketplace!</h2>
-    <p>We connect farmers directly with customers.</p>
+    
+    <section id="community">
+      <h2>Community Forum</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>How to grow organic tomatoes?</h3>
+          <p>I'm trying to switch to organic farming. Any tips for growing tomatoes without synthetic fertilizers?</p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+        <div class="card">
+          <h3>Best practices for monsoon crops?</h3>
+          <p>What are some good crops and techniques for the rainy season to maximize yield?</p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+      </div>
+    </section>
+
+    
+    <section id="news">
+      <h2>Agri News</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Govt Launches New Agri Policy</h3>
+          <p>The government has announced a new policy focused on sustainable agriculture and enhanced farmer support.</p>
+          <a href="news.html" class="btn">Read More</a>
+        </div>
+        <div class="card">
+          <h3>Innovative Irrigation Techniques Boost Yields</h3>
+          <p>Modern drip and sprinkler systems are setting new benchmarks in water usage efficiency in farming.</p>
+          <a href="news.html" class="btn">Read More</a>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
-    <p>&copy; 2025 AgriBazaar. All rights reserved.</p>
+    &copy; 2025 AgriConnect. All rights reserved.
   </footer>
 
-  <script src="js/script.js"></script>
 </body>
 </html>
