@@ -40,8 +40,29 @@ public class Order {
     public void setTotalAmount(double totalAmount){
         this.totalAmount=totalAmount;
     }
+    
     public void setOrderDate(LocalDateTime time){
         this.orderDate=time;
+    }
+    
+    public Long getId(){
+        return id;
+    }
+    
+    public LocalDateTime getOrderDate(){
+        return orderDate;
+    }
+    
+    public double getTotalAmount(){
+        return totalAmount;
+    }
+    
+    public User getUser(){
+        return user;
+    }
+    
+    public List<Product> getProducts(){
+        return products;
     }
 }
 

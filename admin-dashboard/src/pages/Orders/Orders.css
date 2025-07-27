@@ -1,0 +1,22 @@
+.orders-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.status-select {
+  padding: 4px 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 12px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.actions-bar .form-select {
+  min-width: 150px;
+}

@@ -1,0 +1,40 @@
+.products-page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stock-badge {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stock-good {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.stock-low {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.stock-out {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+textarea.form-input {
+  resize: vertical;
+  min-height: 80px;
+}
