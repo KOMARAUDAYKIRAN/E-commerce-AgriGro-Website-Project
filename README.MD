@@ -15,6 +15,46 @@
 
 ---
 
+## ✨ Key Features
+
+- 🛒 **Shopping Cart**: Add, update, and remove products before checkout.
+- 🔍 **Advanced Product Catalog**: Search, filter, and sort products by category, price, and more.
+- 💳 **Secure Payments**: Integrated with trusted gateways (PayPal, Stripe, etc.).
+- 🚚 **Order Tracking**: Real-time order status and delivery updates.
+- 🧑‍🌾 **Farmer & Supplier Portal**: List products, manage inventory, and view analytics.
+- 🛡️ **Admin Dashboard**: Manage users, products, and orders with ease.
+- 🌙 **Dark Mode**: Toggle for comfortable browsing in any environment.
+- ⭐ **User Reviews & Ratings**: Build trust with transparent feedback.
+- 📱 **Responsive Design**: Works beautifully on desktop and mobile.
+- 🔒 **Role-Based Access**: Secure, personalized experience for buyers, sellers, and admins.
+
+---
+
+## 💡 Why AgriBazaar?
+
+- **Empowers Farmers**: Direct-to-customer sales, better margins, and digital reach.
+- **Transparent Marketplace**: No hidden fees, clear product info, and verified sellers.
+- **Community-Driven**: Open-source, welcoming to contributors and new ideas.
+- **Modern Tech Stack**: Built with best practices for performance and security.
+- **Scalable & Extensible**: Ready for new features, integrations, and growth.
+
+---
+
+## 🛣️ Roadmap
+
+- [x] Product Catalog & Search
+- [x] Cart & Checkout
+- [x] Order Tracking
+- [x] Dark Mode
+- [ ] Wishlist/Favorites
+- [ ] Push Notifications
+- [ ] Multi-language Support
+- [ ] AI-based Recommendations
+- [ ] Mobile App (React Native/Flutter)
+- [ ] More payment gateways
+
+---
+
 ## 📋 Table of Contents
 
 - [Features](#features)
