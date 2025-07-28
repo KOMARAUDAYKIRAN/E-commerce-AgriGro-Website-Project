@@ -36,3 +36,38 @@ footer {
   bottom: 0;
   width: 100%;
 }
+
+/* Dark mode styles */
+.dark-mode {
+  background: #181a1b !important;
+  color: #e0e0e0 !important;
+}
+.dark-mode header {
+  background: #23272a !important;
+  color: #e0e0e0 !important;
+}
+.dark-mode footer {
+  background: #23272a !important;
+  color: #e0e0e0 !important;
+}
+.dark-mode .catalog-header,
+.dark-mode .cart-summary {
+  background: #23272a !important;
+  color: #e0e0e0 !important;
+}
+.dark-mode .product-card,
+.dark-mode .cart-card {
+  background: #23272a !important;
+  color: #e0e0e0 !important;
+}
+.dark-mode .catalog-controls input,
+.dark-mode .catalog-controls select {
+  background: #23272a !important;
+  color: #e0e0e0 !important;
+  border: 1px solid #444 !important;
+}
+.dark-mode .cart-card button,
+.dark-mode .product-card button {
+  background: #333 !important;
+  color: #e0e0e0 !important;
+}
