@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Zero-Waste Corner | AgriBazaar</title>
   <style>
     body {
@@ -52,7 +53,8 @@
       margin-bottom: 2em;
     }
 
-    .filter-bar input, .filter-bar select {
+    .filter-bar input,
+    .filter-bar select {
       padding: 0.8em;
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -105,7 +107,7 @@
       margin-top: 0.5em;
       padding-left: 50px;
     }
-        
+
     .popup {
       position: fixed;
       bottom: 30px;
@@ -184,8 +186,58 @@
         flex-direction: column;
       }
     }
+
+    /* Dark Mode Style*/
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode header {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      color: #fff;
+    }
+
+    body.dark-mode .card {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-mode .card h3 {
+      color: #81c784;
+    }
+
+    body.dark-mode .card p {
+      color: #ccc;
+    }
+
+    body.dark-mode .price {
+      color: #ff8a65;
+    }
+
+    body.dark-mode .filter-bar input,
+    body.dark-mode .filter-bar select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .popup {
+      background-color: #2e7d32;
+      color: #fff;
+    }
+
+    body.dark-mode .card-footer {
+      border-top: 1px solid #444;
+    }
+
+    body.dark-mode .back-link a {
+      color: #81c784;
+    }
   </style>
 </head>
+
 <body>
 
   <header>
@@ -266,7 +318,7 @@
       popup.classList.add("show");
       setTimeout(() => {
         popup.classList.remove("show");
-      }, 5000); 
+      }, 5000);
     }
 
     function renderProducts(filter = "all", search = "") {
@@ -316,6 +368,8 @@
 
     window.onload = () => renderProducts();
   </script>
+  <script src="darkMode.js"></script>
   <div id="cart-popup" class="popup">Added to cart!</div>
 </body>
+
 </html>
