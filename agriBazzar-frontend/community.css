@@ -1,18 +1,60 @@
 body {
+  font-family: 'Inter', sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f2f2f2;
+  padding: 0;
+  background: #F5F3E7;
+  color: #333;
 }
 
 header {
-  background-color: #388e3c;
+  background: linear-gradient(135deg, #4CAF50, #3e8e41);
   color: white;
-  padding: 20px;
+  padding: 1.5em 2em;
   text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.back-button {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  /* Align icon and text vertically */
+  gap: 6px;
+  /* Space between icon and text */
+  font-size: 18px;
+}
+
+.back-icon {
+  width: 24px;
+  /* Control icon size */
+  height: 24px;
+  margin-left: 0.5rem;
+}
+
+.back-link {
+  text-align: center;
+  margin: 1em auto;
+}
+
+.back-link a {
+  color: #4CAF50;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 main {
-  padding: 2rem;
+  padding: 2em;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer {
+  background: #2E7D32;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  margin-top: 2em;
 }
 
 .new-post {

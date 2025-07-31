@@ -1,436 +1,521 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <title>Market Prices</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            padding: 0;
-            margin: 0;
-            background-color: white
-        }
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f3e7;
+        color: #333;
+      }
 
-        header {
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-        }
+      .back-button {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        /* Align icon and text vertically */
+        gap: 6px;
+        /* Space between icon and text */
+        font-size: 18px;
+      }
 
-        #main-title {
-            color: white;
-            margin-top: 0 auto;
-            padding: 1.5em 2em;
-            text-align: center;
-            border-radius: 5px;
-        }
+      .back-icon {
+        width: 24px;
+        /* Control icon size */
+        height: 24px;
+        margin-top: 1rem;
+        margin-left: 0.5rem;
+      }
 
-        #sub-title {
-            background-color: aliceblue;
-            text-align: center;
-            margin-top: 0;
-            padding: 0.5em 0;
-            color: #333;
-        }
+      .main-heading {
+        margin-bottom: 2rem;
+      }
 
-        #products {
-            display: flex;
-            flex-direction: row;
-            margin-top: 0;
-            background-color: #f9f9f9;
-        }
+      header {
+        background: linear-gradient(135deg, #4caf50, #3e8e41);
+        color: white;
+        padding: 1.5em 2em;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
 
-        h3 {
-            text-align: center;
-            color: black;
-            margin-bottom: 1em;
-        }
+      #main-title {
+        color: white;
+        margin-top: 0 auto;
+        padding: 1.5em 2em;
+        text-align: center;
+        border-radius: 5px;
+      }
 
-        .crop-prices,
-        .vegetables-and-fruits-prices {
-            flex: 1;
-            margin: 20px;
-            padding: 20px;
-            border: 1px solid #c0b5b5;
-            border-radius: 10px;
-        }
+      #sub-title {
+        background-color: #f5f3e7;
+        text-align: center;
+        margin-top: 0;
+        padding: 0.5em 0;
+        color: #333;
+      }
 
-        table,
-        th,
-        td {
-            border: 1px dashed #d3c2c2;
-            text-align: center;
-        }
+      #products {
+        display: flex;
+        flex-direction: row;
+        margin-top: 0;
+        background-color: #f5f3e7;
+      }
 
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
+      h3 {
+        text-align: center;
+        color: black;
+        margin-bottom: 1em;
+      }
 
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        /*Dark Mode Styles*/
-        body.dark-mode {
-            background-color: #121212 !important;
-            color: #e0e0e0;
-        }
+      .crop-prices,
+      .vegetables-and-fruits-prices {
+        flex: 1;
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #c0b5b5;
+        border-radius: 10px;
+      }
 
-        body.dark-mode header {
-            background-color: #1b5e20;
-            color: #ffffff;
-        }
+      table,
+      th,
+      td {
+        border: 1px dashed #d3c2c2;
+        text-align: center;
+      }
 
-        body.dark-mode #main-title {
-            color: #ffffff;
-        }
+      th {
+        background-color: #4caf50;
+        color: white;
+        padding: 10px;
+      }
 
-        body.dark-mode #sub-title {
-            background-color: #1f1f1f !important;
-            color: #cccccc;
-        }
+      td {
+        text-align: left;
+      }
 
-        body.dark-mode #products {
-            background-color: #1a1a1a;
-        }
+      input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
 
-        body.dark-mode h2,
-        body.dark-mode h3 {
-            color: #a5d6a7;
-        }
+      /*Dark Mode Styles*/
+      body.dark-mode {
+        background-color: #121212 !important;
+        color: #e0e0e0;
+      }
 
-        body.dark-mode .crop-prices,
-        body.dark-mode .vegetables-and-fruits-prices {
-            background-color: #1e1e1e;
-            border: 1px solid #2e7d32;
-            color: #f1f1f1;
-            box-shadow: 0 4px 10px rgba(0, 255, 0, 0.05);
-        }
+      body.dark-mode header {
+        background-color: #1b5e20;
+        color: #ffffff;
+      }
 
-        body.dark-mode table,
-        body.dark-mode th,
-        body.dark-mode td {
-            border: 1px dashed #4caf50;
-            color: #e0e0e0;
-        }
+      body.dark-mode #main-title {
+        color: #ffffff;
+      }
 
-        body.dark-mode th {
-            background-color: #388e3c;
-            color: #ffffff;
-        }
+      body.dark-mode #sub-title {
+        background-color: #1f1f1f !important;
+        color: #cccccc;
+      }
 
-        body.dark-mode input[type="text"] {
-            background-color: #2a2a2a;
-            color: #ffffff;
-            border: 1px solid #4caf50;
-        }
+      body.dark-mode #products {
+        background-color: #1a1a1a;
+      }
 
-        body.dark-mode footer {
-            background-color: #1b5e20;
-            color: white;
-        }
+      body.dark-mode h2,
+      body.dark-mode h3 {
+        color: #a5d6a7;
+      }
+
+      body.dark-mode .crop-prices,
+      body.dark-mode .vegetables-and-fruits-prices {
+        background-color: #1e1e1e;
+        border: 1px solid #2e7d32;
+        color: #f1f1f1;
+        box-shadow: 0 4px 10px rgba(0, 255, 0, 0.05);
+      }
+
+      body.dark-mode table,
+      body.dark-mode th,
+      body.dark-mode td {
+        border: 1px solid #2e7d32;
+        color: #e0e0e0;
+        padding: 0.1rem;
+      }
+
+      body.dark-mode {
+        background-color: #388e3c;
+        color: #ffffff;
+      }
+
+      body.dark-mode input[type="text"] {
+        background-color: #2a2a2a;
+        color: #ffffff;
+        border: 1px solid #4caf50;
+      }
+
+      body.dark-mode footer {
+        background-color: #2e7d32;
+        color: white;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <header>
-        <div id="main-title">
-            <h1>AgriBazzar Market Prices</h1>
-            <h4>Discover how our competitive pricing stands head‑to‑head with current market rates</h4>
-        </div>
+      <a href="javascript:void(0);" class="back-button" onclick="goBack()">
+        <img src="./js/assets/left-arrow.png" alt="Back" class="back-icon" />
+      </a>
+
+      <div id="main-title">
+        <h1 class="main-heading">AgriBazzar Market Prices</h1>
+        <h4>
+          Discover how our competitive pricing stands head‑to‑head with current
+          market rates
+        </h4>
+      </div>
     </header>
     <main>
-        <h2 id="sub-title">Current Market Prices</h2>
-        <div id="products">
-            <section class="crop-prices">
-                <u>
-                    <h3>Crops/pulses/oil-seeds/cash-crops</h3>
-                </u>
-                <form>
-                    <input type="text" placeholder="Search for crops/pulses/oil-seeds/cash-crops" />
-                </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Crops</th>
-                            <th>Local Market Price (per kg)</th>
-                            <th>City Market Price (per kg)</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Wheat</td>
-                            <td>$0.25</td>
-                            <td>$0.30</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Corn</td>
-                            <td>$0.30</td>
-                            <td>$0.35</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Rice</td>
-                            <td>$0.40</td>
-                            <td>$0.45</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Barley</td>
-                            <td>$0.20</td>
-                            <td>$0.25</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Jowar</td>
-                            <td>$0.30</td>
-                            <td>$0.35</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Bajra</td>
-                            <td>$0.35</td>
-                            <td>$0.40</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Corn</td>
-                            <td>$0.45</td>
-                            <td>$0.50</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>chilli</td>
-                            <td>$0.40</td>
-                            <td>$0.45</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Soybeans</td>
-                            <td>$0.50</td>
-                            <td>$0.55</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Groundnut</td>
-                            <td>$0.60</td>
-                            <td>$0.65</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Sunflower</td>
-                            <td>$0.70</td>
-                            <td>$0.75</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Mustard</td>
-                            <td>$0.55</td>
-                            <td>$0.60</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Sesame</td>
-                            <td>$0.65</td>
-                            <td>$0.70</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Cotton</td>
-                            <td>$0.80</td>
-                            <td>$0.85</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Sugarcane</td>
-                            <td>$0.90</td>
-                            <td>$0.95</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Turmeric</td>
-                            <td>$1.00</td>
-                            <td>$1.05</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Ginger</td>
-                            <td>$0.75</td>
-                            <td>$0.80</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Garlic</td>
-                            <td>$0.85</td>
-                            <td>$0.90</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Black Gram</td>
-                            <td>$0.55</td>
-                            <td>$0.60</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <!-- More rows can be added here -->
-                    </tbody>
-                </table>
-            </section>
-            <section class="vegetables-and-fruits-prices">
-                <u>
-                    <h3>Vegetables and Fruits</h3>
-                </u>
-                <form>
-                    <input type="text" placeholder="Search for vegetables/fruits..." />
-                </form>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Vegetable/Fruit</th>
-                            <th>Local Market Price (per kg)</th>
-                            <th>City Market Price (per kg)</th>
-                            <th>Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Tomato</td>
-                            <td>$0.50</td>
-                            <td>$0.60</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Potato</td>
-                            <td>$0.40</td>
-                            <td>$0.45</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Onion</td>
-                            <td>$0.30</td>
-                            <td>$0.35</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Carrot</td>
-                            <td>$0.60</td>
-                            <td>$0.70</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Apple</td>
-                            <td>$1.00</td>
-                            <td>$1.20</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Banana</td>
-                            <td>$0.30</td>
-                            <td>$0.35</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Orange</td>
-                            <td>$0.80</td>
-                            <td>$0.90</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Pineapple</td>
-                            <td>$1.50</td>
-                            <td>$1.60</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Grapes</td>
-                            <td>$1.20</td>
-                            <td>$1.30</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Spinach</td>
-                            <td>$0.70</td>
-                            <td>$0.75</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Cauliflower</td>
-                            <td>$0.80</td>
-                            <td>$0.85</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Brinjal</td>
-                            <td>$0.55</td>
-                            <td>$0.60</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Cabbage</td>
-                            <td>$0.50</td>
-                            <td>$0.55</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Capsicum</td>
-                            <td>$0.90</td>
-                            <td>$0.95</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Radish</td>
-                            <td>$0.40</td>
-                            <td>$0.45</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Green Beans</td>
-                            <td>$0.70</td>
-                            <td>$0.75</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Peas</td>
-                            <td>$0.60</td>
-                            <td>$0.65</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Kivi</td>
-                            <td>$1.00</td>
-                            <td>$1.05</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <tr>
-                            <td>Mango</td>
-                            <td>$1.20</td>
-                            <td>$1.25</td>
-                            <td>2023-10-01</td>
-                        </tr>
-                        <!-- More rows can be added here -->
-                    </tbody>
-                </table>
-            </section>
-        </div>
-
+      <h2 id="sub-title">Current Market Prices</h2>
+      <div id="products">
+        <section class="crop-prices">
+          <u>
+            <h3>Crops/pulses/oil-seeds/cash-crops</h3>
+          </u>
+          <form>
+            <input
+              type="text"
+              placeholder="Search for crops/pulses/oil-seeds/cash-crops"
+            />
+          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Crops</th>
+                <th>Local Market Price (per kg)</th>
+                <th>City Market Price (per kg)</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Wheat</td>
+                <td>$0.25</td>
+                <td>$0.30</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Corn</td>
+                <td>$0.30</td>
+                <td>$0.35</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Rice</td>
+                <td>$0.40</td>
+                <td>$0.45</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Barley</td>
+                <td>$0.20</td>
+                <td>$0.25</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Jowar</td>
+                <td>$0.30</td>
+                <td>$0.35</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Bajra</td>
+                <td>$0.35</td>
+                <td>$0.40</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Corn</td>
+                <td>$0.45</td>
+                <td>$0.50</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>chilli</td>
+                <td>$0.40</td>
+                <td>$0.45</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Soybeans</td>
+                <td>$0.50</td>
+                <td>$0.55</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Groundnut</td>
+                <td>$0.60</td>
+                <td>$0.65</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Sunflower</td>
+                <td>$0.70</td>
+                <td>$0.75</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Mustard</td>
+                <td>$0.55</td>
+                <td>$0.60</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Sesame</td>
+                <td>$0.65</td>
+                <td>$0.70</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Cotton</td>
+                <td>$0.80</td>
+                <td>$0.85</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Sugarcane</td>
+                <td>$0.90</td>
+                <td>$0.95</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Turmeric</td>
+                <td>$1.00</td>
+                <td>$1.05</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Ginger</td>
+                <td>$0.75</td>
+                <td>$0.80</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Garlic</td>
+                <td>$0.85</td>
+                <td>$0.90</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Black Gram</td>
+                <td>$0.55</td>
+                <td>$0.60</td>
+                <td>2023-10-01</td>
+              </tr>
+              <!-- More rows can be added here -->
+            </tbody>
+          </table>
+        </section>
+        <section class="vegetables-and-fruits-prices">
+          <u>
+            <h3>Vegetables and Fruits</h3>
+          </u>
+          <form>
+            <input type="text" placeholder="Search for vegetables/fruits..." />
+          </form>
+          <table>
+            <thead>
+              <tr>
+                <th>Vegetable/Fruit</th>
+                <th>Local Market Price (per kg)</th>
+                <th>City Market Price (per kg)</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Tomato</td>
+                <td>$0.50</td>
+                <td>$0.60</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Potato</td>
+                <td>$0.40</td>
+                <td>$0.45</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Onion</td>
+                <td>$0.30</td>
+                <td>$0.35</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Carrot</td>
+                <td>$0.60</td>
+                <td>$0.70</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Apple</td>
+                <td>$1.00</td>
+                <td>$1.20</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Banana</td>
+                <td>$0.30</td>
+                <td>$0.35</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Orange</td>
+                <td>$0.80</td>
+                <td>$0.90</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Pineapple</td>
+                <td>$1.50</td>
+                <td>$1.60</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Grapes</td>
+                <td>$1.20</td>
+                <td>$1.30</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Spinach</td>
+                <td>$0.70</td>
+                <td>$0.75</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Cauliflower</td>
+                <td>$0.80</td>
+                <td>$0.85</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Brinjal</td>
+                <td>$0.55</td>
+                <td>$0.60</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Cabbage</td>
+                <td>$0.50</td>
+                <td>$0.55</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Capsicum</td>
+                <td>$0.90</td>
+                <td>$0.95</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Radish</td>
+                <td>$0.40</td>
+                <td>$0.45</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Green Beans</td>
+                <td>$0.70</td>
+                <td>$0.75</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Peas</td>
+                <td>$0.60</td>
+                <td>$0.65</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Kivi</td>
+                <td>$1.00</td>
+                <td>$1.05</td>
+                <td>2023-10-01</td>
+              </tr>
+              <tr>
+                <td>Mango</td>
+                <td>$1.20</td>
+                <td>$1.25</td>
+                <td>2023-10-01</td>
+              </tr>
+              <!-- More rows can be added here -->
+            </tbody>
+          </table>
+        </section>
+      </div>
     </main>
     <footer>
-        <p style="text-align: center; padding: 1em; background-color: #4CAF50; color: white;">
-            &copy; 2023 AgriBazzar. All rights reserved.
-        </p>
+      <p
+        style="
+          text-align: center;
+          padding: 1em;
+          background-color: #2e7d32;
+          color: white;
+        "
+      >
+        &copy; 2025 AgriBazaar. All rights reserved.
+      </p>
     </footer>
-    <script src="darkMode.js"></script>
-</body>
 
+    <script>
+      function liveSearch(inputSelector, tableSelector) {
+        const input = document.querySelector(inputSelector);
+        const tableRows = document.querySelectorAll(
+          `${tableSelector} tbody tr`
+        );
+
+        input.addEventListener("keyup", function () {
+          const filter = input.value.toLowerCase();
+
+          tableRows.forEach((row) => {
+            const firstCell = row.querySelector("td");
+            if (
+              firstCell &&
+              firstCell.textContent.toLowerCase().startsWith(filter)
+            ) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        liveSearch(".crop-prices input", ".crop-prices table");
+        liveSearch(
+          ".vegetables-and-fruits-prices input",
+          ".vegetables-and-fruits-prices table"
+        );
+      });
+
+      function goBack() {
+        window.history.back();
+      }
+    </script>
+    <script src="darkMode.js"></script>
+  </body>
 </html>
