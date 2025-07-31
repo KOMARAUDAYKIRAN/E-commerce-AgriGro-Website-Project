@@ -22,6 +22,7 @@
       padding: 1.5em 2em;
       text-align: center;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      position: relative;
     }
 
     nav {
@@ -124,6 +125,16 @@
       margin-top: 2em;
     }
 
+    /* Cart link style */
+    .cart-link {
+      font-weight: 600;
+      color: #4CAF50;
+      text-decoration: none;
+    }
+
+    .cart-link:hover {
+      color: #2e7d32;
+    }
 
     @media (max-width: 600px) {
       nav ul {
@@ -132,8 +143,7 @@
       }
     }
 
-    /*Dark Mode Styles*/
-
+    /* Dark Mode Styles */
     body.dark-mode {
       background: #121212;
       color: #e0e0e0;
@@ -198,14 +208,12 @@
     }
 
     #toggle-theme {
-      position: absolute;
       border: none;
       outline: none;
       background: none;
       cursor: pointer;
       font-size: 1.5rem;
       color: inherit;
-
     }
   </style>
 </head>
@@ -214,7 +222,6 @@
 
   <header>
     <h1>AgriBazaar</h1>
-
     <p>Empowering Farmers with Technology & Knowledge</p>
   </header>
 
@@ -224,6 +231,7 @@
       <li><a href="#community">Community Forum</a></li>
       <li><a href="#news">Agri News</a></li>
       <li><a href="market-prices.html">Market Prices</a></li>
+      <li><a href="cart.jsp" class="cart-link">🛒 View Cart</a></li> <!-- ✅ Cart link added -->
       <li><button id="toggle-theme"><i id="theme-icon" class="fa-solid fa-circle-half-stroke"></i></button></li>
     </ul>
   </nav>
@@ -246,7 +254,6 @@
       </div>
     </section>
 
-
     <section id="news">
       <h2>Agri News</h2>
       <div class="card-container">
@@ -268,8 +275,9 @@
   <footer>
     &copy; 2025 AgriConnect. All rights reserved.
   </footer>
+
   <script src="https://kit.fontawesome.com/a30fe0bbce.js" crossorigin="anonymous"></script>
   <script src="darkMode.js"></script>
+  <script src="js/script.js"></script>
 </body>
-
 </html>
