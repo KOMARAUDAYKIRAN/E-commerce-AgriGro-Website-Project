@@ -125,10 +125,53 @@
     }
 
 
+    @media (max-width: 900px) {
+      main {
+        padding: 1em;
+      }
+
+      .card-container {
+        grid-template-columns: 1fr;
+        gap: 1em;
+      }
+
+      h2 {
+        font-size: 1.3em;
+      }
+    }
+
     @media (max-width: 600px) {
       nav ul {
         flex-direction: column;
         gap: 1em;
+        align-items: flex-start;
+      }
+
+      nav {
+        padding: 0.5em;
+      }
+
+      header {
+        padding: 1em 0.5em;
+      }
+
+      main {
+        padding: 0.5em;
+      }
+
+      .card {
+        padding: 0.8em;
+        font-size: 0.95em;
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.7em 0;
+      }
+
+      #toggle-theme {
+        font-size: 1.2rem;
       }
     }
 
@@ -230,6 +273,46 @@
 
   <main>
 
+    <!-- Add Product Search & Filter Section -->
+    <section id="product-search">
+      <h2>Find Products</h2>
+      <div style="margin-bottom:1.5em;">
+        <input type="text" id="searchInput" placeholder="Search products..."
+          style="padding:0.6em 1em; border-radius:6px; border:1px solid #ccc; width:60%; max-width:300px;">
+        <select id="categoryFilter"
+          style="padding:0.6em 1em; border-radius:6px; border:1px solid #ccc; margin-left:0.5em;">
+          <option value="">All Categories</option>
+          <option value="Seeds">Seeds</option>
+          <option value="Fertilizers">Fertilizers</option>
+          <option value="Tools">Tools</option>
+          <option value="Equipment">Equipment</option>
+        </select>
+      </div>
+      <div class="card-container" id="productList">
+        <!-- Example products (replace with dynamic content as needed) -->
+        <div class="card" data-name="Organic Tomato Seeds" data-category="Seeds">
+          <h3>Organic Tomato Seeds</h3>
+          <p>High-germination, non-GMO seeds for healthy tomato plants.</p>
+          <span style="font-weight:600;">Category: Seeds</span>
+        </div>
+        <div class="card" data-name="Natural Fertilizer" data-category="Fertilizers">
+          <h3>Natural Fertilizer</h3>
+          <p>Eco-friendly fertilizer to boost your crop yield.</p>
+          <span style="font-weight:600;">Category: Fertilizers</span>
+        </div>
+        <div class="card" data-name="Hand Trowel" data-category="Tools">
+          <h3>Hand Trowel</h3>
+          <p>Durable tool for planting and soil work.</p>
+          <span style="font-weight:600;">Category: Tools</span>
+        </div>
+        <div class="card" data-name="Drip Irrigation Kit" data-category="Equipment">
+          <h3>Drip Irrigation Kit</h3>
+          <p>Efficient watering system for your farm or garden.</p>
+          <span style="font-weight:600;">Category: Equipment</span>
+        </div>
+      </div>
+    </section>
+
     <section id="community">
       <h2>Community Forum</h2>
       <div class="card-container">
@@ -263,6 +346,32 @@
         </div>
       </div>
     </section>
+
+    <!-- Add User Authentication Section -->
+    <section id="auth" style="max-width:400px;margin:2em auto 3em;background:#fff;padding:2em;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.07);">
+      <h2>User Authentication</h2>
+      <div id="auth-tabs" style="display:flex;gap:1em;margin-bottom:1em;">
+        <button id="loginTab" class="btn" style="flex:1;">Login</button>
+        <button id="registerTab" class="btn" style="flex:1;background:#e0e0e0;color:#333;">Register</button>
+        <button id="resetTab" class="btn" style="flex:1;background:#e0e0e0;color:#333;">Reset</button>
+      </div>
+      <form id="loginForm">
+        <input type="email" placeholder="Email" required style="width:100%;margin-bottom:1em;padding:0.7em;border-radius:6px;border:1px solid #ccc;">
+        <input type="password" placeholder="Password" required style="width:100%;margin-bottom:1em;padding:0.7em;border-radius:6px;border:1px solid #ccc;">
+        <button type="submit" class="btn" style="width:100%;">Login</button>
+      </form>
+      <form id="registerForm" style="display:none;">
+        <input type="text" placeholder="Name" required style="width:100%;margin-bottom:1em;padding:0.7em;border-radius:6px;border:1px solid #ccc;">
+        <input type="email" placeholder="Email" required style="width:100%;margin-bottom:1em;padding:0.7em;border-radius:6px;border:1px solid #ccc;">
+        <input type="password" placeholder="Password" required style="width:100%;margin-bottom:1em;padding:0.7em;border-radius:6px;border:1px solid #ccc;">
+        <button type="submit" class="btn" style="width:100%;">Register</button>
+      </form>
+      <form id="resetForm" style="display:none;">
+        <input type="email" placeholder="Email" required style="width:100%;margin-bottom:1em;padding:0.7em;border-radius:6px;border:1px solid #ccc;">
+        <button type="submit" class="btn" style="width:100%;">Send Reset Link</button>
+      </form>
+      <div id="authMessage" style="margin-top:1em;color:#4CAF50;font-weight:600;"></div>
+    </section>
   </main>
 
   <footer>
@@ -270,6 +379,70 @@
   </footer>
   <script src="https://kit.fontawesome.com/a30fe0bbce.js" crossorigin="anonymous"></script>
   <script src="darkMode.js"></script>
+  <script>
+    // Product Search & Filter Functionality
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const productList = document.getElementById('productList');
+    if (searchInput && categoryFilter && productList) {
+      function filterProducts() {
+        const search = searchInput.value.toLowerCase();
+        const category = categoryFilter.value;
+        Array.from(productList.children).forEach(card => {
+          const name = card.getAttribute('data-name').toLowerCase();
+          const cat = card.getAttribute('data-category');
+          const matchesSearch = name.includes(search);
+          const matchesCategory = !category || cat === category;
+          card.style.display = (matchesSearch && matchesCategory) ? '' : 'none';
+        });
+      }
+      searchInput.addEventListener('input', filterProducts);
+      categoryFilter.addEventListener('change', filterProducts);
+    }
+
+    // Simple tab switching for authentication forms
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    const resetTab = document.getElementById('resetTab');
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const resetForm = document.getElementById('resetForm');
+    const authMessage = document.getElementById('authMessage');
+
+    if (loginTab && registerTab && resetTab && loginForm && registerForm && resetForm) {
+      loginTab.onclick = () => {
+        loginForm.style.display = '';
+        registerForm.style.display = 'none';
+        resetForm.style.display = 'none';
+        loginTab.style.background = '#4CAF50'; loginTab.style.color = '#fff';
+        registerTab.style.background = '#e0e0e0'; registerTab.style.color = '#333';
+        resetTab.style.background = '#e0e0e0'; resetTab.style.color = '#333';
+        authMessage.textContent = '';
+      };
+      registerTab.onclick = () => {
+        loginForm.style.display = 'none';
+        registerForm.style.display = '';
+        resetForm.style.display = 'none';
+        registerTab.style.background = '#4CAF50'; registerTab.style.color = '#fff';
+        loginTab.style.background = '#e0e0e0'; loginTab.style.color = '#333';
+        resetTab.style.background = '#e0e0e0'; resetTab.style.color = '#333';
+        authMessage.textContent = '';
+      };
+      resetTab.onclick = () => {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'none';
+        resetForm.style.display = '';
+        resetTab.style.background = '#4CAF50'; resetTab.style.color = '#fff';
+        loginTab.style.background = '#e0e0e0'; loginTab.style.color = '#333';
+        registerTab.style.background = '#e0e0e0'; registerTab.style.color = '#333';
+        authMessage.textContent = '';
+      };
+      // Dummy handlers for demonstration
+      loginForm.onsubmit = e => { e.preventDefault(); authMessage.textContent = 'Logged in (demo)!'; };
+      registerForm.onsubmit = e => { e.preventDefault(); authMessage.textContent = 'Registered (demo)!'; };
+      resetForm.onsubmit = e => { e.preventDefault(); authMessage.textContent = 'Reset link sent (demo)!'; };
+    }
+  </script>
 </body>
 
 </html>
