@@ -22,7 +22,7 @@ header {
   background: white;
   padding: 1rem;
   border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 .news-card h3 {
@@ -33,4 +33,25 @@ header {
   text-decoration: none;
   color: #4CAF50;
   font-weight: bold;
+}
+
+/*  Dark Mode Style */
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #1b5e20;
+  color: #ffffff;
+}
+
+body.dark-mode .news-card {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  box-shadow: 0 3px 6px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .news-card a {
+  color: #81c784;
 }

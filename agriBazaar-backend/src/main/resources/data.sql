@@ -1,3 +1,13 @@
+CREATE TABLE pre_orders (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    crop_name VARCHAR(255) NOT NULL,
+    expected_harvest_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    notified BOOLEAN DEFAULT FALSE
+);
+
+
 -- Insert Users
 INSERT INTO users (name, email, password, role) VALUES
 ('Farmer John', 'farmer.john@example.com', 'password123', 'FARMER'),

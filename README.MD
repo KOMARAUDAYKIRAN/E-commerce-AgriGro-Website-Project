@@ -134,7 +134,7 @@ agribazaar/
 
 ## Contribution Guidelines
 
-Please refer to `CONTRIBUTING.md` for full guidelines.
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
 
 ---
 

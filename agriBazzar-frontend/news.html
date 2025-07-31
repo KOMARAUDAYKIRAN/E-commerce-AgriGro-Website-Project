@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,6 +58,7 @@
     }
   </style>
 </head>
+
 <body>
   <header>
     <h1>Agri News & Updates</h1>
@@ -65,9 +67,12 @@
 
   <main id="news-container" class="news-container">
       <!-- news will be injected here by api -->
+   <main id="news-container" class="news-container">
+    <!-- news will be injected here by API -->
   </main>
-    <script>
-      // Set your NewsData.io API key here
+
+  <script>
+    // Set your NewsData.io API key here
     const API_KEY = "add_your_API_key"; 
     const url = `https://newsdata.io/api/1/news?apikey=${API_KEY}&q=agriculture+farming+farmer&country=in&language=en`;
 
@@ -97,6 +102,8 @@
         document.getElementById("news-container").innerHTML = "<p>Failed to load news.</p>";
       });
   </script>
+
+  <script src="darkMode.js"></script>
 </body>
 </html>
 

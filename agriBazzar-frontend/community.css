@@ -20,7 +20,7 @@ main {
   padding: 1.5rem;
   border-radius: 10px;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 textarea {
@@ -48,4 +48,48 @@ button {
   margin-bottom: 1rem;
   border-left: 5px solid #4CAF50;
   border-radius: 6px;
+}
+
+/*Dark Mode Style*/
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+body.dark-mode .new-post {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode textarea {
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+
+body.dark-mode button {
+  background: #66bb6a;
+  color: #fff;
+}
+
+body.dark-mode .threads .thread-card {
+  background-color: #1c1c1c;
+  border-left: 5px solid #81c784;
+  color: #e0e0e0;
+}
+
+body,
+.new-post,
+textarea,
+button,
+.thread-card,
+header {
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
 }
