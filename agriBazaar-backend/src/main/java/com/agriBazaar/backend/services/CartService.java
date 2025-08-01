@@ -34,20 +34,19 @@ public class CartService {
         cartItemRepository.save(cartItem);
         return cartRepository.save(cart);
     }
-
+ 
     public Cart getCartByUserId(Long userId) {
-        Optional<Cart> optionalCart = (Optional<Cart>) cartRepository.findByUserId(userId);
-        if(optionalCart.isPresent()){
-            return optionalCart.get();
-        }
-        else{
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
-            Cart newcart = new Cart();
-            newcart.setUser(user);
-            return cartRepository.save(newcart);
-        }
+        return cartRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    User user = userRepository.findById(userId)
+                            .orElseThrow(() -> new RuntimeException("User not found"));
+
+                    Cart newCart = new Cart();
+                    newCart.setUser(user);
+                    return cartRepository.save(newCart);  
+                });
     }
+
 
     public void removeItem(Long cartItemId) {
         cartItemRepository.deleteById(cartItemId);

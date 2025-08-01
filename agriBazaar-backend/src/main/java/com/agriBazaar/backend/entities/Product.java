@@ -20,6 +20,9 @@ public class Product {
     private double price;
     private int stock;
 
+    @Column(name = "image_url") 
+    private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "farmer_id")
     private User farmer;
@@ -62,6 +65,10 @@ public class Product {
     public int getStock(){
         return stock;
     }
+
+    public String getImageUrl() { return imageUrl; }
+
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
 }
 
 

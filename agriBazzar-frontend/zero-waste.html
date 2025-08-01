@@ -206,7 +206,7 @@
     }
 
     .cart i {
-      background-color: #28a745;      
+      background-color: #28a745;
       color: white;
       font-size: 28px;
       padding: 12px;
@@ -324,50 +324,20 @@
   </footer>
 
   <script>
-    const products = [
-      {
-        name: "Ugly Carrots (2kg)",
-        price: "₹40",
-        type: "imperfect",
-        description: "Great for juice shops. Just a bit oddly shaped!",
-        image: "https://images.unsplash.com/photo-1698505949250-51f8b2c9c8c6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      },
-      {
-        name: "Near Expiry Tomatoes(5kg)",
-        price: "₹60",
-        type: "near-expiry",
-        description: "Perfect for sauces and soups. Use within 2 days.",
-        image: "https://tse3.mm.bing.net/th/id/OIP.u1VDbruPLoOoBxKD09RDGQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
-      },
-      {
-        name: "Odd-Shaped Pumpkin",
-        price: "₹30",
-        type: "imperfect",
-        description: "Delicious and fresh, just looks a bit funny.",
-        image: "https://giyplants.com/wp-content/uploads/2023/01/types-of-pumpkins-jpg.webp"
-      },
-      {
-        name: "Overripe Bananas (12 pcs)",
-        price: "₹35",
-        type: "near-expiry",
-        description: "Best for banana bread or smoothies.",
-        image: "https://cdn.cheapism.com/images/iStock-874189644.310d1609.fill-1440x605.jpg"
-      },
-      {
-        name: "Bruised Apples (3kg)",
-        price: "₹55",
-        type: "near-expiry",
-        description: "Minor dents, still crunchy. Great for pies or juicing.",
-        image: "https://static1.squarespace.com/static/58baf6a644024365b322136c/t/58bce3d9d2b8577d9d911c14/1488774118854/goodapples"
-      },
-      {
-        name: "Misshapen Bell Peppers (2kg)",
-        price: "₹50",
-        type: "imperfect",
-        description: "Oddly shaped but perfect for cooking.",
-        image: "https://secure.caes.uga.edu/extension/publications/files/html/C1306/images/bell-pepper-disorder-misshapen-fruit-figure-12.jpeg"
+
+    let products = [];
+
+    async function fetchProducts() {
+      try {
+        const response = await fetch(`http://localhost:8083/api/products`);
+        products = await response.json();
+        renderProducts(products);
+      } catch (err) {
+        document.getElementById("product-list").innerHTML = `<p style="text-align:center; color:#c00;">Error loading products.</p>`;
+        console.error(err);
       }
-    ];
+    }
+
     function showPopup(message) {
       const popup = document.getElementById("cart-popup");
       popup.textContent = message;
@@ -377,7 +347,7 @@
       }, 5000);
     }
 
-    function renderProducts(filter = "all", search = "") {
+    function renderProducts(products, filter = "all", search = "") {
       const list = document.getElementById("product-list");
       list.innerHTML = "";
 
@@ -391,22 +361,25 @@
         return;
       }
 
-      filtered.forEach((product,index) => {
+      filtered.forEach(product => {
         const card = document.createElement("div");
         card.className = "card";
+
         card.innerHTML = `
-          <span class="badge ${product.type}">${product.type.replace("-", " ")}</span>
-          <img src="${product.image}" alt="${product.name}" loading="lazy">
+          ${product.type ? `<span class="badge ${product.type}">${product.type.replace("-", " ")}</span>` : ''}
+          <img src="${product.imageUrl}" alt="${product.name}" loading="lazy">
           <div class="card-body">
             <h3>${product.name}</h3>
             <p>${product.description}</p>
           </div>
           <div class="card-footer">
-            <span class="price">${product.price}</span>
-            <button class="add-cart" onclick="addToCart(${index}, '${product.name.replace(/'/g, "\\'")}', '${product.price.replace('₹','')}', '${product.image}')">Add to Cart</button>
-          </div>`;
+            <span class="price">₹${parseFloat(product.price).toFixed(2)}</span>
+            <button class="add-cart" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.imageUrl}')">Add to Cart</button>
+          </div>
+        `;
 
         list.appendChild(card);
+
         const button = card.querySelector(".add-cart");
         button.addEventListener("click", () => {
           showPopup(`${product.name} added to cart!`);
@@ -415,20 +388,26 @@
     }
 
     document.getElementById("filterType").addEventListener("change", e => {
-      renderProducts(e.target.value, document.getElementById("searchBox").value);
+      const filter = e.target.value;
+      const search = document.getElementById("searchBox").value;
+      renderProducts(products, filter, search);
     });
 
     document.getElementById("searchBox").addEventListener("input", e => {
-      renderProducts(document.getElementById("filterType").value, e.target.value);
+      const search = e.target.value;
+      const filter = document.getElementById("filterType").value;
+      renderProducts(products, filter, search);
     });
 
-    window.onload = () => renderProducts();
+    window.onload = () => fetchProducts();
+
+
   </script>
   <script src="darkMode.js"></script>
   <div id="cart-popup" class="popup">Added to cart!</div>
 
-    <script src="js/Cart.js"></script>
-  
+  <script src="js/Cart.js"></script>
+
 </body>
 
 </html>

@@ -1,78 +1,142 @@
-let cart= JSON.parse(localStorage.getItem("cart"))||[];
+const userId = 1;
 
-function loadCart(){
-    let cart=JSON.parse(localStorage.getItem("cart"))||[];
-    let cartItems=document.getElementById("cart-items");
-    if(!cartItems) return;
-    let totalAmount=0;
-    cartItems.innerHTML ="";
+async function fetchCartByUserId(userId) {
+    const response = await fetch(`http://localhost:8083/api/cart/${userId}`);
+    const cart = await response.json();
+    return cart;
+}
 
-    cart.forEach((item,index) => {
-        let itemTotal=item.price*item.quantity;
-        totalAmount+=itemTotal;
+async function loadCart() {
+    const cartItemsElement = document.getElementById("cart-items");
+    if (!cartItemsElement) return;
 
-        cartItems.innerHTML += `
-            <tr>
-                <td><img src="${item.imageUrl}" width="50"></td>
-                <td>${item.name}</td>
-                <td>${item.price}</td>
-                <td>
-                    <button class="changequantity" onClick="changeQuantity(${index},-1)">-</button>
-                    ${item.quantity}
-                    <button class="changequantity" onClick="changeQuantity(${index},1)">+</button>
-                </td>
-                <td>${itemTotal}</td>
-                <td><button class="remove" onClick="removeFromCart(${index})">X</button></td>
-            </tr>
-        `;
+    try {
+        const cart = await fetchCartByUserId(userId);
+
+        let totalAmount = 0;
+        cartItemsElement.innerHTML = "";
+
+        const cartItems = cart.items || [];
+
+        cartItems.forEach(item => {
+            const product = item.product;
+            const quantity = item.quantity;
+            const itemTotal = product.price * quantity;
+            totalAmount += itemTotal;
+
+            cartItemsElement.innerHTML += `
+                <tr>
+                    <td><img src="${product.imageUrl}" alt="${product.name}" width="100" height="100"></td>
+                    <td>${product.name}</td>
+                    <td>₹${product.price}</td>
+                    <td>
+                        <button class="changequantity" onClick="changeQuantity(${item.id},-1)">-</button>
+                        ${item.quantity}
+                        <button class="changequantity" onClick="changeQuantity(${item.id},1)">+</button>
+                    </td>
+                    <td>₹${itemTotal}</td>
+                    <td><button class="remove" onclick="removeFromCart(${item.id})">X</button></td>
+                </tr>
+            `;
+        });
+
+        document.getElementById("total-amount").innerText = `${totalAmount}`;
+        console.log(cartItems.length);
+        count = cartItems.length;
+        updateCartBadge();
+    } catch (error) {
+        console.error("Failed to load cart", error);
+    }
+}
+
+async function changeQuantity(itemId, delta) {
+    const cart = await fetchCartByUserId(userId);
+    const cartItems = cart.items || [];
+    const alreadyInCart = cartItems.find(item => item.id === itemId);
+    const newQuantity = alreadyInCart.quantity + delta;
+
+    if(newQuantity<1){
+        await removeFromCart(itemId);
+        return;
+    }
+
+    const updatedItem = {
+        id: alreadyInCart.id,
+        quantity: alreadyInCart.quantity + delta,
+        product: alreadyInCart.product,
+        cart: { id: cart.id }
+    }
+    await fetch(`http://localhost:8083/api/cart-items/update/${alreadyInCart.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedItem)
     });
-    document.getElementById("total-amount").innerText=totalAmount;
+
+    loadCart();
+    updateCartBadge();
+
 }
 
-function addToCart(id,name,price,imageUrl){
-    price=parseFloat(price);
-    let itemIndex=cart.findIndex((item)=> item.id==id);
+async function addToCart(productId) {
+    const cart = await fetchCartByUserId(userId);
+    const cartItems = cart.items || [];
+    const alreadyInCart = cartItems.find(item => item.product.id === productId);
 
-    if(itemIndex!==-1){
-        cart[itemIndex].quantity+=1;
-    }else{
-        cart.push({
-            id:id,
-            name:name,
-            price:price,
-            imageUrl:imageUrl,
-            quantity:1
-        })
+    if (alreadyInCart) {
+        const updatedItem = {
+            id: alreadyInCart.id,
+            quantity: alreadyInCart.quantity + 1,
+            product: alreadyInCart.product,
+            cart: { id: cart.id }
+        }
+        await fetch(`http://localhost:8083/api/cart-items/update/${alreadyInCart.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updatedItem)
+        });
+    } else {
+        try {
+            await fetch(`http://localhost:8083/api/cart/add/${userId}?productId=${productId}&quantity=1`, {
+                method: "POST"
+            });
+
+        } catch (error) {
+            console.error("Failed to add to cart", error);
+        }
     }
-    localStorage.setItem("cart",JSON.stringify(cart));
-    updateCounter();
+    loadCart();
+    updateCartBadge();
+
 }
 
-function updateCounter(){
+async function removeFromCart(itemId) {
+    try {
+        await fetch(`http://localhost:8083/api/cart/remove/${itemId}`, {
+            method: "DELETE"
+        });
+        loadCart();
+    } catch (error) {
+        console.error("Failed to remove from cart", error);
+    }
+}
+
+async function updateCartBadge() {
     const badge = document.querySelector(".cart-badge");
-    if (badge) {
-        badge.innerText = cart.length;
-    }
+    const cart = await fetchCartByUserId(userId);
+    const cartItems = cart.items || [];
+
+    if (badge) badge.innerText = cartItems.length;
 }
 
-function changeQuantity(index,quantity){
-    let cart=JSON.parse(localStorage.getItem("cart"))||[];
-    cart[index].quantity+=quantity;
-    if(cart[index].quantity <=0) cart.splice( index,1);
-    localStorage.setItem("cart",JSON.stringify(cart));
-    loadCart();
-    updateCounter();
-}
 
-function removeFromCart(index){
-    let cart=JSON.parse(localStorage.getItem("cart"))||[];
-    cart.splice( index,1);
-    localStorage.setItem("cart",JSON.stringify(cart));
-    loadCart();
-    updateCounter();
-}
 
-document.addEventListener("DOMContentLoaded",()=>{
+
+document.addEventListener("DOMContentLoaded", () => {
     loadCart();
-    updateCounter();
-})
+    updateCartBadge();
+
+});
