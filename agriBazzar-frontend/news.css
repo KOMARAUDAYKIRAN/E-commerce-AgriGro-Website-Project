@@ -108,6 +108,10 @@ main {
   transition: background 0.3s;
 }
 
+.news-card:hover {
+        transform: translateY(-5px);
+      }
+
 /*  Dark Mode Style */
 body.dark-mode {
   background-color: #121212;
