@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart | AgriBazaar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: #f9f9f9;
+            color: #333;
+        }
+
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #4CAF50, #3e8e41);
+            color: white;
+            padding: 1.5em 2em;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        .home-button {
+            position: absolute;
+            left: 2%;
+            background: none;
+            border: none;
+        }
+
+        .home-button i {
+            color: white;
+        }
+
+        main {
+            padding: 2em;
+            max-width: 1200px;
+            flex: 1;
+        }
+
+        h2 {
+            border-left: 5px solid #4CAF50;
+            padding-left: 10px;
+            font-size: 1.8em;
+            margin-bottom: 1em;
+
+        }
+
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+
+        .popup {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #4CAF50;
+            color: white;
+            padding: 1em 1.5em;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        .popup.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cart-container {
+            padding: 2em;
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+
+        }
+
+        .payment {
+            margin-left: 1000px;
+        }
+
+        .payment button {
+            background-color: #4CAF50;
+            width: 200px;
+            height: 50px;
+            color: white;
+            font-size: 20px;
+            border: none;
+            border-radius: 5%;
+            cursor: pointer;
+        }
+
+        .changequantity,
+        .remove {
+            padding: 4px 10px;
+            margin: 0 4px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .remove {
+            background: #e53935;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container">
+        <header>
+            <nav>
+                <a class="home-button" href="zero-waste.html"><i class="fa-solid fa-circle-arrow-left fa-2x"></i></a>
+            </nav>
+            <h1>AgriBazaar</h1>
+            <h3>Zero-Waste Corner – Save Food, Support Farmers</h3>
+        </header>
+
+        <main>
+            <h2>AgriCart</h2>
+
+            <div class="cart-container">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-items"></tbody>
+
+                </table>
+
+            </div>
+            <div class="payment">
+                <h3 class="text-end">Total Amount: ₹<span id="total-amount">0</span></h3>
+                <button class="payment-btn" onclick="checkout()">
+                    Proceed To Payment
+                </button>
+            </div>
+
+
+        </main>
+
+        <footer class="footer">
+            &copy; 2025 AgriConnect. All rights reserved.
+        </footer>
+    </div>
+    <script src="js/Cart.js"></script>
+</body>
+
+</html>

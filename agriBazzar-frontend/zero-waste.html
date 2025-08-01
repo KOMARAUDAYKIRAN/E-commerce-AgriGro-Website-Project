@@ -1,415 +1,443 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Zero-Waste Corner | AgriBazaar</title>
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f5f3e7;
-        color: #333;
-      }
 
-      header {
-        background: linear-gradient(135deg, #4caf50, #3e8e41);
-        color: white;
-        padding: 1.5em 2em;
-        text-align: center;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zero-Waste Corner | AgriBazaar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f3e7;
+      color: #333;
+      transition: background 0.4s, color 0.4s;
+    }
 
-      .back-button {
+    header {
+      background: linear-gradient(135deg, #4caf50, #3e8e41);
+      color: white;
+      padding: 1.5em 2em;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    /* Nav Buttons */
+    .home-button {
+      position: absolute;
+      left: 2%;
+      background: none;
+      border: none;
+    }
+
+    .home-button i {
+      color: white;
+      font-size: 28px;
+    }
+
+    .back-button {
         text-decoration: none;
         color: white;
         display: flex;
         align-items: center;
-        /* Align icon and text vertically */
         gap: 6px;
-        /* Space between icon and text */
         font-size: 18px;
       }
 
       .back-icon {
         width: 24px;
-        /* Control icon size */
         height: 24px;
         margin-left: 0.5rem;
       }
 
-      .back-link {
-        text-align: center;
-        margin: 1em auto;
-      }
+    .cart {
+      position: absolute;
+      right: 2%;
+      background: none;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
 
-      .back-link a {
-        color: #4caf50;
-        font-weight: 600;
-        text-decoration: underline;
-      }
+    .cart i {
+      background-color: #28a745;
+      color: white;
+      font-size: 28px;
+      padding: 10px;
+      border-radius: 50%;
+    }
 
-      main {
-        padding: 2em;
-        max-width: 1200px;
-        margin: auto;
-      }
+    .cart-badge {
+      position: absolute;
+      bottom: 25%;
+      right: 7%;
+      background: red;
+      color: white;
+      font-size: 12px;
+      padding: 2px 6px;
+      border-radius: 50%;
+      font-weight: bold;
+    }
 
-      h2 {
-        border-left: 5px solid #4caf50;
-        padding-left: 10px;
-        font-size: 1.8em;
-        margin-bottom: 1em;
-      }
+    main {
+      padding: 2em;
+      max-width: 1200px;
+      margin: auto;
+    }
 
+    h2 {
+      border-left: 5px solid #4caf50;
+      padding-left: 10px;
+      font-size: 1.8em;
+      margin-bottom: 1em;
+    }
+
+    /* Filter Bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin-bottom: 2em;
+    }
+
+    .filter-bar input,
+    .filter-bar select {
+      padding: 0.8em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      flex: 1;
+    }
+
+    /* Cards */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+    }
+
+    .card {
+      background: white;
+      padding: 1.2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-footer {
+      display: flex;
+      flex-direction: column;
+      /* Stack price and button vertically */
+      align-items: center;
+      gap: 8px;
+      /* Space between price and button */
+      padding-top: 0.8em;
+      border-top: 1px solid #eee;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .card h3 {
+      color: #4caf50;
+      margin: 0.5em 0;
+    }
+
+    .price {
+      font-size: 1.1em;
+      color: #eb4947;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 8px;
+      /* Reduced padding */
+      border-radius: 12px;
+      font-size: 0.75em;
+      text-align: left;
+      color: white;
+      text-transform: capitalize;
+      width: auto;
+      /* Automatically adjusts to text width */
+      margin: 0 auto 8px;
+      /* Centered above image */
+    }
+
+    .badge.imperfect {
+      background-color: #ff9800;
+    }
+
+    .badge.near-expiry {
+      background-color: #f44336;
+    }
+
+    .add-cart {
+      margin-top: 1em;
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 0.6em 1.2em;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .add-cart:hover {
+      background: #388e3c;
+    }
+
+    /* Popup */
+    .popup {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #4caf50;
+      color: white;
+      padding: 1em 1.5em;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 999;
+      pointer-events: none;
+    }
+
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer {
+      background: #2e7d32;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      margin-top: 2em;
+    }
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #121212;
+      color: #f0f0f0;
+    }
+
+    body.dark-mode header {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+    }
+
+    body.dark-mode .card {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
+    }
+
+    body.dark-mode .card h3 {
+      color: #81c784;
+    }
+
+    body.dark-mode .price {
+      color: #ff8a65;
+    }
+
+    body.dark-mode .filter-bar input,
+    body.dark-mode .filter-bar select {
+      background-color: #2a2a2a;
+      color: #f0f0f0;
+      border: 1px solid #555;
+    }
+
+    body.dark-mode .popup {
+      background-color: #2e7d32;
+    }
+
+    @media (max-width: 600px) {
       .filter-bar {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 1em;
-        margin-bottom: 2em;
+        flex-direction: column;
       }
+    }
+  </style>
+</head>
 
-      .filter-bar input,
-      .filter-bar select {
-        padding: 0.8em;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 1em;
-        flex: 1;
-      }
-
-      .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5em;
-      }
-
-      .card {
-        background: white;
-        padding: 1.2em;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s;
-        text-align: center;
-        justify-content: space-between;
-      }
-
-      .card:hover {
-        transform: translateY(-5px);
-      }
-
-      .card img {
-        width: 100%;
-        height: 160px;
-        object-fit: cover;
-        border-radius: 8px;
-        margin-bottom: 10px;
-      }
-
-      .card h3 {
-        color: #4caf50;
-        margin: 0.5em 0;
-      }
-
-      .card p {
-        font-size: 0.95em;
-        line-height: 1.5;
-      }
-
-      .price {
-        font-size: 1.1em;
-        color: #eb4947;
-        font-weight: 700;
-        margin-top: 0.5em;
-        padding-left: 50px;
-      }
-
-      .popup {
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        background: #4caf50;
-        color: white;
-        padding: 1em 1.5em;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-        z-index: 999;
-        pointer-events: none;
-      }
-
-      .popup.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .card-footer {
-        margin-top: auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.5em;
-        padding-top: 0.8em;
-        border-top: 1px solid #eee;
-      }
-
-      .badge {
-        display: inline-block;
-        margin-bottom: 10px;
-        padding: 4px 10px;
-        border-radius: 12px;
-        font-size: 0.8em;
-        color: white;
-        text-transform: capitalize;
-      }
-
-      .badge.imperfect {
-        background-color: #ff9800;
-      }
-
-      .badge.near-expiry {
-        background-color: #f44336;
-      }
-
-      .add-cart {
-        margin-top: 1em;
-        background: #4caf50;
-        color: white;
-        border: none;
-        padding: 0.6em 1.2em;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        transition: background 0.3s;
-      }
-
-      .add-cart:hover {
-        background: #45a049;
-      }
-
-      .footer {
-        background: #2e7d32;
-        color: white;
-        text-align: center;
-        padding: 1em;
-        margin-top: 2em;
-      }
-
-      @media (max-width: 600px) {
-        .filter-bar {
-          flex-direction: column;
-        }
-      }
-
-      /* Dark Mode Style*/
-      body.dark-mode {
-        background-color: #121212;
-        color: #f0f0f0;
-      }
-
-      body.dark-mode header {
-        background: linear-gradient(135deg, #2e7d32, #1b5e20);
-        color: #fff;
-      }
-
-      body.dark-mode .card {
-        background-color: #1e1e1e;
-        color: #e0e0e0;
-        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-      }
-
-      body.dark-mode .card h3 {
-        color: #81c784;
-      }
-
-      body.dark-mode .card p {
-        color: #ccc;
-      }
-
-      body.dark-mode .price {
-        color: #ff8a65;
-      }
-
-      body.dark-mode .filter-bar input,
-      body.dark-mode .filter-bar select {
-        background-color: #2a2a2a;
-        color: #f0f0f0;
-        border: 1px solid #555;
-      }
-
-      body.dark-mode .popup {
-        background-color: #2e7d32;
-        color: #fff;
-      }
-
-      body.dark-mode .card-footer {
-        border-top: 1px solid #444;
-      }
-
-      body.dark-mode .back-link a {
-        color: #81c784;
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <!-- Back Navigation Arrow -->
-      <a href="javascript:void(0);" class="back-button" onclick="goBack()">
+<body>
+  <header>
+    <a
+        href="javascript:void(0);"
+        class="back-button"
+        onclick="window.history.back()"
+      >
         <img src="./js/assets/left-arrow.png" alt="Back" class="back-icon" />
       </a>
+    <a class="cart" href="cart.html">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <span class="cart-badge">0</span>
+    </a>
+    <h1>AgriBazaar</h1>
+    <h3>Zero-Waste Corner – Save Food, Support Farmers</h3>
+  </header>
 
-      <h1>AgriBazaar</h1>
-      <h3>Zero-Waste Corner – Save Food, Support Farmers</h3>
-    </header>
+  <main>
+    <h2>Zero-Waste Produce Deals</h2>
 
-    <main>
-      <h2>Zero-Waste Produce Deals</h2>
+    <div class="filter-bar">
+      <input type="text" id="searchBox" placeholder="Search produce..." />
+      <label for="filterType" style="position:absolute;left:-10000px;">Filter by type</label>
+      <select id="filterType">
+        <option value="all">All</option>
+        <option value="near-expiry">Near Expiry</option>
+        <option value="imperfect">Imperfect</option>
+      </select>
+    </div>
 
-      <div class="filter-bar">
-        <input type="text" id="searchBox" placeholder="Search produce..." />
-        <label for="filterType" style="position: absolute; left: -10000px"
-          >Filter by type</label
-        >
-        <select id="filterType">
-          <option value="all">All</option>
-          <option value="near-expiry">Near Expiry</option>
-          <option value="imperfect">Imperfect</option>
-        </select>
-      </div>
+    <div id="product-list" class="card-container"></div>
+  </main>
 
-      <div id="product-list" class="card-container">
-        <!-- Products go here -->
-      </div>
-    </main>
+  <footer class="footer">&copy; 2025 AgriBazaar. All rights reserved.</footer>
+  <div id="cart-popup" class="popup">Added to cart!</div>
 
-    <footer class="footer">&copy; 2025 AgriBazaar. All rights reserved.</footer>
+  <script>
+    const products = [
+      {
+        name: "Ugly Carrots (2kg)",
+        price: "₹40",
+        type: "imperfect",
+        description: "Great for juice shops. Just a bit oddly shaped!",
+        image:
+          "https://images.unsplash.com/photo-1698505949250-51f8b2c9c8c6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      },
+      {
+        name: "Near Expiry Tomatoes (5kg)",
+        price: "₹60",
+        type: "near-expiry",
+        description: "Perfect for sauces and soups. Use within 2 days.",
+        image:
+          "https://tse3.mm.bing.net/th/id/OIP.u1VDbruPLoOoBxKD09RDGQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+      },
+      {
+        name: "Odd-Shaped Pumpkin",
+        price: "₹30",
+        type: "imperfect",
+        description: "Delicious and fresh, just looks a bit funny.",
+        image:
+          "https://giyplants.com/wp-content/uploads/2023/01/types-of-pumpkins-jpg.webp",
+      },
+      {
+        name: "Overripe Bananas (12 pcs)",
+        price: "₹35",
+        type: "near-expiry",
+        description: "Best for banana bread or smoothies.",
+        image:
+          "https://cdn.cheapism.com/images/iStock-874189644.310d1609.fill-1440x605.jpg",
+      },
+      {
+        name: "Bruised Apples (3kg)",
+        price: "₹55",
+        type: "near-expiry",
+        description: "Minor dents, still crunchy. Great for pies or juicing.",
+        image:
+          "https://static1.squarespace.com/static/58baf6a644024365b322136c/t/58bce3d9d2b8577d9d911c14/1488774118854/goodapples",
+      },
+      {
+        name: "Misshapen Bell Peppers (2kg)",
+        price: "₹50",
+        type: "imperfect",
+        description: "Oddly shaped but perfect for cooking.",
+        image:
+          "https://secure.caes.uga.edu/extension/publications/files/html/C1306/images/bell-pepper-disorder-misshapen-fruit-figure-12.jpeg",
+      },
+    ];
 
-    <script>
-      const products = [
-        {
-          name: "Ugly Carrots (2kg)",
-          price: "₹40",
-          type: "imperfect",
-          description: "Great for juice shops. Just a bit oddly shaped!",
-          image:
-            "https://images.unsplash.com/photo-1698505949250-51f8b2c9c8c6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        },
-        {
-          name: "Near Expiry Tomatoes(5kg)",
-          price: "₹60",
-          type: "near-expiry",
-          description: "Perfect for sauces and soups. Use within 2 days.",
-          image:
-            "https://tse3.mm.bing.net/th/id/OIP.u1VDbruPLoOoBxKD09RDGQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
-        },
-        {
-          name: "Odd-Shaped Pumpkin",
-          price: "₹30",
-          type: "imperfect",
-          description: "Delicious and fresh, just looks a bit funny.",
-          image:
-            "https://giyplants.com/wp-content/uploads/2023/01/types-of-pumpkins-jpg.webp",
-        },
-        {
-          name: "Overripe Bananas (12 pcs)",
-          price: "₹35",
-          type: "near-expiry",
-          description: "Best for banana bread or smoothies.",
-          image:
-            "https://cdn.cheapism.com/images/iStock-874189644.310d1609.fill-1440x605.jpg",
-        },
-        {
-          name: "Bruised Apples (3kg)",
-          price: "₹55",
-          type: "near-expiry",
-          description: "Minor dents, still crunchy. Great for pies or juicing.",
-          image:
-            "https://static1.squarespace.com/static/58baf6a644024365b322136c/t/58bce3d9d2b8577d9d911c14/1488774118854/goodapples",
-        },
-        {
-          name: "Misshapen Bell Peppers (2kg)",
-          price: "₹50",
-          type: "imperfect",
-          description: "Oddly shaped but perfect for cooking.",
-          image:
-            "https://secure.caes.uga.edu/extension/publications/files/html/C1306/images/bell-pepper-disorder-misshapen-fruit-figure-12.jpeg",
-        },
-      ];
-      function showPopup(message) {
-        const popup = document.getElementById("cart-popup");
-        popup.textContent = message;
-        popup.classList.add("show");
-        setTimeout(() => {
-          popup.classList.remove("show");
-        }, 5000);
+    // ✅ Popup function for Add to Cart
+    function showPopup(message) {
+      const popup = document.getElementById("cart-popup");
+      popup.textContent = message;
+      popup.classList.add("show");
+      setTimeout(() => {
+        popup.classList.remove("show");
+      }, 3000);
+    }
+
+    function renderProducts(filter = "all", search = "") {
+      const list = document.getElementById("product-list");
+      list.innerHTML = "";
+
+      const filtered = products.filter(
+        (p) =>
+          (filter === "all" || p.type === filter) &&
+          p.name.toLowerCase().includes(search.toLowerCase())
+      );
+
+      if (filtered.length === 0) {
+        list.innerHTML = `<p style="text-align:center; color:#999;">No products found.</p>`;
+        return;
       }
 
-      function renderProducts(filter = "all", search = "") {
-        const list = document.getElementById("product-list");
-        list.innerHTML = "";
+      filtered.forEach((product) => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+        <span class="badge ${product.type}">${product.type.replace("-", " ")}</span>
+        <img src="${product.image}" alt="${product.name}" loading="lazy">
+        <div class="card-body">
+          <h3>${product.name}</h3>
+          <p>${product.description}</p>
+        </div>
+        <div class="card-footer">
+          <span class="price">${product.price}</span>
+          <button class="add-cart">Add to Cart</button>
+        </div>
+      `;
 
-        const filtered = products.filter(
-          (p) =>
-            (filter === "all" || p.type === filter) &&
-            p.name.toLowerCase().includes(search.toLowerCase())
-        );
+        list.appendChild(card);
 
-        if (filtered.length === 0) {
-          list.innerHTML = `<p style="text-align:center; color:#999;">No products found.</p>`;
-          return;
-        }
-
-        filtered.forEach((product) => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-          <span class="badge ${product.type}">${product.type.replace(
-            "-",
-            " "
-          )}</span>
-          <img src="${product.image}" alt="${product.name}" loading="lazy">
-          <div class="card-body">
-            <h3>${product.name}</h3>
-            <p>${product.description}</p>
-          </div>
-          <div class="card-footer">
-            <span class="price">${product.price}</span>
-            <button class="add-cart">Add to Cart</button>
-          </div>`;
-
-          list.appendChild(card);
-          const button = card.querySelector(".add-cart");
-          button.addEventListener("click", () => {
-            showPopup(`${product.name} added to cart!`);
-          });
+        // ✅ Add to Cart Button Click Event
+        const button = card.querySelector(".add-cart");
+        button.addEventListener("click", () => {
+          showPopup(`${product.name} added to cart!`);
         });
-      }
-
-      function goBack() {
-        window.history.back();
-      }
-
-      document.getElementById("filterType").addEventListener("change", (e) => {
-        renderProducts(
-          e.target.value,
-          document.getElementById("searchBox").value
-        );
       });
+    }
 
-      document.getElementById("searchBox").addEventListener("input", (e) => {
-        renderProducts(
-          document.getElementById("filterType").value,
-          e.target.value
-        );
-      });
+    // ✅ Back Button Functionality
+    function goBack() {
+      window.history.back();
+    }
 
-      window.onload = () => renderProducts();
-    </script>
-    <script src="darkMode.js"></script>
-    <div id="cart-popup" class="popup">Added to cart!</div>
-  </body>
+    // ✅ Filter and Search Event Listeners
+    document.getElementById("filterType").addEventListener("change", (e) => {
+      renderProducts(e.target.value, document.getElementById("searchBox").value);
+    });
+
+    document.getElementById("searchBox").addEventListener("input", (e) => {
+      renderProducts(document.getElementById("filterType").value, e.target.value);
+    });
+
+    // ✅ Initial Render
+    window.onload = () => renderProducts();
+  </script>
+
+  <script src="darkMode.js"></script>
+  <script src="js/Cart.js"></script>
+</body>
+
 </html>
