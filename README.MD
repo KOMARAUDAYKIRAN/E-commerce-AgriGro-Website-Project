@@ -162,6 +162,10 @@ We welcome contributions! To get started:
 
 **Please read [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.**
 
+### Code of Conduct
+
+This project adheres to the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com).
+
 ---
 
 ## 📄 License
