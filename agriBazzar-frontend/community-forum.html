@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Forum</title>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f5f3e7;
+        color: #333;
+      }
+
+      header {
+        background: linear-gradient(135deg, #4caf50, #3e8e41);
+        color: white;
+        padding: 1.5em 2em;
+        text-align: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      .back-button {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+      }
+
+      .back-icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 0.5rem;
+      }
+
+      main {
+        padding: 2em;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      h2 {
+        border-left: 5px solid #4caf50;
+        padding-left: 10px;
+        font-size: 1.8em;
+        margin-bottom: 1em;
+      }
+
+      /* Card Grid - 2 columns */
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5em;
+      }
+
+      .card {
+        background: white;
+        padding: 1.2em;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card h3 {
+        margin-top: 0;
+        font-size: 1.2em;
+        color: #4caf50;
+      }
+
+      .card p {
+        font-size: 0.95em;
+        line-height: 1.5;
+        flex-grow: 1;
+      }
+
+      /* Buttons aligned */
+      .btn {
+        display: inline-block;
+        margin-top: 1em;
+        background: #4caf50;
+        color: white;
+        padding: 0.6em 1.2em;
+        border: none;
+        border-radius: 6px;
+        width: 130px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: background 0.3s;
+      }
+
+      .btn:hover {
+        background: #388e3c;
+      }
+
+      .footer {
+        background: #2e7d32;
+        color: white;
+        text-align: center;
+        padding: 1em;
+        margin-top: 2em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <!-- Back Navigation Arrow -->
+      <a
+        href="javascript:void(0);"
+        class="back-button"
+        onclick="window.history.back()"
+      >
+        <img src="./js/assets/left-arrow.png" alt="Back" class="back-icon" />
+      </a>
+      <h1>AgriBazaar</h1>
+      <h3>Community Forum – Connect, Share & Grow Together</h3>
+    </header>
+
+    <main>
+      <h2>Community Forum</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>How to grow organic tomatoes?</h3>
+          <p>
+            I'm trying to switch to organic farming. Any tips for growing
+            tomatoes without synthetic fertilizers?
+          </p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+        <div class="card">
+          <h3>Best practices for monsoon crops?</h3>
+          <p>
+            What are some good crops and techniques for the rainy season to
+            maximize yield?
+          </p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+        <div class="card">
+          <h3>How to reduce post-harvest losses?</h3>
+          <p>
+            Looking for methods to store grains and vegetables efficiently to
+            reduce wastage after harvest.
+          </p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+        <div class="card">
+          <h3>Affordable irrigation solutions?</h3>
+          <p>
+            What are cost-effective irrigation techniques for small farmers
+            facing water scarcity?
+          </p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">&copy; 2025 AgriBazaar. All rights reserved.</footer>
+  </body>
+</html>

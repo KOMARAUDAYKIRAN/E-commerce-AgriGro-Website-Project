@@ -43,6 +43,21 @@
             color: white;
         }
 
+        .back-button {
+        text-decoration: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 18px;
+      }
+
+      .back-icon {
+        width: 24px;
+        height: 24px;
+        margin-left: 0.5rem;
+      }
+
         main {
             padding: 2em;
             max-width: 1200px;
@@ -149,9 +164,13 @@
 <body>
     <div class="page-container">
         <header>
-            <nav>
-                <a class="home-button" href="zero-waste.html"><i class="fa-solid fa-circle-arrow-left fa-2x"></i></a>
-            </nav>
+                <a
+        href="zero-waste.html"
+        class="back-button"
+        onclick="window.history.back()"
+      >
+        <img src="./js/assets/left-arrow.png" alt="Back" class="back-icon" />
+      </a>
             <h1>AgriBazaar</h1>
             <h3>Zero-Waste Corner – Save Food, Support Farmers</h3>
         </header>

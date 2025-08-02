@@ -5,105 +5,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agri News</title>
-   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f4f9f4;
-      color: #333;
-    }
-
-    header {
-      background: linear-gradient(135deg, #4CAF50, #3e8e41);
-      color: white;
-      padding: 1.5em 2em;
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .news-container {
-      max-width: 1000px;
-      margin: 2em auto;
-      padding: 1em;
-      display: grid;
-      gap: 1.5em;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
-
-    .news-card {
-      background: white;
-      padding: 1.2em;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .news-card h3 {
-      margin: 0 0 0.5em;
-      color: #4CAF50;
-    }
-
-    .news-card p {
-      font-size: 0.95em;
-    }
-
-    .news-card a {
-      margin-top: auto;
-      text-decoration: none;
-      color: #2196F3;
-      font-weight: 600;
-    }
-  </style>
+  <link rel="stylesheet" href="news.css">
 </head>
 
 <body>
   <header>
-    <h1>Agri News & Updates</h1>
-    <h3>Stay updated with the latest in agriculture</h3>
+    <!-- Back Navigation Arrow -->
+      <a
+        href="javascript:void(0);"
+        class="back-button"
+        onclick="window.history.back()"
+      >
+        <img src="./js/assets/left-arrow.png" alt="Back" class="back-icon" />
+      </a>
+      <h1>AgriBazaar</h1>
+      <h3>Agri News – Your Daily Dose of Agricultural Updates.</h3>
   </header>
 
-  <main id="news-container" class="news-container">
-      <!-- news will be injected here by api -->
-   <main id="news-container" class="news-container">
-    <!-- news will be injected here by API -->
+  <main class="news-container">
+    <h2>Agri News</h2>
+    <div class="news-card">
+      <h3>Govt Announces New Subsidy for Small Farmers</h3>
+      <p>The government today announced a new subsidy policy...</p>
+      <a href="#">Read More</a>
+    </div>
+
+    <div class="news-card">
+      <h3>Rainfall Expected in Eastern States This Week</h3>
+      <p>IMD has forecast good rainfall for the eastern region...</p>
+      <a href="#">Read More</a>
+    </div>
   </main>
 
-  <script>
-    // Set your NewsData.io API key here
-    const API_KEY = "add_your_API_key"; 
-    const url = `https://newsdata.io/api/1/news?apikey=${API_KEY}&q=agriculture+farming+farmer&country=in&language=en`;
+  <footer class="footer">&copy; 2025 AgriBazaar. All rights reserved.</footer>
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        const container = document.getElementById("news-container");
-
-        if (!data.results || data.results.length === 0) {
-          container.innerHTML = "<p>No news found.</p>";
-          return;
-        }
-
-        data.results.forEach(article => {
-          const card = document.createElement("div");
-          card.className = "news-card";
-          card.innerHTML = `
-            <h3>${article.title}</h3>
-            <p>${article.description || 'No summary available.'}</p>
-            <a href="${article.link}" target="_blank">Read More</a>
-          `;
-          container.appendChild(card);
-        });
-      })
-      .catch(error => {
-        console.error("Failed to fetch news:", error);
-        document.getElementById("news-container").innerHTML = "<p>Failed to load news.</p>";
-      });
-  </script>
 
   <script src="darkMode.js"></script>
 </body>
-</html>
 
+</html>

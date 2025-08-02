@@ -1,39 +1,116 @@
 body {
+  font-family: 'Inter', sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #eef2f3;
+  padding: 0;
+  background: #F5F3E7;
+  color: #333;
 }
 
 header {
-  background-color: #2e7d32;
+  background: linear-gradient(135deg, #4CAF50, #3e8e41);
   color: white;
-  padding: 20px;
+  padding: 1.5em 2em;
   text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+  border-left: 5px solid #4caf50;
+  padding-left: 10px;
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+.back-button {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  /* Align icon and text vertically */
+  gap: 6px;
+  /* Space between icon and text */
+  font-size: 18px;
+}
+
+.back-icon {
+  width: 24px;
+  /* Control icon size */
+  height: 24px;
+  margin-left: 0.5rem;
+}
+
+.back-link {
+  text-align: center;
+  margin: 1em auto;
+}
+
+.back-link a {
+  color: #4CAF50;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+main {
+  padding: 2em;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer {
+  background: #2E7D32;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  margin-top: 2em;
 }
 
 .news-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5em;
+}
+
+/* .news-container {
   padding: 2rem;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
-}
+} */
 
 .news-card {
   background: white;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.2em;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .news-card h3 {
-  margin: 0 0 10px 0;
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #4caf50;
 }
 
 .news-card a {
+  display: inline-block;
+  margin-top: 1em;
+  background: #4caf50;
+  color: white;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 6px;
+  width: 90px;
   text-decoration: none;
-  color: #4CAF50;
-  font-weight: bold;
+  font-weight: 600;
+  transition: background 0.3s;
 }
+
+.news-card:hover {
+        transform: translateY(-5px);
+      }
 
 /*  Dark Mode Style */
 body.dark-mode {
