@@ -1,18 +1,60 @@
 body {
+  font-family: 'Inter', sans-serif;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f2f2f2;
+  padding: 0;
+  background: #F5F3E7;
+  color: #333;
 }
 
 header {
-  background-color: #388e3c;
+  background: linear-gradient(135deg, #4CAF50, #3e8e41);
   color: white;
-  padding: 20px;
+  padding: 1.5em 2em;
   text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.back-button {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  /* Align icon and text vertically */
+  gap: 6px;
+  /* Space between icon and text */
+  font-size: 18px;
+}
+
+.back-icon {
+  width: 24px;
+  /* Control icon size */
+  height: 24px;
+  margin-left: 0.5rem;
+}
+
+.back-link {
+  text-align: center;
+  margin: 1em auto;
+}
+
+.back-link a {
+  color: #4CAF50;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
 main {
-  padding: 2rem;
+  padding: 2em;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer {
+  background: #2E7D32;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  margin-top: 2em;
 }
 
 .new-post {
@@ -20,7 +62,7 @@ main {
   padding: 1.5rem;
   border-radius: 10px;
   margin-bottom: 2rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 textarea {
@@ -48,4 +90,48 @@ button {
   margin-bottom: 1rem;
   border-left: 5px solid #4CAF50;
   border-radius: 6px;
+}
+
+/*Dark Mode Style*/
+
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode header {
+  background-color: #2e7d32;
+  color: #ffffff;
+}
+
+body.dark-mode .new-post {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode textarea {
+  background-color: #2a2a2a;
+  color: #f1f1f1;
+  border: 1px solid #444;
+}
+
+body.dark-mode button {
+  background: #66bb6a;
+  color: #fff;
+}
+
+body.dark-mode .threads .thread-card {
+  background-color: #1c1c1c;
+  border-left: 5px solid #81c784;
+  color: #e0e0e0;
+}
+
+body,
+.new-post,
+textarea,
+button,
+.thread-card,
+header {
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
 }
