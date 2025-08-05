@@ -1,236 +1,278 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AgriConnect</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>AgriConnect</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        margin: 0;
-        padding: 0;
-        background: #f5f3e7;
-        color: #333;
-      }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+   
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #333;
+    }
 
-      header {
-        background: linear-gradient(135deg, #4caf50, #3e8e41);
-        color: white;
-        padding: 1.5em 2em;
-        text-align: center;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-      }
+    header {
+      background: linear-gradient(135deg, #4CAF50, #3e8e41);
+      color: white;
+      padding: 1.5em 2em;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
 
-      nav {
-        background-color: white;
-        padding: 1em;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-      }
+    nav {
+      background-color: white;
+      padding: 1em;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
 
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 2em;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      font-weight: 600;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #4CAF50;
+    }
+
+    main {
+      padding: 2em;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    section {
+      margin-bottom: 3em;
+    }
+
+    h2 {
+      margin-bottom: 1em;
+      border-left: 5px solid #4CAF50;
+      padding-left: 10px;
+      font-size: 1.8em;
+    }
+
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5em;
+    }
+
+    .card {
+      background: white;
+      padding: 1.2em;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #4CAF50;
+    }
+
+    .card p {
+      font-size: 0.95em;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 1em;
+      background: #4CAF50;
+      color: white;
+      padding: 0.6em 1.2em;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: #388e3c;
+    }
+
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 1em;
+      margin-top: 2em;
+    }
+
+    .theme-switch{
+      display: inline-block;
+      position: relative;
+      width: 50px;
+      height: 24px;
+      margin-left: 1rem;
+    }
+
+    .theme-switch input{
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider{
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 24px;
+      transition: 0.4s;
+    }
+
+    .slider:before{
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196f3;
+    }
+
+    input:checked + .slider:before{
+      transform: translateX(26px);
+    }
+
+    body.dark-mode{
+      background-color: #1e1e1e;
+      color: #ffffff;
+    }
+
+    body.dark-mode nav{
+      background-color: #1e1e1e;
+    }
+
+    body.dark-mode a{
+      color: #90caf9;
+    }
+
+    
+    @media (max-width: 600px) {
       nav ul {
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        gap: 2em;
-        margin: 0;
-        padding: 0;
+        flex-direction: column;
+        gap: 1em;
       }
+    }
+  </style>
+</head>
+<body>
 
-      nav ul li {
-        font-weight: 600;
-      }
+  <header>
+   <h1>AgriBazaar</h1>
 
-      nav ul li a {
-        text-decoration: none;
-        color: #333;
-        transition: color 0.3s;
-      }
+    <p>Empowering Farmers with Technology & Knowledge</p>
+  </header>
 
-      nav ul li a:hover {
-        color: #4caf50;
-      }
+  <nav>
+    <ul>
+      <li><a href="zero-waste.html">Zero Waste Corner</a></li>
+      <li><a href="#community">Community Forum</a></li>
+      <li><a href="#news">Agri News</a></li>
+      <li><a href="market-prices.html">Market Prices</a></li>
+    </ul>
 
-      <!-- main {
-        padding: 2em;
-        max-width: 1200px;
-        margin: auto;
-      }
-      -- > section {
-        margin-bottom: 3em;
-      }
+    <label class="theme-switch">
+      <input type="checkbox" id="darkModeToggle"/>
+      <span class="slider round"></span>
+    </label>
+  </nav>
 
-      h2 {
-        margin-bottom: 1em;
-        border-left: 5px solid #4caf50;
-        padding-left: 10px;
-        font-size: 1.8em;
-      }
+  <main>
+    
+    <section id="community">
+      <h2>Community Forum</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>How to grow organic tomatoes?</h3>
+          <p>I'm trying to switch to organic farming. Any tips for growing tomatoes without synthetic fertilizers?</p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+        <div class="card">
+          <h3>Best practices for monsoon crops?</h3>
+          <p>What are some good crops and techniques for the rainy season to maximize yield?</p>
+          <a href="community.html" class="btn">Join Discussion</a>
+        </div>
+      </div>
+    </section>
 
-      .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.5em;
-      }
+    
+    <section id="news">
+      <h2>Agri News</h2>
+      <div class="card-container">
+        <div class="card">
+          <h3>Govt Launches New Agri Policy</h3>
+          <p>The government has announced a new policy focused on sustainable agriculture and enhanced farmer support.</p>
+          <a href="news.html" class="btn">Read More</a>
+        </div>
+        <div class="card">
+          <h3>Innovative Irrigation Techniques Boost Yields</h3>
+          <p>Modern drip and sprinkler systems are setting new benchmarks in water usage efficiency in farming.</p>
+          <a href="news.html" class="btn">Read More</a>
+        </div>
+      </div>
+    </section>
+  </main>
 
-      .card {
-        background: white;
-        padding: 1.2em;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s;
-      }
+  <footer>
+    &copy; 2025 AgriConnect. All rights reserved.
+  </footer>
 
-      .card:hover {
-        transform: translateY(-5px);
-      }
+<script>
+  const toggle = document.getElementById('darkModeToggle');
 
-      .card h3 {
-        margin-top: 0;
-        font-size: 1.2em;
-        color: #4caf50;
-      }
+  if(localStorage.getItem('theme')==='dark'){
+    document.body.classList.add('dark-mode');
+    toggle.checked=true;
+  }
+toggle.addEventListener('change',()=>{
+  if(toggle.checked){
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('theme','dark');
+  }else{
+    document.body.classList.remove('dark-mode');
+    localStorage.setItem('theme','light');
+  }
+});
 
-      .card p {
-        font-size: 0.95em;
-        line-height: 1.5;
-      }
-
-      .btn {
-        display: inline-block;
-        margin-top: 1em;
-        background: #4caf50;
-        color: white;
-        padding: 0.6em 1.2em;
-        border: none;
-        border-radius: 6px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: background 0.3s;
-      }
-
-      .btn:hover {
-        background: #388e3c;
-      }
-
-      footer {
-        background: #2e7d32;
-        color: white;
-        text-align: center;
-        padding: 1em;
-      }
-
-      @media (max-width: 600px) {
-        nav ul {
-          flex-direction: column;
-          gap: 1em;
-        }
-      }
-
-      /*Dark Mode Styles*/
-
-      body.dark-mode {
-        background: #121212;
-        color: #e0e0e0;
-      }
-
-      body.dark-mode header {
-        background: linear-gradient(135deg, #2e7d32, #1b5e20);
-        color: #ffffff;
-      }
-
-      body.dark-mode nav {
-        background-color: #1e1e1e;
-        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.08);
-      }
-
-      body.dark-mode nav ul li a {
-        color: #e0e0e0;
-      }
-
-      body.dark-mode nav ul li a:hover {
-        color: #81c784;
-      }
-
-      body.dark-mode .card {
-        background: #1c1c1c;
-        color: #ffffff;
-        box-shadow: 0 4px 12px rgba(255, 255, 255, 0.05);
-      }
-
-      body.dark-mode .card h3 {
-        color: #81c784;
-      }
-
-      body.dark-mode .btn {
-        background: #388e3c;
-        color: white;
-      }
-
-      body.dark-mode .btn:hover {
-        background: #2e7d32;
-      }
-
-      body.dark-mode footer {
-        background: #2e7d32;
-        color: #ccc;
-      }
-
-      body,
-      .card,
-      nav,
-      header,
-      footer {
-        transition: background 0.4s, color 0.4s;
-      }
-
-      #theme-icon {
-        transition: transform 0.5s ease;
-      }
-
-      body.dark-mode #theme-icon {
-        transform: rotate(180deg);
-      }
-
-      #toggle-theme {
-        position: absolute;
-        border: none;
-        outline: none;
-        background: none;
-        cursor: pointer;
-        font-size: 1.5rem;
-        color: inherit;
-      }
-
-      main {
-        position: relative;
-        width: 100%;
-        height: calc(100vh - 150px); /* Adjust height based on header/footer */
-        object-fit: fill;
-        background-size: cover; /* Makes it stretch and cover fully */
-      }
-    </style>
-  </head>
-
-  <body>
-    <header>
-      <h1>AgriBazaar</h1>
-
-      <p>Empowering Farmers with Technology & Knowledge</p>
-    </header>
-
-
-    <main></main>
-
-    <footer>&copy; 2025 AgriBazaar. All rights reserved.</footer>
-    <script
-      src="https://kit.fontawesome.com/a30fe0bbce.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="darkMode.js"></script>
-  </body>
+</script>
+</body>
 </html>
+
+  
