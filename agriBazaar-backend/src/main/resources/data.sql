@@ -1,3 +1,13 @@
+CREATE TABLE pre_orders (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    crop_name VARCHAR(255) NOT NULL,
+    expected_harvest_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    notified BOOLEAN DEFAULT FALSE
+);
+
+
 -- Insert Users
 INSERT INTO users (name, email, password, role) VALUES
 ('Farmer John', 'farmer.john@example.com', 'password123', 'FARMER'),
@@ -7,11 +17,14 @@ INSERT INTO users (name, email, password, role) VALUES
 ('Admin', 'admin@example.com', 'admin123', 'ADMIN');
 
 -- Insert Products
-INSERT INTO product (name, description, price, stock, farmer_id) VALUES
-('Organic Wheat', 'High quality organic wheat', 200, 50, 1),
-('Fresh Rice', 'Pesticide-free rice', 250, 80, 1),
-('Farm Fresh Apples', 'Red apples directly from farm', 120, 100, 2),
-('Organic Fertilizer', 'Natural compost fertilizer', 500, 30, 2);
+INSERT INTO product (name, description, price, stock, image_url, farmer_id) VALUES
+('Ugly Carrots (2kg)', 'Great for juice shops. Just a bit oddly shaped!', 40, 50, 'https://images.unsplash.com/photo-1698505949250-51f8b2c9c8c6?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', 1),
+('Near Expiry Tomatoes(5kg)', 'Perfect for sauces and soups. Use within 2 days.', 60, 50, 'https://tse3.mm.bing.net/th/id/OIP.u1VDbruPLoOoBxKD09RDGQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3', 1),
+('Odd-Shaped Pumpkin', 'Delicious and fresh, just looks a bit funny.', 30, 50, 'https://giyplants.com/wp-content/uploads/2023/01/types-of-pumpkins-jpg.webp', 1),
+('Overripe Bananas (12 pcs)', 'Best for banana bread or smoothies.', 35, 50, 'https://cdn.cheapism.com/images/iStock-874189644.310d1609.fill-1440x605.jpg', 1),
+('Bruised Apples (3kg)', 'Minor dents, still crunchy. Great for pies or juicing.', 55, 50, 'https://static1.squarespace.com/static/58baf6a644024365b322136c/t/58bce3d9d2b8577d9d911c14/1488774118854/goodapples', 1),
+('Misshapen Bell Peppers (2kg)', 'Oddly shaped but perfect for cooking.', 50, 50, 'https://secure.caes.uga.edu/extension/publications/files/html/C1306/images/bell-pepper-disorder-misshapen-fruit-figure-12.jpeg', 1);
+
 
 -- Insert Orders (example with user 3 - Alice)
 -- First, create the order record

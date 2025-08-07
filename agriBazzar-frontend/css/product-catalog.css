@@ -1,0 +1,199 @@
+:root {
+    --primary-color: #4caf96;
+    --secondary-color:#4CAF50;
+    --bg-color: #f4f4f4;
+    --font-color: #333;
+    --card-bg: #ffffff;
+    --shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    line-height: 1.6;
+}
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-110%);
+    width: 20px;
+    padding-left:30px ;
+    height: 20px;
+    fill: #000000;
+}
+
+/* UPDATE THIS EXISTING RULE */
+.search-container {
+    position: relative; /* <-- THIS LINE IS ESSENTIAL */
+    padding: 0 2rem 1.5rem 2rem;
+    max-width: 1500px;
+    margin: 0 auto;
+}
+
+/* UPDATE THIS EXISTING RULE */
+#search-input {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 45px; /* Increased left padding for the icon */
+    font-size: 1.1rem;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+.page-header {
+    background-color: var(--secondary-color);
+    color: white;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+.page-header a {
+    color: #e9c46a;
+}
+/* Add to: css/product-catalog.css */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background: url('https://static1.backyardbossimages.com/wordpress/wp-content/uploads/2024/05/person-holding-onto-wooden-tray-full-of-fresh-garden-vegetables.jpg') center center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.banner-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.05);
+    padding-top: 2%;
+    display: cover;
+    align-items: center;
+    justify-content: center;
+}
+.banner-content {
+    text-align: center;
+    background: rgba(255,255,255,0.7);
+    padding: 32px 40px;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+}
+.banner-content h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+}
+.banner-subtitle {
+    font-size: 1.1rem;
+    color: #607d8b;
+    margin-bottom: 22px;
+}
+.banner-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    background: #388e3c;
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    border: 2px solid #388e3c;
+    transition: background 0.2s, color 0.2s;
+}
+.banner-btn:hover {
+    background: #fff;
+    color: #388e3c;
+}
+@media (max-width: 700px) {
+    .banner {
+        height: 200px;
+    }
+    .banner-content {
+        padding: 18px 10px;
+    }
+    .banner-content h2 {
+        font-size: 1.2rem;
+    }
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 1rem;
+    padding: 2rem 5%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+    min-width: 0;
+}
+
+.product-image {
+    width: 100%;
+    height: 60%;
+    object-fit:cover;
+    background-color: #eee;
+}
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+.product-info {
+    padding: 1.25rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    margin: 0 0 0.5rem 0;
+}
+
+.product-description {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-top: auto;
+}
+
+.error-message,
+.loading-message {
+    grid-column: 1 / -1; /* Span all columns */
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 3rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: var(--secondary-color);
+    color: white;
+    margin-top: 2rem;
+}
