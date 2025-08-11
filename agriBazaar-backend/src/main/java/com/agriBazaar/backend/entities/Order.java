@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Data
+
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,5 +28,41 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> products;
+
+    public void setUser(User user){
+        this.user=user;
+    }
+
+    public void setProducts(List<Product> products){
+        this.products=products;
+    }
+
+    public void setTotalAmount(double totalAmount){
+        this.totalAmount=totalAmount;
+    }
+    
+    public void setOrderDate(LocalDateTime time){
+        this.orderDate=time;
+    }
+    
+    public Long getId(){
+        return id;
+    }
+    
+    public LocalDateTime getOrderDate(){
+        return orderDate;
+    }
+    
+    public double getTotalAmount(){
+        return totalAmount;
+    }
+    
+    public User getUser(){
+        return user;
+    }
+    
+    public List<Product> getProducts(){
+        return products;
+    }
 }
 

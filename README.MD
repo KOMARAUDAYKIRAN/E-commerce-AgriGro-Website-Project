@@ -9,6 +9,22 @@
 
 ---
 
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [Features](#features)
+3. [Tech Stack](#tech-stack)
+4. [Prerequisites](#prerequisites)
+5. [Java Technologies Used](#java-technologies-used)
+6. [Installation & Setup](#installation--setup)
+7. [Functionality Overview](#functionality-overview)
+8. [Project Structure](#project-structure)
+9. [Contribution Guidelines](#contribution-guidelines)
+10. [License](#license)
+11. [Contact & Acknowledgements](#contact--acknowledgements)
+
+---
+
 ## Project Overview
 
 **AgriBazaar** is a full-stack e-commerce platform designed for the agricultural sector. It connects **farmers**, **suppliers**, and **buyers**, enabling seamless transactions of seeds, fertilizers, pesticides, and farm equipment.
@@ -19,47 +35,45 @@ Built with **Java**, **Spring Boot**, and **MySQL/PostgreSQL**, the platform ens
 
 ## Features
 
-- User registration, login, and role-based access
-- Product catalog with search, filter, and sort options
-- Shopping cart and checkout flow
-- Payment gateway integration (PayPal, Stripe)
-- Order tracking and management
-- Ratings and review system
-- Admin dashboard for user, product, and order management
-
----
-
-## Table of Contents
-
-1. [Project Overview](#project-overview)  
-2. [Features](#features)  
-3. [Tech Stack](#tech-stack)  
-4. [Installation & Setup](#installation--setup)  
-5. [Functionality Overview](#functionality-overview)  
-6. [Project Structure](#project-structure)  
-7. [Contribution Guidelines](#contribution-guidelines)  
-8. [License](#license)  
-9. [Contact & Acknowledgements](#contact--acknowledgements)
+- User Registration and Login
+- Product Catalog with Search, Filter, and Sort Options
+- Shopping Cart and Secure Checkout
+- Payment Gateway Integration (e.g., PayPal, Stripe)
+- Order Management and Tracking
+- User Reviews and Ratings
+- Admin Dashboard for Managing Products, Orders, and Users
 
 ---
 
 ## Tech Stack
 
-| Layer     | Technologies                                |
-|-----------|---------------------------------------------|
-| Frontend  | HTML, CSS, JavaScript, JSP                  |
-| Backend   | Java, Spring Boot, Spring MVC, Servlets     |
-| Database  | MySQL / PostgreSQL                          |
-| Server    | Apache Tomcat                               |
-| ORM       | Hibernate / JPA                             |
+| Layer    | Technologies                                      |
+| -------- | ------------------------------------------------- |
+| Frontend | HTML, CSS, JavaScript, JSP                        |
+| Backend  | Java, Spring Framework (Spring MVC / Spring Boot) |
+| Database | MySQL / PostgreSQL                                |
+| Server   | Apache Tomcat                                     |
+| ORM      | Hibernate / JPA                                   |
 
 ---
 
-## Java Technologies
+## Prerequisites
 
-- Spring Boot & Spring MVC
-- Hibernate / JPA
-- Java Servlet & JSP
+Make sure you have the following installed:
+
+- Java 11 or above
+- Maven
+- MySQL or PostgreSQL
+- Apache Tomcat (or use embedded Spring Boot)
+- IDE like IntelliJ IDEA or VS Code
+
+---
+
+## Java Technologies Used
+
+- **Spring Framework**: For back-end architecture and dependency management.
+- **Hibernate / JPA**: For object-relational mapping and database operations.
+- **JSP and Servlets**: For request handling and view rendering.
 
 ---
 
@@ -85,7 +99,6 @@ spring.datasource.password=your_password
 ### Step 3: Build and run the application
 
 ```bash
-# If using Maven
 mvn clean install
 mvn spring-boot:run
 ```
@@ -121,15 +134,7 @@ agribazaar/
 
 ## Contribution Guidelines
 
-We welcome contributions from developers and open-source enthusiasts.
-
-- Fork the repository
-- Create a new feature branch (`feature/your-feature`)
-- Use consistent commit messages: `feat:`, `fix:`, `docs:`, etc.
-- Add proper documentation to your changes
-- Submit a pull request with clear descriptions
-
-Please refer to `CONTRIBUTING.md` for full guidelines.
+Please refer to [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
 
 ---
 
@@ -141,7 +146,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Contact & Acknowledgements
 
-**Developer**: Venkat  
+**Developer**: Uday Kiran
 **Email**: [komaraudaykiran2003@gmail.com](mailto:komaraudaykiran2003@gmail.com)  
 **LinkedIn**: [Uday Kiran Komara](https://www.linkedin.com/in/udaykirankomara)
 
