@@ -26,17 +26,21 @@ async function loadCart() {
 
             cartItemsElement.innerHTML += `
                 <tr>
-                    <td><img src="${product.imageUrl}" alt="${product.name}" width="100" height="100"></td>
-                    <td>${product.name}</td>
-                    <td>₹${product.price}</td>
-                    <td>
-                        <button class="changequantity" onClick="changeQuantity(${item.id},-1)">-</button>
-                        ${item.quantity}
-                        <button class="changequantity" onClick="changeQuantity(${item.id},1)">+</button>
-                    </td>
-                    <td>₹${itemTotal}</td>
-                    <td><button class="remove" onclick="removeFromCart(${item.id})">X</button></td>
-                </tr>
+        <td>
+            <div class="cart-img-wrapper">
+                <img src="${product.imageUrl}" alt="${product.name}">
+            </div>
+        </td>
+        <td>${product.name}</td>
+        <td>₹${product.price}</td>
+        <td>
+            <button class="changequantity" onClick="changeQuantity(${item.id},-1)">-</button>
+            ${item.quantity}
+            <button class="changequantity" onClick="changeQuantity(${item.id},1)">+</button>
+        </td>
+        <td>₹${itemTotal}</td>
+        <td><button class="remove" onclick="removeFromCart(${item.id})">X</button></td>
+    </tr>
             `;
         });
 
