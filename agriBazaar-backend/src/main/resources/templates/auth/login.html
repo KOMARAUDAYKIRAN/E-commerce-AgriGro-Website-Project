@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title>Login - AgriBazaar</title>
+    <th:block th:fragment="css">
+        <style>
+            .login-container {
+                min-height: 80vh;
+                display: flex;
+                align-items: center;
+            }
+            
+            .login-card {
+                max-width: 400px;
+                margin: 0 auto;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+                border: none;
+                border-radius: 15px;
+            }
+            
+            .login-header {
+                background: linear-gradient(135deg, #4CAF50, #3e8e41);
+                color: white;
+                text-align: center;
+                padding: 2rem;
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .form-control:focus {
+                border-color: #4CAF50;
+                box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+            }
+            
+            .btn-login {
+                background: linear-gradient(135deg, #4CAF50, #3e8e41);
+                border: none;
+                padding: 12px;
+                font-weight: 600;
+            }
+            
+            .btn-login:hover {
+                background: linear-gradient(135deg, #388e3c, #2e7d32);
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+    <main th:fragment="content">
+        <div class="container login-container">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-6 col-lg-5">
+                    <div class="card login-card">
+                        <div class="login-header">
+                            <h3 class="mb-0">Welcome Back</h3>
+                            <p class="mb-0 mt-2">Sign in to your AgriBazaar account</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Error Messages -->
+                            <div th:if="${error}" class="alert alert-danger" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <span th:text="${error}">Invalid credentials</span>
+                            </div>
+                            
+                            <!-- Success Messages -->
+                            <div th:if="${message}" class="alert alert-success" role="alert">
+                                <i class="bi bi-check-circle-fill me-2"></i>
+                                <span th:text="${message}">Registration successful</span>
+                            </div>
+                            
+                            <!-- Login Form -->
+                            <form th:action="@{/login}" method="post">
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="bi bi-envelope me-1"></i>Email Address
+                                    </label>
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="email" 
+                                           name="username" 
+                                           placeholder="Enter your email"
+                                           required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">
+                                        <i class="bi bi-lock me-1"></i>Password
+                                    </label>
+                                    <input type="password" 
+                                           class="form-control" 
+                                           id="password" 
+                                           name="password" 
+                                           placeholder="Enter your password"
+                                           required>
+                                </div>
+                                
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="remember" name="remember-me">
+                                    <label class="form-check-label" for="remember">
+                                        Remember me
+                                    </label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-login w-100">
+                                    <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                                </button>
+                            </form>
+                            
+                            <div class="text-center mt-4">
+                                <p class="mb-2">Don't have an account?</p>
+                                <a th:href="@{/register}" class="btn btn-outline-success w-100">
+                                    <i class="bi bi-person-plus me-2"></i>Create Account
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

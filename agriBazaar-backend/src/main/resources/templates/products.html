@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title>Products - AgriBazaar</title>
+    <th:block th:fragment="css">
+        <style>
+            .product-filters {
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            .product-card {
+                transition: transform 0.3s, box-shadow 0.3s;
+                border: none;
+                border-radius: 15px;
+                overflow: hidden;
+                height: 100%;
+            }
+            
+            .product-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            }
+            
+            .product-image {
+                height: 200px;
+                object-fit: cover;
+                width: 100%;
+            }
+            
+            .product-price {
+                font-size: 1.25rem;
+                font-weight: bold;
+                color: #4CAF50;
+            }
+            
+            .stock-badge {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 0.75rem;
+            }
+            
+            .search-section {
+                background: linear-gradient(135deg, #4CAF50, #3e8e41);
+                color: white;
+                padding: 3rem 0;
+                margin-bottom: 2rem;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+    <main th:fragment="content">
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="mb-4">Find Agricultural Products</h2>
+                        <div class="input-group input-group-lg">
+                            <input type="text" 
+                                   class="form-control" 
+                                   id="searchInput"
+                                   placeholder="Search for seeds, fertilizers, equipment..."
+                                   th:value="${searchQuery}">
+                            <button class="btn btn-light" type="button" onclick="searchProducts()">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Filters Section -->
+            <div class="product-filters">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <h5 class="mb-3 mb-md-0">Filter by Category</h5>
+                        <div class="btn-group flex-wrap" role="group">
+                            <button type="button" class="btn btn-outline-success me-2 mb-2" onclick="filterByCategory('')">
+                                All Products
+                            </button>
+                            <button type="button" class="btn btn-outline-success me-2 mb-2" onclick="filterByCategory('seeds')">
+                                Seeds
+                            </button>
+                            <button type="button" class="btn btn-outline-success me-2 mb-2" onclick="filterByCategory('fertilizers')">
+                                Fertilizers
+                            </button>
+                            <button type="button" class="btn btn-outline-success me-2 mb-2" onclick="filterByCategory('pesticides')">
+                                Pesticides
+                            </button>
+                            <button type="button" class="btn btn-outline-success me-2 mb-2" onclick="filterByCategory('equipment')">
+                                Equipment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="row g-4" id="productsGrid">
+                <div th:if="${products == null or products.empty}" class="col-12 text-center py-5">
+                    <i class="bi bi-box-seam display-1 text-muted"></i>
+                    <h4 class="mt-3 text-muted">No products found</h4>
+                    <p class="text-muted">Try adjusting your search criteria or browse all categories.</p>
+                </div>
+                
+                <div class="col-lg-3 col-md-4 col-sm-6" th:each="product : ${products}">
+                    <div class="card product-card">
+                        <div class="position-relative">
+                            <img th:src="${product.imageUrl != null ? product.imageUrl : '/images/default-product.jpg'}" 
+                                 class="product-image" 
+                                 th:alt="${product.name}">
+                            <span class="badge bg-success stock-badge"
+                                  th:text="${product.stock > 20} ? 'In Stock' : (${product.stock > 0} ? 'Low Stock' : 'Out of Stock')">
+                                In Stock
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${product.name}">Product Name</h5>
+                            <p class="card-text text-muted" th:text="${#strings.abbreviate(product.description, 80)}">
+                                Product description...
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="product-price" th:text="'₹' + ${product.price}">₹99</span>
+                                <small class="text-muted" th:text="${product.stock} + ' units'">10 units</small>
+                            </div>
+                            <div class="mt-3 d-grid gap-2">
+                                <button class="btn btn-primary" 
+                                        th:onclick="'addToCart(' + ${product.id} + ')'"
+                                        th:disabled="${product.stock == 0}">
+                                    <i class="bi bi-cart-plus me-1"></i>
+                                    <span th:text="${product.stock > 0} ? 'Add to Cart' : 'Out of Stock'">Add to Cart</span>
+                                </button>
+                                <a th:href="@{/products/{id}(id=${product.id})}" class="btn btn-outline-success btn-sm">
+                                    <i class="bi bi-eye me-1"></i>View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <th:block th:fragment="scripts">
+        <script>
+            function searchProducts() {
+                const searchQuery = document.getElementById('searchInput').value;
+                window.location.href = `/products?search=${encodeURIComponent(searchQuery)}`;
+            }
+            
+            function filterByCategory(category) {
+                window.location.href = `/products?category=${category}`;
+            }
+            
+            function addToCart(productId) {
+                alert('Add to cart functionality - Product ID: ' + productId);
+            }
+            
+            document.getElementById('searchInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchProducts();
+                }
+            });
+        </script>
+    </th:block>
+</body>
+</html>

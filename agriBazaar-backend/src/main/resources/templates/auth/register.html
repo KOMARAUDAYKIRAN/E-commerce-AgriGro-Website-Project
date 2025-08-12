@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title>Register - AgriBazaar</title>
+    <th:block th:fragment="css">
+        <style>
+            .register-container {
+                min-height: 80vh;
+                display: flex;
+                align-items: center;
+                padding: 2rem 0;
+            }
+            
+            .register-card {
+                max-width: 500px;
+                margin: 0 auto;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+                border: none;
+                border-radius: 15px;
+            }
+            
+            .register-header {
+                background: linear-gradient(135deg, #4CAF50, #3e8e41);
+                color: white;
+                text-align: center;
+                padding: 2rem;
+                border-radius: 15px 15px 0 0;
+            }
+            
+            .role-selector {
+                display: flex;
+                gap: 1rem;
+                margin-bottom: 1rem;
+            }
+            
+            .role-option {
+                flex: 1;
+                text-align: center;
+                padding: 1rem;
+                border: 2px solid #e9ecef;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+            
+            .role-option:hover {
+                border-color: #4CAF50;
+                background-color: #f8f9fa;
+            }
+            
+            .role-option.active {
+                border-color: #4CAF50;
+                background-color: #e8f5e8;
+            }
+            
+            .role-option input[type="radio"] {
+                display: none;
+            }
+            
+            .role-icon {
+                font-size: 2rem;
+                color: #4CAF50;
+                margin-bottom: 0.5rem;
+            }
+        </style>
+    </th:block>
+</head>
+<body>
+    <main th:fragment="content">
+        <div class="container register-container">
+            <div class="row justify-content-center w-100">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card register-card">
+                        <div class="register-header">
+                            <h3 class="mb-0">Join AgriBazaar</h3>
+                            <p class="mb-0 mt-2">Create your account and start your agricultural journey</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <!-- Registration Form -->
+                            <form th:action="@{/register}" method="post" th:object="${user}">
+                                <!-- Role Selection -->
+                                <div class="mb-4">
+                                    <label class="form-label fw-bold">Choose Your Role</label>
+                                    <div class="role-selector">
+                                        <div class="role-option" onclick="selectRole('FARMER')">
+                                            <input type="radio" th:field="*{role}" value="FARMER" id="farmer">
+                                            <div class="role-icon">
+                                                <i class="bi bi-person-badge"></i>
+                                            </div>
+                                            <div class="fw-bold">Farmer</div>
+                                            <small class="text-muted">Sell your produce</small>
+                                        </div>
+                                        <div class="role-option" onclick="selectRole('SUPPLIER')">
+                                            <input type="radio" th:field="*{role}" value="SUPPLIER" id="supplier">
+                                            <div class="role-icon">
+                                                <i class="bi bi-building"></i>
+                                            </div>
+                                            <div class="fw-bold">Supplier</div>
+                                            <small class="text-muted">Supply agri inputs</small>
+                                        </div>
+                                        <div class="role-option" onclick="selectRole('BUYER')">
+                                            <input type="radio" th:field="*{role}" value="BUYER" id="buyer">
+                                            <div class="role-icon">
+                                                <i class="bi bi-cart"></i>
+                                            </div>
+                                            <div class="fw-bold">Buyer</div>
+                                            <small class="text-muted">Purchase products</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Personal Information -->
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">
+                                        <i class="bi bi-person me-1"></i>Full Name
+                                    </label>
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="name" 
+                                           th:field="*{name}"
+                                           placeholder="Enter your full name"
+                                           required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="bi bi-envelope me-1"></i>Email Address
+                                    </label>
+                                    <input type="email" 
+                                           class="form-control" 
+                                           id="email" 
+                                           th:field="*{email}"
+                                           placeholder="Enter your email address"
+                                           required>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="password" class="form-label">
+                                            <i class="bi bi-lock me-1"></i>Password
+                                        </label>
+                                        <input type="password" 
+                                               class="form-control" 
+                                               id="password" 
+                                               th:field="*{password}"
+                                               placeholder="Create a password"
+                                               required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="confirmPassword" class="form-label">
+                                            <i class="bi bi-lock-fill me-1"></i>Confirm Password
+                                        </label>
+                                        <input type="password" 
+                                               class="form-control" 
+                                               id="confirmPassword" 
+                                               name="confirmPassword"
+                                               placeholder="Confirm your password"
+                                               required>
+                                    </div>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-person-plus me-2"></i>Create Account
+                                </button>
+                            </form>
+                            
+                            <div class="text-center mt-4">
+                                <p class="mb-0">Already have an account?</p>
+                                <a th:href="@{/login}" class="text-success text-decoration-none fw-bold">
+                                    Sign in here
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <th:block th:fragment="scripts">
+        <script>
+            function selectRole(role) {
+                document.querySelectorAll('.role-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+                
+                event.currentTarget.classList.add('active');
+                document.getElementById(role.toLowerCase()).checked = true;
+            }
+        </script>
+    </th:block>
+</body>
+</html>
