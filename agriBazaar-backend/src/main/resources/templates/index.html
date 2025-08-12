@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{layout/base :: html}">
+<head>
+    <title>AgriBazaar - Empowering Agriculture</title>
+</head>
+<body>
+    <main th:fragment="content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container text-center">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h1 class="display-4 mb-4">AgriBazaar</h1>
+                        <p class="lead mb-4">Empowering Farmers with Technology & Knowledge</p>
+                        <a th:href="@{/products}" class="btn btn-light btn-lg me-3">Explore Products</a>
+                        <a th:href="@{/register}" class="btn btn-outline-light btn-lg">Join Community</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5">Featured Products</h2>
+                <div class="row g-4">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://kj1bcdn.b-cdn.net/media/37502/images-2020-08-14t173837140.jpeg" 
+                                 class="card-img-top" alt="Seeds" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Seeds</h5>
+                                <p class="card-text">High-quality seeds for better yield</p>
+                                <a th:href="@{/products?category=seeds}" class="btn btn-primary">View Seeds</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://www.skynursery.com/wp-content/uploads/2020/08/gs_fertilizer_700w_5L9A9075.jpg" 
+                                 class="card-img-top" alt="Fertilizers" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Fertilizers</h5>
+                                <p class="card-text">Organic and chemical fertilizers</p>
+                                <a th:href="@{/products?category=fertilizers}" class="btn btn-primary">View Fertilizers</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://tse2.mm.bing.net/th/id/OIP.qmQNuRJga1UNWxhjwdakUQHaFr?rs=1&pid=ImgDetMain&o=7&rm=3" 
+                                 class="card-img-top" alt="Pesticides" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Pesticides</h5>
+                                <p class="card-text">Safe and effective pest control</p>
+                                <a th:href="@{/products?category=pesticides}" class="btn btn-primary">View Pesticides</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <div class="card h-100">
+                            <img src="https://dmcwearparts.com/wp-content/uploads/2022/01/ag-equipment-types-harvester-tractor.jpg" 
+                                 class="card-img-top" alt="Farm Equipment" style="height: 200px; object-fit: cover;">
+                            <div class="card-body">
+                                <h5 class="card-title">Farm Equipment</h5>
+                                <p class="card-text">Modern farming tools and machinery</p>
+                                <a th:href="@{/products?category=equipment}" class="btn btn-primary">View Equipment</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">How It Works</h2>
+                <div class="row g-4 text-center">
+                    <div class="col-md-4">
+                        <div class="p-4 border rounded h-100 shadow-sm">
+                            <i class="bi bi-person-plus display-5 text-success mb-3"></i>
+                            <h5>Create an Account</h5>
+                            <p>Sign up and choose your role as Farmer, Supplier, or Buyer.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 border rounded h-100 shadow-sm">
+                            <i class="bi bi-box-seam display-5 text-success mb-3"></i>
+                            <h5>Browse or List Products</h5>
+                            <p>List your offerings or browse through available agri products.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-4 border rounded h-100 shadow-sm">
+                            <i class="bi bi-truck display-5 text-success mb-3"></i>
+                            <h5>Secure Delivery</h5>
+                            <p>Transact safely and receive timely deliveries across India.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Roles Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5">Who Are You?</h2>
+                <div class="row text-center g-4">
+                    <div class="col-md-4">
+                        <div class="card p-4 h-100">
+                            <i class="bi bi-person-badge fs-1 text-success"></i>
+                            <h5 class="mt-3">Farmer</h5>
+                            <p>Access quality inputs & farming support.</p>
+                            <a th:href="@{/register?role=farmer}" class="btn btn-outline-success">Join as Farmer</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-4 h-100">
+                            <i class="bi bi-building fs-1 text-success"></i>
+                            <h5 class="mt-3">Supplier</h5>
+                            <p>List seeds, fertilizers, and tools for sale.</p>
+                            <a th:href="@{/register?role=supplier}" class="btn btn-outline-success">Join as Supplier</a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card p-4 h-100">
+                            <i class="bi bi-cart fs-1 text-success"></i>
+                            <h5 class="mt-3">Buyer</h5>
+                            <p>Purchase fresh produce directly from farms.</p>
+                            <a th:href="@{/register?role=buyer}" class="btn btn-outline-success">Join as Buyer</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Forum Section -->
+        <section class="py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Community Forum</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">How to grow organic tomatoes?</h5>
+                                <p class="card-text">I'm trying to switch to organic farming. Any tips for growing tomatoes without synthetic fertilizers?</p>
+                                <a th:href="@{/community}" class="btn btn-primary">Join Discussion</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <h5 class="card-title text-success">Best practices for monsoon crops?</h5>
+                                <p class="card-text">What are some good crops and techniques for the rainy season to maximize yield?</p>
+                                <a th:href="@{/community}" class="btn btn-primary">Join Discussion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5">What Our Users Say</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <blockquote class="blockquote border p-3 rounded bg-white">
+                            <p>"This platform helped me double my crop yield with better seeds."</p>
+                            <footer class="blockquote-footer">Ramesh, <cite title="Source Title">Farmer</cite></footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4">
+                        <blockquote class="blockquote border p-3 rounded bg-white">
+                            <p>"AgriBazaar expanded my market reach to more states."</p>
+                            <footer class="blockquote-footer">Sonal, <cite title="Source Title">Supplier</cite></footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-4">
+                        <blockquote class="blockquote border p-3 rounded bg-white">
+                            <p>"Buying produce is now quicker and more transparent."</p>
+                            <footer class="blockquote-footer">Prakash, <cite title="Source Title">Buyer</cite></footer>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

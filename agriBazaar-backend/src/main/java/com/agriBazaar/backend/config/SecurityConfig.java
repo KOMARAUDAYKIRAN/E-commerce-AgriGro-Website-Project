@@ -6,11 +6,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -24,27 +19,48 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/**").permitAll()  
-                .anyRequest().authenticated()           
+            .authorizeHttpRequests(authz -> authz
+                // Public pages - accessible to everyone
+                .requestMatchers("/", "/login", "/register", "/products", "/products/**", 
+                               "/community", "/news", "/market-prices", "/zero-waste").permitAll()
+                
+                // Static resources
+                .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                
+                // API endpoints for public access
+                .requestMatchers("/api/products/**").permitAll()
+                
+                // Admin endpoints
+                .requestMatchers("/admin/**", "/api/admin/**").hasRole("ADMIN")
+                
+                // User-specific endpoints
+                .requestMatchers("/profile", "/orders", "/cart", "/api/cart/**", "/api/orders/**").authenticated()
+                
+                // All other requests require authentication
+                .anyRequest().authenticated()
             )
-            .httpBasic(httpBasic -> httpBasic.disable())
-            .formLogin(form -> form.disable());
+            .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/", true)
+                .failureUrl("/login?error=true")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .permitAll()
+            )
+            .csrf(csrf -> csrf
+                // Disable CSRF for API endpoints
+                .ignoringRequestMatchers("/api/**")
+            )
+            .headers(headers -> headers
+                .frameOptions().sameOrigin() // Allow frames from same origin
+            );
 
         return http.build();
-    }
-
-    private CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(List.of("*"));  
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("*"));
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);  
-        return source;
     }
 }

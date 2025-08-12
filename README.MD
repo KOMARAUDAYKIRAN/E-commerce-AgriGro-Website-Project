@@ -49,11 +49,12 @@ Built with **Java**, **Spring Boot**, and **MySQL/PostgreSQL**, the platform ens
 
 | Layer    | Technologies                                      |
 | -------- | ------------------------------------------------- |
-| Frontend | HTML, CSS, JavaScript, JSP                        |
-| Backend  | Java, Spring Framework (Spring MVC / Spring Boot) |
+| Frontend | HTML5, CSS3, JavaScript, **Thymeleaf** ✨         |
+| Backend  | Java 21, Spring Boot 3.5, Spring Security        |
 | Database | MySQL / PostgreSQL                                |
-| Server   | Apache Tomcat                                     |
+| Server   | Embedded Tomcat (Spring Boot JAR) 🚀              |
 | ORM      | Hibernate / JPA                                   |
+| Admin    | React 18, Bootstrap 5                             |
 
 ---
 
