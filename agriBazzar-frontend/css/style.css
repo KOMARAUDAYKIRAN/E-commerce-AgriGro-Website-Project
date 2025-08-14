@@ -59,3 +59,45 @@ footer {
   text-align: center;
   padding: 1em;
 }
+
+/* Scroll to Top Button Styles */
+#scrollToTopBtn {
+    display: none; /* Hidden by default */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header {
+    padding: 1.5em 0.5em;
+  }
+
+  main {
+    padding: 1em;
+  }
+
+  .hero h2 {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.5em 1em;
+    font-size: 0.9rem;
+  }
+} 
