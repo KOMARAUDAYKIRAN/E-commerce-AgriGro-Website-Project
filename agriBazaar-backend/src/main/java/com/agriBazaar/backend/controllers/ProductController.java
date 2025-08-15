@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController// Adjust the origin as needed
 @RequestMapping("/api/products")
 public class ProductController {
 

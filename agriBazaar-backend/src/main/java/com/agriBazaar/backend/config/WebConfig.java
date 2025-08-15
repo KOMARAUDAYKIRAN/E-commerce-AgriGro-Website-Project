@@ -7,10 +7,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    public void addCorsMapping(@org.jetbrains.annotations.NotNull CorsRegistry corsRegistry){
-        corsRegistry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("*")
-                .allowedHeaders("*");
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**") // Applies to all endpoints under /api
+                .allowedOrigins("null", "http://127.0.0.1:5500") // Allows local files and Live Server
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }
