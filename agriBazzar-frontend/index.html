@@ -209,18 +209,20 @@
   </header>
 
   <nav>
-    <ul>
-      <li><a href="zero-waste.html">Zero Waste Corner</a></li>
-      <li><a href="#community">Community Forum</a></li>
-      <li><a href="#news">Agri News</a></li>
-      <li><a href="market-prices.html">Market Prices</a></li>
-    </ul>
+  <button class="menu-toggle" aria-expanded="false" aria-controls="navLinks">☰</button>
+  <ul id="navLinks">
+    <li><a href="zero-waste.html">Zero Waste Corner</a></li>
+    <li><a href="#community">Community Forum</a></li>
+    <li><a href="#news">Agri News</a></li>
+    <li><a href="market-prices.html">Market Prices</a></li>
+  </ul>
 
-    <label class="theme-switch">
-      <input type="checkbox" id="darkModeToggle"/>
-      <span class="slider round"></span>
-    </label>
-  </nav>
+  <label class="theme-switch">
+    <input type="checkbox" id="darkModeToggle"/>
+    <span class="slider round"></span>
+  </label>
+</nav>
+
 
   <main>
     
@@ -280,6 +282,20 @@ toggle.addEventListener('change',()=>{
 });
 
 </script>
+  <!-- Other HTML content -->
+
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+  </script>
+</body>
+</html>
+
 </body>
 </html>
 

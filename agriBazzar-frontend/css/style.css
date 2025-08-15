@@ -59,3 +59,72 @@ footer {
   text-align: center;
   padding: 1em;
 }
+/* ===== Navbar Styles ===== */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #4caf50;
+  padding: 0.5em 1em;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5em;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.menu-toggle {
+  font-size: 1.8rem;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none; /* hidden on desktop */
+}
+
+
+@media (max-width: 600px) {
+  #navLinks {
+    display: none;
+    flex-direction: column;
+    gap: 1em;
+    background-color: white;
+    padding: 1em;
+    position: absolute;
+    top: 60px;  /* make sure it drops below nav */
+    left: 0;
+    width: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  #navLinks.open {
+    display: flex;
+  }
+
+  .menu-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #333;
+    display: block;
+  }
+
+  body.dark-mode #navLinks {
+    background-color: #1e1e1e;
+  }
+}
