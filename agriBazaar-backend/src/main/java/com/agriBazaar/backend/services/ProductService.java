@@ -33,7 +33,7 @@ public class ProductService {
                     product.setDescription(updatedProduct.getDescription());
                     product.setPrice(updatedProduct.getPrice());
                     product.setStock(updatedProduct.getStock());
-                    product.setImageURL(updatedProduct.getImageURL());
+                    product.setImageUrl(updatedProduct.getImageUrl());
                     return productRepository.save(product);
                 })
                 .orElseThrow(() -> new RuntimeException("Product not found with ID: " + id));
