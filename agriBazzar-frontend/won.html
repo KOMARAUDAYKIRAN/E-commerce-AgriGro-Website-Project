@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Won Auctions - AgriBazaar</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f6f9;
+          margin: 0;
+          padding: 0;
+        }
+        header {
+          background: #2c7a7b;
+          color: white;
+          padding: 15px;
+          text-align: center;
+        }
+        header a {
+          color: white;
+          text-decoration: none;
+          margin-left: 20px;
+          font-size: 14px;
+          background: #1f5a5b;
+          padding: 5px 10px;
+          border-radius: 5px;
+        }
+        header a:hover {
+          background: #145050;
+        }
+        .container {
+          max-width: 900px;
+          margin: 20px auto;
+          padding: 20px;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 { color: #2c7a7b; }
+        .auction-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 20px;
+        }
+        .auction-card {
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          overflow: hidden;
+          background: #fafafa;
+          box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .auction-card img {
+          width: 100%;
+          height: 180px;
+          object-fit: cover;
+        }
+        .details {
+          padding: 10px;
+        }
+        .details h3 { margin: 5px 0; color: #333; }
+        .details p { margin: 3px 0; color: #555; }
+        button {
+          margin-top: 10px;
+          padding: 8px 15px;
+          background: #2c7a7b;
+          color: white;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+        button:hover { background: #245d5f; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>My Won Auctions</h1>
+    <a href="auction.html">Back to Auctions</a>
+</header>
+
+<div class="container">
+    <h2>Auctions You Won</h2>
+    <div id="wonList" class="auction-list"></div>
+</div>
+
+<script>
+    const backendUrl = "http://localhost:8083/api/auctions";
+    const loggedUserId = Number(localStorage.getItem("userId"));
+
+    if (!loggedUserId) {
+      alert("Please log in first!");
+      window.location.href = "login.html";
+    }
+
+    async function loadWonAuctions() {
+      try {
+        const res = await fetch(`${backendUrl}/auctions/won/${loggedUserId}`);
+        if (!res.ok) throw new Error("Failed to fetch won auctions");
+        const auctions = await res.json();
+        renderWonAuctions(auctions);
+      } catch (err) {
+        console.error(err);
+        alert("Error: " + err.message);
+      }
+    }
+
+    function renderWonAuctions(auctions) {
+      const wonList = document.getElementById("wonList");
+      wonList.innerHTML = "";
+
+      if (auctions.length === 0) {
+        wonList.innerHTML = "<p>You haven’t won any auctions yet.</p>";
+        return;
+      }
+
+      auctions.forEach(a => {
+        const card = document.createElement("div");
+        card.className = "auction-card";
+        card.innerHTML = `
+          <img src="${a.imageUrl}" alt="${a.title}">
+          <div class="details">
+            <h3>${a.title}</h3>
+            <p><b>Winning Bid:</b> ₹${a.highestBid}</p>
+            <p><b>Ended At:</b> ${a.endTime ? new Date(a.endTime).toLocaleString() : "N/A"}</p>
+            <button onclick="proceedPayment(${a.id})">Proceed to Payment</button>
+          </div>
+        `;
+        wonList.appendChild(card);
+      });
+    }
+
+    function proceedPayment(auctionId) {
+      alert("Payment feature coming soon! Auction ID: " + auctionId);
+      // Later: call POST /auctions/{auctionId}/pay
+    }
+
+    loadWonAuctions();
+</script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgriBazaar Auctions</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f4f6f9;
+          margin: 0;
+          padding: 0;
+        }
+        header {
+          background: #2c7a7b;
+          color: white;
+          padding: 15px;
+          text-align: center;
+          position: relative;
+        }
+        .container {
+          max-width: 900px;
+          margin: 20px auto;
+          padding: 20px;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 { color: #2c7a7b; }
+        form { margin-bottom: 30px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 5px; }
+        button { margin-top: 10px; padding: 8px 15px; background: #2c7a7b; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #245d5f; }
+        .auction-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .auction-card { position: relative; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; background: #fafafa; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s; }
+        .auction-card:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        .auction-card img { width: 100%; height: 180px; object-fit: cover; }
+        .auction-card .details { padding: 10px; }
+        .auction-card h3 { margin: 5px 0; color: #333; }
+        .auction-card p { margin: 3px 0; color: #555; }
+        .auction-card input { width: calc(100% - 20px); }
+        .auction-card.your-auction { border: 2px solid #2c7a7b; box-shadow: 0 0 10px rgba(44, 122, 123, 0.6); }
+        .auction-card.your-bid { border: 2px solid #f39c12; box-shadow: 0 0 10px rgba(243, 156, 18, 0.6); }
+        .sort-container { margin-bottom: 20px; }
+
+        /* Blinking button CSS */
+        .blinking-btn {
+            padding: 8px 15px;
+            background: #f39c12;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            animation: blink 1s infinite;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>AgriBazaar - Auction System</h1>
+    <div id="wonAuctionBtnContainer"></div>
+</header>
+
+<div class="container">
+    <h2>Create New Auction</h2>
+    <form id="auctionForm" enctype="multipart/form-data">
+        <label>Title:</label>
+        <input type="text" name="title" required>
+
+        <label>Starting Price:</label>
+        <input type="number" step="0.01" name="startingPrice" required>
+
+        <label>Upload Image:</label>
+        <input type="file" name="imageFile" accept="image/*" required>
+
+        <button type="submit">Submit Auction</button>
+    </form>
+
+    <div class="sort-container">
+        <label>Sort Auctions:</label>
+        <select id="sortSelect">
+            <option value="newest">Newest First</option>
+            <option value="oldest">Oldest First</option>
+        </select>
+    </div>
+
+    <h2>Active Auctions</h2>
+    <div id="auctionList" class="auction-list"></div>
+</div>
+
+<script>
+    const backendUrl = "http://localhost:8083/api/auctions";
+    const loggedUserId = Number(localStorage.getItem("userId"));
+
+    if (!loggedUserId) {
+      alert("Please log in first!");
+      window.location.href = "login.html";
+    }
+
+    let allAuctions = [];
+
+    async function loadAuctions() {
+      try {
+        const res = await fetch(`${backendUrl}/getAll`);
+        allAuctions = await res.json();
+        renderAuctions();
+      } catch (err) {
+        console.error("Failed to load auctions:", err);
+      }
+    }
+
+    function renderAuctions() {
+      const sortBy = document.getElementById("sortSelect").value;
+      let auctions = [...allAuctions];
+
+      // Filter out expired auctions
+      auctions = auctions.filter(a => !a.endTime || new Date(a.endTime) > new Date());
+
+      // Separate categories for sorting priority
+      const userTopBids = [];
+      const userAuctions = [];
+      const otherAuctions = [];
+
+      auctions.forEach(a => {
+        if (a.highestBidderId === loggedUserId) {
+          userTopBids.push(a);
+        } else if (a.ownerId === loggedUserId) {
+          userAuctions.push(a);
+        } else {
+          otherAuctions.push(a);
+        }
+      });
+
+      const sortFn = (a, b) => {
+        const timeA = new Date(a.createdAt || a.id).getTime();
+        const timeB = new Date(b.createdAt || b.id).getTime();
+        return sortBy === "newest" ? timeB - timeA : timeA - timeB;
+      };
+
+      userTopBids.sort(sortFn);
+      userAuctions.sort(sortFn);
+      otherAuctions.sort(sortFn);
+
+      auctions = [...userTopBids, ...userAuctions, ...otherAuctions];
+
+      const auctionList = document.getElementById("auctionList");
+      auctionList.innerHTML = "";
+
+      auctions.forEach(a => {
+        const card = document.createElement("div");
+        card.className = "auction-card";
+
+        const highestBid = a.highestBid != null ? a.highestBid : a.startingPrice;
+        const highestBidder = a.highestBidder ? a.highestBidder : "No bids yet";
+
+        if (a.ownerId === loggedUserId) card.classList.add("your-auction");
+        if (a.highestBidderId === loggedUserId) card.classList.add("your-bid");
+
+        card.innerHTML = `
+          ${a.ownerId === loggedUserId ? '<div style="position:absolute;top:5px;right:10px;background:#2c7a7b;color:white;padding:2px 6px;border-radius:4px;">Your Auction</div>' : ''}
+          ${a.highestBidderId === loggedUserId ? '<div style="position:absolute;top:5px;left:10px;background:#f39c12;color:white;padding:2px 6px;border-radius:4px;">Your Bid</div>' : ''}
+          <img src="${a.imageUrl}" alt="${a.title}">
+          <div class="details">
+            <h3>${a.title}</h3>
+            <p><b>Starting Price:</b> ₹${a.startingPrice}</p>
+            <p><b>Highest Bid:</b> ₹<span class="highest-bid">${highestBid}</span></p>
+            <p><b>Highest Bidder:</b> ${highestBidder}</p>
+            <p><b>End Time:</b> ${a.endTime ? new Date(a.endTime).toLocaleString() : 'Not set'}</p>
+            <input type="number" placeholder="Your bid" min="${highestBid + 1}" step="0.01" class="bid-input">
+            <button class="bid-btn">Place Bid</button>
+          </div>
+        `;
+
+        // Bid button functionality
+        const bidBtn = card.querySelector(".bid-btn");
+        const bidInput = card.querySelector(".bid-input");
+        const bidDisplay = card.querySelector(".highest-bid");
+
+        bidBtn.addEventListener("click", async () => {
+          const bidValue = parseFloat(bidInput.value);
+          if (isNaN(bidValue) || bidValue <= highestBid) {
+            alert("Bid must be higher than current highest bid!");
+            return;
+          }
+
+          try {
+            const response = await fetch(`${backendUrl}/bid/${a.id}`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ bidAmount: bidValue, userId: loggedUserId })
+            });
+
+            if (!response.ok) throw new Error("Failed to place bid");
+
+            bidDisplay.textContent = bidValue;
+            bidInput.min = bidValue + 1;
+            loadAuctions();
+          } catch (err) {
+            alert("Error: " + err.message);
+          }
+        });
+
+        auctionList.appendChild(card);
+      });
+    }
+
+    // Auction form submission
+    document.getElementById("auctionForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const form = e.target;
+      const formData = new FormData(form);
+      formData.append("userId", loggedUserId);
+
+      try {
+        const res = await fetch(`${backendUrl}/upload`, { method: "POST", body: formData });
+        if (!res.ok) throw new Error("Failed: " + res.status);
+        await res.json();
+        form.reset();
+        loadAuctions();
+      } catch (err) {
+        alert("Error: " + err.message);
+      }
+    });
+
+    document.getElementById("sortSelect").addEventListener("change", renderAuctions);
+
+    loadAuctions();
+    setInterval(loadAuctions, 10000);
+
+    // Check for won auctions and add blinking button
+    async function checkWonAuctions() {
+        try {
+            const res = await fetch(`${backendUrl}/auctions/won/${loggedUserId}`);
+            const wonAuctions = await res.json();
+            if (wonAuctions.length > 0) {
+                const container = document.getElementById("wonAuctionBtnContainer");
+                const btn = document.createElement("button");
+                btn.className = "blinking-btn";
+                btn.innerText = "You Won Auctions!";
+                btn.addEventListener("click", () => {
+                    window.location.href = "won.html";
+                });
+                container.appendChild(btn);
+            }
+        } catch (err) {
+            console.error("Failed to check won auctions:", err);
+        }
+    }
+
+    checkWonAuctions();
+</script>
+</body>
+</html>
