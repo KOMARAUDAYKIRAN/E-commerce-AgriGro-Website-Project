@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>AgriConnect</title>
+  <title>AgriConnect</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-   
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
@@ -28,13 +27,18 @@
       background-color: white;
       padding: 1em;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      justify-content: center;
-      gap: 2em;
+      flex-wrap: wrap;
+      gap: 1.5em;
       margin: 0;
       padding: 0;
     }
@@ -124,7 +128,8 @@
       margin-top: 2em;
     }
 
-    .theme-switch{
+    /* Dark mode */
+    .theme-switch {
       display: inline-block;
       position: relative;
       width: 50px;
@@ -132,13 +137,13 @@
       margin-left: 1rem;
     }
 
-    .theme-switch input{
+    .theme-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
 
-    .slider{
+    .slider {
       position: absolute;
       cursor: pointer;
       top: 0;
@@ -150,7 +155,7 @@
       transition: 0.4s;
     }
 
-    .slider:before{
+    .slider:before {
       position: absolute;
       content: "";
       height: 18px;
@@ -166,29 +171,49 @@
       background-color: #2196f3;
     }
 
-    input:checked + .slider:before{
+    input:checked + .slider:before {
       transform: translateX(26px);
     }
 
-    body.dark-mode{
+    body.dark-mode {
       background-color: #1e1e1e;
       color: #ffffff;
     }
 
-    body.dark-mode nav{
+    body.dark-mode nav {
       background-color: #1e1e1e;
     }
 
-    body.dark-mode a{
+    body.dark-mode a {
       color: #90caf9;
     }
 
-    
     @media (max-width: 600px) {
       nav ul {
         flex-direction: column;
         gap: 1em;
       }
+    }
+
+    /* Scroll to top button */
+    #scrollToTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      z-index: 99;
+      font-size: 18px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+    }
+
+    #scrollToTopBtn:hover {
+      background-color: #388e3c;
     }
   </style>
 </head>
@@ -197,19 +222,15 @@
   <header>
     <h1>Welcome to AgriBazaar</h1>
     <p>Empowering Farmers with Technology & Knowledge</p>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="product-catalog.html">Products</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-
   </header>
 
+  <!-- Single merged navigation -->
   <nav>
     <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="product-catalog.html">Products</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
       <li><a href="zero-waste.html">Zero Waste Corner</a></li>
       <li><a href="#community">Community Forum</a></li>
       <li><a href="#news">Agri News</a></li>
@@ -223,36 +244,34 @@
   </nav>
 
   <main>
-    
     <section id="community">
       <h2>Community Forum</h2>
       <div class="card-container">
         <div class="card">
           <h3>How to grow organic tomatoes?</h3>
           <p>I'm trying to switch to organic farming. Any tips for growing tomatoes without synthetic fertilizers?</p>
-          <a href="community.html" class="btn">Join Discussion</a>
+          <a href="community.html" class="btn" aria-label="Join discussion on organic tomatoes">Join Discussion</a>
         </div>
         <div class="card">
           <h3>Best practices for monsoon crops?</h3>
           <p>What are some good crops and techniques for the rainy season to maximize yield?</p>
-          <a href="community.html" class="btn">Join Discussion</a>
+          <a href="community.html" class="btn" aria-label="Join discussion on monsoon crops">Join Discussion</a>
         </div>
       </div>
     </section>
 
-    
     <section id="news">
       <h2>Agri News</h2>
       <div class="card-container">
         <div class="card">
           <h3>Govt Launches New Agri Policy</h3>
           <p>The government has announced a new policy focused on sustainable agriculture and enhanced farmer support.</p>
-          <a href="news.html" class="btn">Read More</a>
+          <a href="news.html" class="btn" aria-label="Read more about new agri policy">Read More</a>
         </div>
         <div class="card">
           <h3>Innovative Irrigation Techniques Boost Yields</h3>
           <p>Modern drip and sprinkler systems are setting new benchmarks in water usage efficiency in farming.</p>
-          <a href="news.html" class="btn">Read More</a>
+          <a href="news.html" class="btn" aria-label="Read more about irrigation techniques">Read More</a>
         </div>
       </div>
     </section>
@@ -262,27 +281,36 @@
     &copy; 2025 AgriConnect. All rights reserved.
   </footer>
 
-<script>
-  const toggle = document.getElementById('darkModeToggle');
+  <!-- Scroll to Top Button -->
+  <button id="scrollToTopBtn" title="Go to top">↑</button>
 
-  if(localStorage.getItem('theme')==='dark'){
-    document.body.classList.add('dark-mode');
-    toggle.checked=true;
-  }
-toggle.addEventListener('change',()=>{
-  if(toggle.checked){
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('theme','dark');
-  }else{
-    document.body.classList.remove('dark-mode');
-    localStorage.setItem('theme','light');
-  }
-});
+  <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkModeToggle');
+    if(localStorage.getItem('theme')==='dark'){
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+    }
 
-</script>
-<!-- Scroll to Top Button -->
-<button id="scrollToTopBtn" title="Go to top">↑</button>
-<script src="script.js"></script>
+    toggle.addEventListener('change', () => {
+      if(toggle.checked){
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme','dark');
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme','light');
+      }
+    });
+
+    // Scroll-to-top functionality
+    const scrollBtn = document.getElementById('scrollToTopBtn');
+    window.onscroll = () => {
+      scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+    };
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
 </body>
 </html>
 
