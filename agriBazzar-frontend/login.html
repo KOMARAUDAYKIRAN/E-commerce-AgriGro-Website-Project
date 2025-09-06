@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Agribazaar Login</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+          background: #f3f4f6;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          margin: 0;
+        }
+        .login-container {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+          width: 350px;
+        }
+        .login-container h2 {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+        label {
+          display: block;
+          margin-bottom: 0.5rem;
+          font-weight: bold;
+          color: #333;
+        }
+        input {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 1rem;
+          border: 1px solid #ccc;
+          border-radius: 8px;
+        }
+        button {
+          width: 100%;
+          padding: 10px;
+          background: #16a34a;
+          color: white;
+          border: none;
+          border-radius: 8px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+        button:hover {
+          background: #15803d;
+        }
+        .message {
+          text-align: center;
+          margin-top: 1rem;
+          font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+
+        <button type="submit">Login</button>
+    </form>
+    <p id="message" class="message"></p>
+</div>
+
+<script>
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const messageEl = document.getElementById("message");
+
+        if (!username || !password || !email) {
+            messageEl.innerText = "All fields are required!";
+            messageEl.style.color = "red";
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:8083/api/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password, email })
+            });
+
+            const text = await response.text();
+            let data;
+            try { data = JSON.parse(text); } catch { data = null; }
+
+            if (!response.ok) {
+                let errorMessage = data?.message ||  data?.error || text || "Login failed";
+
+                // Friendly error messages
+                if (errorMessage.includes("This username is already taken. Please choose a different one.")) {
+                    errorMessage = "This username is already taken. Please choose a different one.";
+                } else if (errorMessage.includes("Invalid credentials")) {
+                    errorMessage = "Incorrect username, password, or email. Please try again.";
+                }
+
+                throw new Error(errorMessage);
+            }
+
+
+            if (data?.token && data?.userId) {
+                localStorage.setItem("authToken", data.token);
+                localStorage.setItem("userId", data.userId);
+                localStorage.setItem("username", username);
+
+            }
+
+            messageEl.innerText = "Login successful!";
+            messageEl.style.color = "green";
+
+            // Redirect to landing page after 1 second
+            setTimeout(() => {
+                window.location.href = "landing.html";
+            }, 1000);
+
+        } catch (err) {
+            messageEl.innerText = err.message;
+            messageEl.style.color = "red";
+            console.error("Login error:", err);
+        }
+    });
+</script>
+</body>
+</html>

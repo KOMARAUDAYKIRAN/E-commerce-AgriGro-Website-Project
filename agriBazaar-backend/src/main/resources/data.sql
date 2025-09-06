@@ -9,7 +9,7 @@ CREATE TABLE pre_orders (
 
 
 -- Insert Users
-INSERT INTO users (name, email, password, role) VALUES
+INSERT INTO users (username, email, password, role) VALUES
 ('Farmer John', 'farmer.john@example.com', 'password123', 'FARMER'),
 ('Farmer Raju', 'raju@example.com', 'password123', 'FARMER'),
 ('Alice', 'alice@example.com', 'password123', 'BUYER'),
