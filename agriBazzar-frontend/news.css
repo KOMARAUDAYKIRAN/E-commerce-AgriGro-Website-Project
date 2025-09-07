@@ -21,35 +21,6 @@ h2 {
   margin-bottom: 1em;
 }
 
-.back-button {
-  text-decoration: none;
-  color: white;
-  display: flex;
-  align-items: center;
-  /* Align icon and text vertically */
-  gap: 6px;
-  /* Space between icon and text */
-  font-size: 18px;
-}
-
-.back-icon {
-  width: 24px;
-  /* Control icon size */
-  height: 24px;
-  margin-left: 0.5rem;
-}
-
-.back-link {
-  text-align: center;
-  margin: 1em auto;
-}
-
-.back-link a {
-  color: #4CAF50;
-  font-weight: 600;
-  text-decoration: underline;
-}
-
 main {
   padding: 2em;
   max-width: 1200px;
@@ -69,13 +40,6 @@ main {
   grid-template-columns: repeat(1, 1fr);
   gap: 1.5em;
 }
-
-/* .news-container {
-  padding: 2rem;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-} */
 
 .news-card {
   background: white;
@@ -109,10 +73,10 @@ main {
 }
 
 .news-card:hover {
-        transform: translateY(-5px);
-      }
+  transform: translateY(-5px);
+}
 
-/*  Dark Mode Style */
+/* Dark Mode */
 body.dark-mode {
   background-color: #121212;
   color: #e0e0e0;
@@ -131,4 +95,65 @@ body.dark-mode .news-card {
 
 body.dark-mode .news-card a {
   color: #81c784;
+}
+
+/* Search Bar */
+/* ===== Search Bar Styling ===== */
+.search-box {
+  position: relative;
+  width: 60%;
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 40px;
+  padding: 14px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: 0.3s ease;
+}
+
+.search-box:hover {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.search-icon {
+  font-size: 24px;
+  margin-right: 12px;
+  color: #2e7d32;
+}
+
+.search-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 30px;
+  background: transparent;
+}
+
+/* Suggestions dropdown */
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.suggestions div {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+
+.suggestions div:hover {
+  background: #e8f5e9;
 }
