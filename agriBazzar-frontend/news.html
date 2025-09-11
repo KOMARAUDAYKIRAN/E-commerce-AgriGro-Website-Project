@@ -1,49 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agri News</title>
   <link rel="stylesheet" href="news.css">
 </head>
-
 <body>
   <header>
-    <!-- Back Navigation Arrow -->
-      <a
-        href="javascript:void(0);"
-        class="back-button"
-        onclick="window.history.back()"
-      >
-        <img src="./js/assets/left-arrow.png" alt="Back" class="back-icon" />
-      </a>
-      <h1>AgriBazaar</h1>
-      <h3>Agri News – Your Daily Dose of Agricultural Updates.</h3>
+    <h1>AgriBazaar</h1>
+    <h3>Agri News – Your Daily Dose of Agricultural Updates.</h3>
   </header>
 
-  <main class="news-container">
-    <h2>Agri News</h2>
-    <div class="news-card">
-      <h3>Govt Announces New Subsidy for Small Farmers</h3>
-      <p>The government today announced a new subsidy policy...</p>
-      <a href="#">Read More</a>
-    </div>
+  <!-- Search Bar -->
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="Search agricultural news...">
+    <div class="suggestions" id="suggestions"></div>
+  </div>
 
-    <div class="news-card">
-      <h3>Rainfall Expected in Eastern States This Week</h3>
-      <p>IMD has forecast good rainfall for the eastern region...</p>
-      <a href="#">Read More</a>
+  <main>
+    <h2>Agri News</h2>
+    <div class="news-container" id="newsContainer">
+      <div class="news-card">
+        <h3>Govt Announces New Subsidy for Small Farmers</h3>
+        <p>The government today announced a new subsidy policy...</p>
+        <a href="#">Read More</a>
+      </div>
+
+      <div class="news-card">
+        <h3>Rainfall Expected in Eastern States This Week</h3>
+        <p>IMD has forecast good rainfall for the eastern region...</p>
+        <a href="#">Read More</a>
+      </div>
     </div>
   </main>
 
   <footer class="footer">&copy; 2025 AgriBazaar. All rights reserved.</footer>
 
+  <!-- JavaScript inside HTML -->
+  <script>
+    const searchInput = document.getElementById('searchInput');
+    const suggestionsBox = document.getElementById('suggestions');
+    const newsCards = document.querySelectorAll('.news-card');
 
-  <script src="darkMode.js"></script>
-  <!-- Scroll to Top Button -->
-<button id="scrollToTopBtn" title="Go to top">↑</button>
-<script src="script.js"></script>
+    // Headlines array from news
+    const headlines = Array.from(newsCards).map(card => card.querySelector('h3').innerText);
+
+    searchInput.addEventListener('input', function () {
+      const query = this.value.toLowerCase();
+      suggestionsBox.innerHTML = '';
+      if (query) {
+        const filtered = headlines.filter(item => item.toLowerCase().includes(query));
+        if (filtered.length > 0) {
+          suggestionsBox.style.display = 'block';
+          filtered.forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = item;
+            div.addEventListener('click', () => {
+              searchInput.value = item;
+              suggestionsBox.style.display = 'none';
+              filterNews(item);
+            });
+            suggestionsBox.appendChild(div);
+          });
+        } else {
+          suggestionsBox.style.display = 'none';
+        }
+      } else {
+        suggestionsBox.style.display = 'none';
+        showAllNews();
+      }
+      filterNews(query);
+    });
+
+    function filterNews(query) {
+      newsCards.forEach(card => {
+        const title = card.querySelector('h3').innerText.toLowerCase();
+        card.style.display = title.includes(query.toLowerCase()) ? 'block' : 'none';
+      });
+    }
+
+    function showAllNews() {
+      newsCards.forEach(card => card.style.display = 'block');
+    }
+  </script>
 </body>
-
 </html>
