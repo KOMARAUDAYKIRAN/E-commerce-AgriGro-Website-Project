@@ -3,3 +3,4 @@ Logs/application.log
 /shelf/
 /workspace.xml
 /.idea/
+node_modules/
