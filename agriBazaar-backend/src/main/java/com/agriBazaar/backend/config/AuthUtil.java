@@ -1,6 +1,7 @@
 package com.agriBazaar.backend.config;
 
 import com.agriBazaar.backend.entities.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,5 +28,15 @@ public class AuthUtil {
                 .issuedAt(new Date())
                 .signWith(getSecretKey())
                 .compact();
+    }
+
+    public String getUsernameFromToken(String header){
+        Claims claims=Jwts.parser()
+                .verifyWith(getSecretKey())
+                .build()
+                .parseSignedClaims(header)
+                .getPayload();
+
+        return claims.getSubject();
     }
 }
