@@ -13,18 +13,31 @@ public class EmailServices {
     private JavaMailSender mailSender;
 
     public void sendConfirmationEmail(PreOrder order){
-        String subject="Pre-order Confirmation "+order.getCropName();
+        if(order.getBuyerEmail()==null || order.getProduct()==null) return;
 
-        String message="Hello,\n\n"+
-                "Thank you for pre-ordering *"+order.getCropName()+"*.\n"+
-                "Expected harvest date:"+order.getExpectedHarvestDate()+"\n\n"+
-                "We will notify you again closer to harvest time.\n\n"+
-                "Regards, \nAgriSmart Team";
+        String sub="Preorder confirmation-"+order.getProduct().getName();
+
+        String message= "Hello,\n\n" +
+                "Thank you for pre-ordering: " + order.getProduct().getName() + "\n" +
+                "Expected Price: ₹" + order.getProduct().getExpectedPrice() + "\n" +
+                "Expected Harvest Date: " + order.getProduct().getExpectedHarvestDate() + "\n\n" +
+                "We will notify you again closer to harvest time.\n\n" +
+                "Regards,\nAgriBazaar Team";
 
         SimpleMailMessage email=new SimpleMailMessage();
-        email.setTo(order.getEmail());
-        email.setSubject(subject);
+        email.setTo(order.getBuyerEmail());
+        email.setSubject(sub);
         email.setText(message);
         mailSender.send(email);
+    }
+
+    public void sendReminder(String to,String productName,String harvestDate){
+        SimpleMailMessage message=new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject("Harvest Reminder -"+productName);
+        message.setText("Dear User,\n\nYour preordered product \"" + productName +
+                "\" will be harvested on " + harvestDate +
+                ". Please be prepared to proceed with payment tomorrow.\n\nAgriBazaar Team");
+        mailSender.send(message);
     }
 }

@@ -50,6 +50,9 @@
         <li class="nav-item"><a class="nav-link" href="#community">Community</a></li>
         <li class="nav-item"><a class="nav-link" href="#news">Agri News</a></li>
         <li class="nav-item"><a class="nav-link" href="market-prices.html">Market Prices</a></li>
+        <li class="nav-item d-none" id="preorderLi">
+          <a class="btn btn-navbar btn-primary ms-lg-3" href="Preorder.html" id="preorderBtn">Preorder</a>
+        </li>
         <!-- Login / Logout & Add Auction Buttons -->
         <li class="nav-item" id="authButtonLi">
           <a class="btn btn-navbar btn-success ms-lg-3" href="#" id="authButton">Login / Register</a>
@@ -190,17 +193,20 @@
     const userId = localStorage.getItem("userId");
     const authButton = document.getElementById("authButton");
     const addAuctionLi = document.getElementById("addAuctionLi");
+    const preorderLi = document.getElementById("preorderLi");
 
     if (userId) {
       authButton.textContent = "Logout";
       authButton.classList.remove("btn-success");
       authButton.classList.add("btn-danger");
       addAuctionLi.classList.remove("d-none");
+      preorderLi.classList.remove("d-none"); // show preorder button
     } else {
       authButton.textContent = "Login / Register";
       authButton.classList.remove("btn-danger");
       authButton.classList.add("btn-success");
       addAuctionLi.classList.add("d-none");
+      preorderLi.classList.add("d-none"); // hide preorder button
     }
   }
 

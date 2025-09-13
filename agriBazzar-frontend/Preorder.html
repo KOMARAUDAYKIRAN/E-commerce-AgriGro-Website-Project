@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AgriBazaar - Preorders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #2e7d32;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            font-size: 22px;
+        }
+        .container {
+            width: 90%;
+            margin: 2rem auto;
+        }
+        form {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+        form h2 {
+            margin-top: 0;
+            color: #2e7d32;
+            text-align: center;
+        }
+        form input, form textarea, form button {
+            width: 100%;
+            padding: 12px;
+            margin: 0.5rem 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        form textarea {
+            resize: none;
+            height: 80px;
+        }
+        form button {
+            background: #2e7d32;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        form button:hover {
+            background: #1b5e20;
+        }
+        .image-preview {
+            max-width: 150px;
+            margin: 10px auto;
+            border-radius: 6px;
+            display: block;
+        }
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .product-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 12px;
+            width: 220px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .product-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .product-info {
+            margin-top: 8px;
+            text-align: center;
+        }
+        .product-info h3 {
+            margin: 5px 0;
+            color: #2e7d32;
+        }
+        .product-info p {
+            margin: 3px 0;
+            color: #555;
+            font-size: 14px;
+        }
+        .preorder-btn {
+            margin-top: 10px;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #0288d1;
+            color: white;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .preorder-btn:hover { background: #01579b; }
+        .preorder-btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        .badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 2px 6px;
+            font-size: 12px;
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<header>🌾 AgriBazaar Preorder System</header>
+
+<div class="container">
+    <form id="uploadForm" enctype="multipart/form-data">
+        <h2>Upload Product</h2>
+        <input type="text" id="name" placeholder="Product Name" required>
+        <input type="number" id="expectedPrice" placeholder="Expected Price" required>
+        <input type="date" id="expectedHarvestDate" required>
+        <textarea id="description" placeholder="Description" required></textarea>
+        <input type="file" id="image" accept="image/*" required>
+        <img id="imagePreview" class="image-preview" src="" alt="Preview" style="display:none;">
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Available Products</h2>
+    <div id="productList" class="product-list"></div>
+
+    <h2>Your Preorders</h2>
+    <div id="preorderList" class="product-list"></div>
+</div>
+
+<script>
+    const API_BASE = "http://localhost:8083/api";
+    const token = localStorage.getItem("token");
+    const loggedUserId = localStorage.getItem("userId");
+
+    const imageInput = document.getElementById("image");
+    const imagePreview = document.getElementById("imagePreview");
+
+    imageInput.addEventListener("change", () => {
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = "block";
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    });
+
+    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append("name", document.getElementById("name").value);
+        formData.append("expectedPrice", document.getElementById("expectedPrice").value);
+        formData.append("expectedHarvestDate", document.getElementById("expectedHarvestDate").value);
+        formData.append("description", document.getElementById("description").value);
+        formData.append("image", document.getElementById("image").files[0]);
+        formData.append("userId", loggedUserId);
+
+        const res = await fetch(`${API_BASE}/products/preOrderUpload`, {
+            method: "POST",
+            headers: { "Authorization": `Bearer ${token}` },
+            body: formData
+        });
+
+        if (res.ok) {
+            alert("Product uploaded successfully!");
+            loadProducts();
+            document.getElementById("uploadForm").reset();
+            imagePreview.style.display = "none";
+        } else {
+            alert("Failed to upload product.");
+        }
+    });
+
+    async function loadProducts() {
+    const res = await fetch(`${API_BASE}/products`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    const products = await res.json();
+
+    const preorderRes = await fetch(`${API_BASE}/preorders`, {
+        headers: { "Authorization": `Bearer ${token}` }
+    });
+    const allPreorders = await preorderRes.json();
+    const myPreorders = allPreorders
+        .filter(po => po.buyer?.id == loggedUserId)
+        .map(po => String(po.product?.id));
+
+    const list = document.getElementById("productList");
+    list.innerHTML = "";
+
+    const myUploads = products.filter(p => p.farmer && String(p.farmer.id) === String(loggedUserId));
+    const others = products
+        .filter(p => (!p.farmer || String(p.farmer.id) !== String(loggedUserId)) // not my uploads
+                    && !myPreorders.includes(String(p.id)) // exclude products I already preordered
+                    && !isToday(p.expectedHarvestDate)); // exclude products with harvest today
+
+    const sorted = [...myUploads, ...others]; // my uploads first, then others
+
+    sorted.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "product-card";
+
+        const preorderCount = p.preorderCount || 0;
+
+        let badgeHTML = "";
+        let buttonHTML = "";
+
+        if (p.farmer && String(p.farmer.id) === String(loggedUserId)) {
+            badgeHTML = `<span class="badge">🌟 Your Upload</span>`;
+            buttonHTML = `<button class="preorder-btn" disabled>Cannot Preorder</button>`;
+        } else if (preorderCount >= 5) {
+            buttonHTML = `<button class="preorder-btn" disabled>Max Preorders Reached</button>`;
+        } else {
+            buttonHTML = `<button class="preorder-btn" onclick="preorderProduct(${p.id})">Preorder</button>`;
+        }
+
+        card.innerHTML = `
+            <img src="${p.imageUrl || 'default.png'}" alt="${p.name}" onerror="this.src='default.png'">
+            <div class="product-info">
+                <h3>${p.name}</h3>
+                <p>💰 Price: ₹${p.expectedPrice}</p>
+                <p>📅 Harvest: ${p.expectedHarvestDate}</p>
+                <p>📝 ${p.description}</p>
+                ${badgeHTML}
+            </div>
+            ${buttonHTML}
+        `;
+        list.appendChild(card);
+    });
+}
+
+
+    async function preorderProduct(productId) {
+        const preorder = { product: { id: productId }, buyer: { id: loggedUserId } };
+        const res = await fetch(`${API_BASE}/preorders/submitPreorder`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+            body: JSON.stringify(preorder)
+        });
+
+        if (res.ok) {
+            alert("Preorder placed successfully!");
+            loadProducts();
+            loadPreorders();
+        } else {
+            const errorMsg = await res.text();
+            alert(errorMsg);
+        }
+    }
+
+    async function cancelPreorder(productId) {
+        const res = await fetch(`${API_BASE}/preorders/cancel/${productId}/${loggedUserId}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+            alert("Preorder cancelled!");
+            loadProducts();
+            loadPreorders();
+        } else {
+            const errorMsg = await res.text();
+            alert(errorMsg);
+        }
+    }
+
+    async function loadPreorders() {
+        const res = await fetch(`${API_BASE}/preorders`, { headers: { "Authorization": `Bearer ${token}` } });
+        const preorders = await res.json();
+        const list = document.getElementById("preorderList");
+        list.innerHTML = "";
+
+        preorders
+            .filter(po => po.buyer?.id == loggedUserId)
+            .forEach(po => {
+                const card = document.createElement("div");
+                card.className = "product-card";
+
+                let buttonHTML = "";
+                if (isToday(po.product?.expectedHarvestDate)) {
+                    buttonHTML = `<button class="preorder-btn" onclick="proceedToPay(${po.product?.id})">Proceed to Pay</button>`;
+                } else {
+                    buttonHTML = `<button class="preorder-btn" onclick="cancelPreorder(${po.product?.id})">Cancel Preorder</button>`;
+                }
+
+                card.innerHTML = `
+                    <img src="${po.product?.imageUrl || 'default.png'}" alt="${po.product?.name}" onerror="this.src='default.png'">
+                    <div class="product-info">
+                        <h3>${po.product?.name}</h3>
+                        <p>💰 Price: ₹${po.product?.expectedPrice}</p>
+                        <p>📅 Harvest: ${po.product?.expectedHarvestDate}</p>
+                        <p>📝 ${po.product?.description}</p>
+                        <span class="badge">✅ Preordered</span>
+                        ${buttonHTML}
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+    }
+
+    function isToday(dateStr) {
+        const today = new Date().toISOString().split("T")[0];
+        return dateStr === today;
+    }
+
+    function proceedToPay(productId) {
+        alert("Redirecting to payment for product ID: " + productId);
+        // TODO: Integrate payment backend later
+    }
+
+    loadProducts();
+    loadPreorders();
+
+</script>
+
+</body>
+</html>
