@@ -1,4 +1,5 @@
-const userId = 1;
+// User ID is now retrieved dynamically from localStorage
+// const userId = 1;
 
 async function fetchCartByUserId(userId) {
     const response = await fetch(`http://localhost:8083/api/cart/${userId}`);
@@ -7,6 +8,15 @@ async function fetchCartByUserId(userId) {
 }
 
 async function loadCart() {
+    // Get user ID from localStorage
+    const userId = localStorage.getItem("userId");
+    
+    // If no user ID is found, we can't load the cart
+    if (!userId) {
+        console.error("User not logged in. Cannot load cart.");
+        return;
+    }
+    
     const cartItemsElement = document.getElementById("cart-items");
     if (!cartItemsElement) return;
 
@@ -50,6 +60,15 @@ async function loadCart() {
 }
 
 async function changeQuantity(itemId, delta) {
+    // Get user ID from localStorage
+    const userId = localStorage.getItem("userId");
+    
+    // If no user ID is found, we can't update the cart
+    if (!userId) {
+        console.error("User not logged in. Cannot update cart.");
+        return;
+    }
+    
     const cart = await fetchCartByUserId(userId);
     const cartItems = cart.items || [];
     const alreadyInCart = cartItems.find(item => item.id === itemId);
@@ -80,6 +99,15 @@ async function changeQuantity(itemId, delta) {
 }
 
 async function addToCart(productId) {
+    // Get user ID from localStorage
+    const userId = localStorage.getItem("userId");
+    
+    // If no user ID is found, we can't add to cart
+    if (!userId) {
+        console.error("User not logged in. Cannot add to cart.");
+        return;
+    }
+    
     const cart = await fetchCartByUserId(userId);
     const cartItems = cart.items || [];
     const alreadyInCart = cartItems.find(item => item.product.id === productId);
@@ -125,6 +153,15 @@ async function removeFromCart(itemId) {
 }
 
 async function updateCartBadge() {
+    // Get user ID from localStorage
+    const userId = localStorage.getItem("userId");
+    
+    // If no user ID is found, we can't update the cart badge
+    if (!userId) {
+        console.error("User not logged in. Cannot update cart badge.");
+        return;
+    }
+    
     const badge = document.querySelector(".cart-badge");
     const cart = await fetchCartByUserId(userId);
     const cartItems = cart.items || [];
@@ -136,6 +173,15 @@ async function updateCartBadge() {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    // Check if user is logged in before loading cart
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+        console.error("User not logged in. Please log in to view your cart.");
+        // Optionally, redirect to login page
+        // window.location.href = "login.html";
+        return;
+    }
+    
     loadCart();
     updateCartBadge();
 
