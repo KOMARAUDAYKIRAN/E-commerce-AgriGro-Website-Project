@@ -149,7 +149,7 @@
 </div>
 
 <script>
-    const API_BASE = "http://localhost:8083/api";
+    const API_BASE = "http://localhost:8083/api"; // Replace with your API base URL
     const token = localStorage.getItem("token");
     const loggedUserId = localStorage.getItem("userId");
 
@@ -193,49 +193,80 @@
         }
     });
 
-    async function loadProducts() {
+   async function loadProducts() {
+    console.log("Loading products...");
     const res = await fetch(`${API_BASE}/products`, {
         headers: { "Authorization": `Bearer ${token}` }
     });
     const products = await res.json();
 
+    // Fetch preorders for the logged-in user
     const preorderRes = await fetch(`${API_BASE}/preorders`, {
         headers: { "Authorization": `Bearer ${token}` }
     });
-    const allPreorders = await preorderRes.json();
-    const myPreorders = allPreorders
+    const preorders = await preorderRes.json();
+
+    // Get the IDs of products that the logged-in user has preordered
+    const preorderedProductIds = preorders
         .filter(po => po.buyer?.id == loggedUserId)
         .map(po => String(po.product?.id));
 
     const list = document.getElementById("productList");
     list.innerHTML = "";
 
-    const myUploads = products.filter(p => p.farmer && String(p.farmer.id) === String(loggedUserId));
-    const others = products
-        .filter(p => (!p.farmer || String(p.farmer.id) !== String(loggedUserId)) // not my uploads
-                    && !myPreorders.includes(String(p.id)) // exclude products I already preordered
-                    && !isToday(p.expectedHarvestDate)); // exclude products with harvest today
+    console.log("Products before filtering:", products);  // Log all products before filtering
 
-    const sorted = [...myUploads, ...others]; // my uploads first, then others
+    // Filter out expired products and preordered products
+    const availableProducts = products
+        .filter(p => !isExpired(p.expectedHarvestDate))  // Exclude expired products
+        .filter(p => !preorderedProductIds.includes(String(p.id)));  // Exclude preordered products
 
-    sorted.forEach(p => {
+
+    // Sort products such that the logged-in user's products appear first
+    const sortedProducts = availableProducts.sort((a, b) => {
+        // First, check if either product is uploaded by the logged-in user
+        if (String(a.farmer?.id) === String(loggedUserId)) {
+            return -1;  // a is the logged-in user's product, so place it first
+        }
+        if (String(b.farmer?.id) === String(loggedUserId)) {
+            return 1;   // b is the logged-in user's product, so place it first
+        }
+        return 0;  // No preference, retain original order for other products
+    });
+
+    // Loop through the sorted products
+    for (const p of sortedProducts) {
         const card = document.createElement("div");
         card.className = "product-card";
 
-        const preorderCount = p.preorderCount || 0;
+        const preorderCount = p.preorderCount || 0;  // Get the preorder count
 
         let badgeHTML = "";
         let buttonHTML = "";
+        let preorderCountHTML = "";
 
+        // If the logged-in user is the product owner, show the preorder count
         if (p.farmer && String(p.farmer.id) === String(loggedUserId)) {
             badgeHTML = `<span class="badge">🌟 Your Upload</span>`;
-            buttonHTML = `<button class="preorder-btn" disabled>Cannot Preorder</button>`;
+
+            // Fetch the count of people who have preordered this product
+            const preorderCountRes = await fetch(`${API_BASE}/preorders/countPeople/${p.id}`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+
+            const preorderCountData = await preorderCountRes.json();
+            preorderCountHTML = `<p>👥 Preorders: ${preorderCountData}</p>`;  // Display the preorder count
+
+            // Buttons for the product owner
+            buttonHTML = `<button class="preorder-btn" onclick="deletePreorder(${p.id})">Delete Preorder</button>
+                          <button class="preorder-btn" onclick="showHarvestDateModal(${p.id})">Change Harvest Date</button>`;
         } else if (preorderCount >= 5) {
             buttonHTML = `<button class="preorder-btn" disabled>Max Preorders Reached</button>`;
         } else {
             buttonHTML = `<button class="preorder-btn" onclick="preorderProduct(${p.id})">Preorder</button>`;
         }
 
+        // Construct the card's inner HTML
         card.innerHTML = `
             <img src="${p.imageUrl || 'default.png'}" alt="${p.name}" onerror="this.src='default.png'">
             <div class="product-info">
@@ -244,11 +275,27 @@
                 <p>📅 Harvest: ${p.expectedHarvestDate}</p>
                 <p>📝 ${p.description}</p>
                 ${badgeHTML}
+                ${preorderCountHTML}  <!-- Display preorder count for the owner -->
             </div>
             ${buttonHTML}
         `;
         list.appendChild(card);
-    });
+    }
+}
+
+
+function isExpired(dateStr) {
+    const today = new Date();
+    const expectedDate = new Date(dateStr);
+
+    // Format dates as yyyy-mm-dd
+    const todayFormatted = today.toISOString().split("T")[0];
+    const expectedDateFormatted = expectedDate.toISOString().split("T")[0];
+
+    console.log(`Checking expiration: Today: ${todayFormatted}, Expected: ${expectedDateFormatted}`); // Log for debugging
+
+    // Compare formatted dates
+    return expectedDateFormatted < todayFormatted;
 }
 
 
@@ -277,13 +324,96 @@
         });
 
         if (res.ok) {
-            alert("Preorder cancelled!");
+            alert("Preorder canceled successfully!");
             loadProducts();
             loadPreorders();
         } else {
             const errorMsg = await res.text();
             alert(errorMsg);
         }
+    }
+
+    async function deletePreorder(productId) {
+        const res = await fetch(`${API_BASE}/preorders/deleteByUploader/${productId}/${loggedUserId}`, {
+            method: "DELETE",
+            headers: { "Authorization": `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+            alert("Preorder deleted successfully!");
+            loadProducts();
+            loadPreorders();
+        } else {
+            const errorMsg = await res.text();
+            alert(errorMsg);
+        }
+    }
+
+    async function showHarvestDateModal(productId) {
+        const newDateInput = document.createElement("input");
+        newDateInput.type = "date";
+        newDateInput.value = ""; // Optional: set the current harvest date if desired
+
+        // Create and show the modal
+        const modal = document.createElement("div");
+        modal.style.position = "fixed";
+        modal.style.top = "0";
+        modal.style.left = "0";
+        modal.style.width = "100%";
+        modal.style.height = "100%";
+        modal.style.backgroundColor = "rgba(0,0,0,0.5)";
+        modal.style.display = "flex";
+        modal.style.justifyContent = "center";
+        modal.style.alignItems = "center";
+        modal.style.zIndex = "1000";
+
+        const modalContent = document.createElement("div");
+        modalContent.style.backgroundColor = "white";
+        modalContent.style.padding = "20px";
+        modalContent.style.borderRadius = "8px";
+        modalContent.style.textAlign = "center";
+
+        const modalHeader = document.createElement("h3");
+        modalHeader.textContent = "Select New Harvest Date";
+
+        const saveButton = document.createElement("button");
+        saveButton.textContent = "Save";
+        saveButton.style.marginTop = "10px";
+        saveButton.style.padding = "10px 20px";
+        saveButton.style.cursor = "pointer";
+
+        saveButton.addEventListener("click", async () => {
+            const newDate = newDateInput.value;
+
+            if (newDate) {
+                const res = await fetch(`${API_BASE}/preorders/updateHarvestDate/${productId}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ harvestDate: newDate })
+                });
+
+                if (res.ok) {
+                    alert("Harvest date updated successfully!");
+                    loadProducts();
+                    document.body.removeChild(modal);
+                } else {
+                    const errorMsg = await res.text();
+                    alert(errorMsg);
+                }
+            } else {
+                alert("Please select a valid date.");
+            }
+        });
+
+        modalContent.appendChild(modalHeader);
+        modalContent.appendChild(newDateInput);
+        modalContent.appendChild(saveButton);
+
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
     }
 
     async function loadPreorders() {
@@ -299,7 +429,7 @@
                 card.className = "product-card";
 
                 let buttonHTML = "";
-                if (isToday(po.product?.expectedHarvestDate)) {
+                if (isExpired(po.product?.expectedHarvestDate)) {
                     buttonHTML = `<button class="preorder-btn" onclick="proceedToPay(${po.product?.id})">Proceed to Pay</button>`;
                 } else {
                     buttonHTML = `<button class="preorder-btn" onclick="cancelPreorder(${po.product?.id})">Cancel Preorder</button>`;
@@ -320,18 +450,17 @@
             });
     }
 
-    function isToday(dateStr) {
-        const today = new Date().toISOString().split("T")[0];
-        return dateStr === today;
-    }
-
     function proceedToPay(productId) {
         alert("Redirecting to payment for product ID: " + productId);
         // TODO: Integrate payment backend later
     }
 
+
+    console.log("Loading product and preorder");
     loadProducts();
     loadPreorders();
+    console.log("Done..");
+
 
 </script>
 

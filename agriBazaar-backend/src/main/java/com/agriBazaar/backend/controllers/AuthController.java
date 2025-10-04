@@ -21,11 +21,11 @@ public class AuthController {
 
     @PostMapping("/api/login")
     public ResponseEntity<?> signup(@RequestBody LoginRequestDto loginRequestDto){
-       try{
-           return ResponseEntity.ok(authService.signup(loginRequestDto));
-       }catch (Exception exception){
-           return ResponseEntity.status(HttpStatus.CONFLICT)
-                   .body(Map.of("error","This username is already taken. Please choose a different one."));
-       }
+        try{
+            return ResponseEntity.ok(authService.signup(loginRequestDto));
+        }catch (Exception exception){
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body(Map.of("error","This username is already taken. Please choose a different one."));
+        }
     }
 }
