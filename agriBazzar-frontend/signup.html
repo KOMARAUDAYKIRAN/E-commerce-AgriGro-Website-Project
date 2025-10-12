@@ -1,19 +1,153 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Sign Up</title>
-  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agribazaar Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f3f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .signup-container {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 350px;
+    }
+    .signup-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #15803d;
+    }
+    .message {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
+<div class="signup-container">
   <h2>Sign Up</h2>
-  <form id="signup-form">
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
+  <form id="signupForm">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required />
+
+    <label for="confirm-password">Confirm Password</label>
+    <input type="password" id="confirm-password" name="confirm-password" required />
+
     <button type="submit">Sign Up</button>
   </form>
-  <p id="message"></p>
+  <p id="message" class="message"></p>
+</div>
 
-  <!-- <script src="js/firebase.js"></script> -->
-  <!-- <script src="js/signup.js"></script> -->
+<script>
+  document.getElementById("signupForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirm-password").value.trim();
+      const messageEl = document.getElementById("message");
+
+      // Ensure passwords match
+      if (password !== confirmPassword) {
+          messageEl.innerText = "Passwords do not match!";
+          messageEl.style.color = "red";
+          return;
+      }
+
+      if (!email || !username || !password) {
+          messageEl.innerText = "All fields are required!";
+          messageEl.style.color = "red";
+          return;
+      }
+
+      try {
+          const response = await fetch("http://localhost:8083/api/signup", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ email, username, password })
+          });
+
+          const text = await response.text();
+          let data;
+          try { data = JSON.parse(text); } catch { data = null; }
+
+          if (!response.ok) {
+              let errorMessage = data?.message || data?.error || text || "Sign-up failed";
+
+              // Customize error messages
+              if (errorMessage.includes("This username is already taken")) {
+                  errorMessage = "This username is already taken. Please choose a different one.";
+              } else if (errorMessage.includes("Invalid credentials")) {
+                  errorMessage = "Please ensure all fields are correct.";
+              }
+
+              throw new Error(errorMessage);
+          }
+
+          // Store user info in localStorage after successful signup
+          if (data?.token && data?.userId) {
+              localStorage.setItem("authToken", data.token);
+              localStorage.setItem("userId", data.userId);
+              localStorage.setItem("username", username);
+              localStorage.setItem("userEmail", email);
+          }
+
+          messageEl.innerText = "Sign-up successful!";
+          messageEl.style.color = "green";
+
+          // Redirect to login page after 1 second
+          setTimeout(() => {
+              window.location.href = "login.html";
+          }, 1000);
+
+      } catch (err) {
+          messageEl.innerText = err.message;
+          messageEl.style.color = "red";
+          console.error("Sign-up error:", err);
+      }
+  });
+</script>
 </body>
 </html>

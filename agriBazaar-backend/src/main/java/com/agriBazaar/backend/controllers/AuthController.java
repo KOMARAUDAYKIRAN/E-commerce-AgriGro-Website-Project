@@ -2,6 +2,8 @@ package com.agriBazaar.backend.controllers;
 
 import com.agriBazaar.backend.dto.LoginRequestDto;
 import com.agriBazaar.backend.dto.LoginResponseDto;
+import com.agriBazaar.backend.dto.SignupRequestDto;
+import com.agriBazaar.backend.dto.SignupResponseDto;
 import com.agriBazaar.backend.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,12 +21,22 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/api/login")
-    public ResponseEntity<?> signup(@RequestBody LoginRequestDto loginRequestDto){
+    public ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto){
         try{
-            return ResponseEntity.ok(authService.signup(loginRequestDto));
-        }catch (Exception exception){
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(Map.of("error","This username is already taken. Please choose a different one."));
+            LoginResponseDto responseDto=authService.login(loginRequestDto);
+            return new ResponseEntity<>(responseDto,HttpStatus.OK);
+        }catch (IllegalArgumentException exception){
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("/api/signup")
+    public ResponseEntity<SignupResponseDto> signup(@RequestBody SignupRequestDto signupRequestDto){
+        try{
+            SignupResponseDto responseDto=authService.signup(signupRequestDto);
+            return new ResponseEntity<>(responseDto,HttpStatus.CREATED);
+        }catch (IllegalArgumentException exception){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
 }

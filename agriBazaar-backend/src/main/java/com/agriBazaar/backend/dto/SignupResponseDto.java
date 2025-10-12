@@ -5,10 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponseDto {
+@AllArgsConstructor
+public class SignupResponseDto {
     private Long userId;
     private String username;
-    private String jwt;
 }
