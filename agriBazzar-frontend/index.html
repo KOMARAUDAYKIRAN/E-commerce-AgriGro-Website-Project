@@ -195,9 +195,8 @@
       }
     }
 
-    /* Scroll to top button */
+      /* Scroll to top button */
     #scrollToTopBtn {
-      display: none;
       position: fixed;
       bottom: 30px;
       right: 30px;
@@ -210,6 +209,14 @@
       width: 40px;
       height: 40px;
       cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+    }
+
+    #scrollToTopBtn.show {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     #scrollToTopBtn:hover {
@@ -302,14 +309,19 @@
       }
     });
 
-    // Scroll-to-top functionality
+   // Scroll-to-top functionality
     const scrollBtn = document.getElementById('scrollToTopBtn');
     window.onscroll = () => {
-      scrollBtn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+      if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100){
+        scrollBtn.classList.add('show');
+      } else {
+        scrollBtn.classList.remove('show');
+      }
     };
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
   </script>
 </body>
 </html>
