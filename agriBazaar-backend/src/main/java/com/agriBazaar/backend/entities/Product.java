@@ -30,7 +30,7 @@ public class Product {
 
     private LocalDateTime uploadTime=LocalDateTime.now();
 
-    @Column(name = "image_url") 
+    @Column(name = "image_url")
     private String imageUrl;
 
     @ManyToOne

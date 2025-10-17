@@ -5,10 +5,12 @@ import com.agriBazaar.backend.entities.PreOrder;
 import com.agriBazaar.backend.repositories.PreOrderRepository;
 import com.agriBazaar.backend.services.PreOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/preorders")
@@ -59,5 +61,34 @@ public class PreOrderController {
         }catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+
+    @DeleteMapping("/deleteByUploader/{productId}/{userId}")
+    public ResponseEntity<String> deletePreorderByUploader(@PathVariable Long productId,@PathVariable Long userId){
+        boolean success= service.deletePreorderByUploader(productId,userId);
+
+        if(success){
+            return ResponseEntity.ok("Preorder deleted successfully");
+        }
+        else{
+            return ResponseEntity.status(404).body("Preorder not found or your are not the uploader of this product");
+        }
+    }
+
+    @PatchMapping("/updateHarvestDate/{productId}")
+    public ResponseEntity<String> updateHarvestDate(@PathVariable Long productId, @RequestBody Map<String,String> request){
+        String newHarvestDate=request.get("harvestDate");
+
+        if(service.updateHarvestDate(productId,newHarvestDate)){
+            return ResponseEntity.ok("Harvest date updated successfully");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to update harvest date");
+        }
+    }
+
+    @GetMapping("/countPeople/{productId}")
+    public Long countPeople(@PathVariable Long productId){
+        return service.countPeople(productId);
     }
 }

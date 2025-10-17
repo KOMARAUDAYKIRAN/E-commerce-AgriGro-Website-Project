@@ -17,4 +17,6 @@ public interface PreOrderRepository extends JpaRepository<PreOrder,Long> {
 
 
     List<PreOrder> findByProduct_ExpectedHarvestDate(LocalDate tomorrow);
+
+    List<PreOrder> findByProductId(Long productId);
 }

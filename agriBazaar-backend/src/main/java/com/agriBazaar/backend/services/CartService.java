@@ -34,7 +34,7 @@ public class CartService {
         cartItemRepository.save(cartItem);
         return cartRepository.save(cart);
     }
- 
+
     public Cart getCartByUserId(Long userId) {
         return cartRepository.findByUserId(userId)
                 .orElseGet(() -> {
@@ -43,7 +43,7 @@ public class CartService {
 
                     Cart newCart = new Cart();
                     newCart.setUser(user);
-                    return cartRepository.save(newCart);  
+                    return cartRepository.save(newCart);
                 });
     }
 

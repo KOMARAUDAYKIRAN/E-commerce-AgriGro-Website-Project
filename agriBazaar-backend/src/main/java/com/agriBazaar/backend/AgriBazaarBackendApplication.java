@@ -12,5 +12,4 @@ public class AgriBazaarBackendApplication {
 
 		SpringApplication.run(AgriBazaarBackendApplication.class, args);
 	}
-
 }

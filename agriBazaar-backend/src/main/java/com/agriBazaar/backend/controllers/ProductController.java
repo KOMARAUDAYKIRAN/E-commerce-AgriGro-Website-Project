@@ -70,7 +70,7 @@ public class ProductController {
             @RequestParam String description,
             @RequestParam("image")MultipartFile image,
             @RequestParam("userId")Long userId
-            ) throws Exception{
+    ) throws Exception{
         String filename=System.currentTimeMillis()+"_"+image.getOriginalFilename();
         Path uploadPath= Paths.get("uploads");
         if(!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
