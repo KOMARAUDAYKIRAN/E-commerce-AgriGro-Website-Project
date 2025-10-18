@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agri News</title>
   <link rel="stylesheet" href="news.css">
+  <!-- Dark Mode CSS -->
+  <link rel="stylesheet" href="css/dark-mode.css">
 </head>
 <body>
   <header>
@@ -84,6 +86,25 @@
     function showAllNews() {
       newsCards.forEach(card => card.style.display = 'block');
     }
+  </script>
+  
+  <!-- Enhanced Dark Mode Script -->
+  <script src="js/enhanced-dark-mode.js"></script>
+  
+  <script>
+    // Dark mode integration for news page
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.watchThemeChanges) {
+            watchThemeChanges((event, themeInfo) => {
+                // Apply dark mode to news cards and sections
+                const newsCards = document.querySelectorAll('.news-card, .card');
+                const searchBar = document.querySelector('.search-bar');
+                
+                newsCards.forEach(card => applyDarkModeToElement(card));
+                if (searchBar) applyDarkModeToElement(searchBar);
+            });
+        }
+    });
   </script>
 </body>
 </html>
