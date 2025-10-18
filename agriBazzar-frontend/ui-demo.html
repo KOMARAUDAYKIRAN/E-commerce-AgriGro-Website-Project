@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Enhancement Demo - AgriBazaar</title>
+    
+    <!-- Enhanced UI Components -->
+    <link rel="stylesheet" href="css/ui-components.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-header h1 {
+            color: #4CAF50;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .demo-header p {
+            color: #718096;
+            font-size: 1.2rem;
+        }
+
+        .demo-section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-section h2 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .demo-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .demo-card h3 {
+            color: #4a5568;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .spinner-showcase {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+
+        .spinner-item {
+            text-align: center;
+        }
+
+        .spinner-item h4 {
+            margin-top: 1rem;
+            color: #4a5568;
+        }
+
+        .form-demo {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .navigation-section {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1000;
+        }
+
+        .nav-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+
+            .navigation-section {
+                position: static;
+                margin-bottom: 2rem;
+            }
+
+            .spinner-showcase {
+                flex-direction: column;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced UI Components Script -->
+    <script src="js/ui-enhancements.js"></script>
+
+    <div class="container">
+        <div class="demo-header">
+            <h1>🎨 UI Enhancement Demo</h1>
+            <p>Showcasing the new loading spinners, toast notifications, form validation, and enhanced buttons</p>
+        </div>
+
+        <div class="navigation-section">
+            <button class="btn-enhanced btn-secondary nav-button" onclick="window.location.href='index.html'">
+                🏠 Back to Home
+            </button>
+            <button class="btn-enhanced btn-primary nav-button" onclick="window.location.href='404.html'">
+                👀 View 404 Page
+            </button>
+        </div>
+
+        <!-- Toast Notifications Demo -->
+        <div class="demo-section">
+            <h2>📢 Toast Notifications</h2>
+            <p>Interactive notification system with multiple types and auto-dismiss functionality.</p>
+            
+            <div class="button-grid">
+                <button class="btn-enhanced btn-primary" onclick="showSuccessToast()">
+                    ✅ Success Toast
+                </button>
+                <button class="btn-enhanced btn-primary" onclick="showErrorToast()">
+                    ❌ Error Toast
+                </button>
+                <button class="btn-enhanced btn-primary" onclick="showWarningToast()">
+                    ⚠️ Warning Toast
+                </button>
+                <button class="btn-enhanced btn-primary" onclick="showInfoToast()">
+                    ℹ️ Info Toast
+                </button>
+                <button class="btn-enhanced btn-secondary" onclick="Toast.clear()">
+                    🧹 Clear All Toasts
+                </button>
+            </div>
+        </div>
+
+        <!-- Loading Spinners Demo -->
+        <div class="demo-section">
+            <h2>⏳ Loading Spinners</h2>
+            <p>Various loading indicators for different use cases.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Page Loading</h3>
+                    <button class="btn-enhanced btn-primary" onclick="demoPageLoading()">
+                        Show Full Page Loading
+                    </button>
+                </div>
+
+                <div class="demo-card">
+                    <h3>Button Loading</h3>
+                    <button class="btn-enhanced btn-primary" onclick="demoButtonLoading(this)">
+                        Click to Load
+                    </button>
+                </div>
+
+                <div class="demo-card">
+                    <h3>Inline Spinners</h3>
+                    <button class="btn-enhanced btn-secondary" onclick="demoInlineSpinner()">
+                        Add Inline Spinner
+                    </button>
+                    <div id="inline-demo" style="margin-top: 1rem; min-height: 50px;"></div>
+                </div>
+            </div>
+
+            <div class="spinner-showcase">
+                <div class="spinner-item">
+                    <div class="spinner"></div>
+                    <h4>Primary Spinner</h4>
+                </div>
+                <div class="spinner-item">
+                    <div class="spinner-pulse"></div>
+                    <h4>Pulse Spinner</h4>
+                </div>
+                <div class="spinner-item">
+                    <div class="spinner-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <h4>Dots Spinner</h4>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Validation Demo -->
+        <div class="demo-section">
+            <h2>✅ Enhanced Form Validation</h2>
+            <p>Real-time validation with visual feedback and password strength meter.</p>
+
+            <div class="form-demo">
+                <form id="demoForm" data-enhance="true">
+                    <div class="form-group">
+                        <label for="demo-email" class="form-label required">Email</label>
+                        <input 
+                            type="email" 
+                            id="demo-email" 
+                            class="form-input"
+                            data-validate="required,email"
+                            placeholder="test@example.com"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="demo-username" class="form-label required">Username</label>
+                        <input 
+                            type="text" 
+                            id="demo-username" 
+                            class="form-input"
+                            data-validate="required,username"
+                            placeholder="username123"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="demo-password" class="form-label required">Password</label>
+                        <input 
+                            type="password" 
+                            id="demo-password" 
+                            class="form-input"
+                            data-validate="required,password"
+                            placeholder="Enter a strong password"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="demo-confirm" class="form-label required">Confirm Password</label>
+                        <input 
+                            type="password" 
+                            id="demo-confirm" 
+                            class="form-input"
+                            placeholder="Confirm your password"
+                        />
+                    </div>
+
+                    <button type="submit" class="btn-enhanced btn-primary">
+                        Validate Form
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- AJAX Demo -->
+        <div class="demo-section">
+            <h2>🌐 AJAX with Loading States</h2>
+            <p>Simulated API calls with integrated loading states and error handling.</p>
+
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <h3>Successful Request</h3>
+                    <button class="btn-enhanced btn-primary" onclick="demoSuccessfulRequest(this)">
+                        Make Successful Request
+                    </button>
+                </div>
+
+                <div class="demo-card">
+                    <h3>Failed Request</h3>
+                    <button class="btn-enhanced btn-primary" onclick="demoFailedRequest(this)">
+                        Make Failed Request
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Buttons Demo -->
+        <div class="demo-section">
+            <h2>🔘 Enhanced Buttons</h2>
+            <p>Improved button styles with hover effects and loading states.</p>
+
+            <div class="button-grid">
+                <button class="btn-enhanced btn-primary">Primary Button</button>
+                <button class="btn-enhanced btn-secondary">Secondary Button</button>
+                <button class="btn-enhanced btn-primary" disabled>Disabled Button</button>
+                <a href="#" class="btn-enhanced btn-secondary">Link Button</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Setup the demo form
+            setupForm('#demoForm');
+            
+            // Setup password confirmation
+            const passwordField = document.getElementById('demo-password');
+            const confirmField = document.getElementById('demo-confirm');
+            if (passwordField && confirmField) {
+                Validator.setupPasswordConfirm(passwordField, confirmField);
+            }
+
+            // Welcome message
+            setTimeout(() => {
+                Toast.info('Try out the different UI components!', 'Welcome to the Demo! 🎉');
+            }, 1000);
+        });
+
+        // Demo Functions
+        function showSuccessToast() {
+            Toast.success('Operation completed successfully! Your data has been saved.', 'Great Success!');
+        }
+
+        function showErrorToast() {
+            Toast.error('Something went wrong. Please try again later.', 'Oops! Error Occurred');
+        }
+
+        function showWarningToast() {
+            Toast.warning('Please review your information before proceeding.', 'Attention Required');
+        }
+
+        function showInfoToast() {
+            Toast.info('This is an informational message with helpful tips.', 'Did You Know?');
+        }
+
+        function demoPageLoading() {
+            Loading.show('Demo loading... This will disappear in 3 seconds');
+            setTimeout(() => {
+                Loading.hide();
+                Toast.success('Page loading demo completed!');
+            }, 3000);
+        }
+
+        function demoButtonLoading(button) {
+            Loading.addToButton(button);
+            setTimeout(() => {
+                Loading.removeFromButton(button);
+                Toast.success('Button loading demo completed!');
+            }, 2000);
+        }
+
+        function demoInlineSpinner() {
+            const container = document.getElementById('inline-demo');
+            container.innerHTML = '<p>Loading data...</p>';
+            const spinner = Loading.addToElement(container, 'spinner-dots');
+            
+            setTimeout(() => {
+                container.innerHTML = '<p style="color: #4CAF50; font-weight: 500;">✅ Data loaded successfully!</p>';
+            }, 2500);
+        }
+
+        async function demoSuccessfulRequest(button) {
+            try {
+                Loading.addToButton(button);
+                
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+                
+                Toast.success('Data retrieved successfully from the server!', 'Request Complete');
+            } catch (error) {
+                Toast.error('Request failed: ' + error.message);
+            } finally {
+                Loading.removeFromButton(button);
+            }
+        }
+
+        async function demoFailedRequest(button) {
+            try {
+                Loading.addToButton(button);
+                
+                // Simulate API call that fails
+                await new Promise((resolve, reject) => {
+                    setTimeout(() => reject(new Error('Network timeout')), 1500);
+                });
+            } catch (error) {
+                Toast.error('Failed to connect to server. Please check your internet connection.', 'Request Failed');
+            } finally {
+                Loading.removeFromButton(button);
+            }
+        }
+
+        // Form submission handler
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            Toast.success('Form validation passed! All fields are valid.', 'Validation Success');
+        });
+    </script>
+</body>
+</html>

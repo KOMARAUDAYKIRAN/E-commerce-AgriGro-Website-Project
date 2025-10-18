@@ -6,6 +6,8 @@
   <title>AgriConnect</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Enhanced UI Components -->
+  <link rel="stylesheet" href="css/ui-components.css">
   <style>
     body {
       font-family: 'Inter', sans-serif;
@@ -322,6 +324,46 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
+  </script>
+  
+  <!-- Enhanced UI Components Script -->
+  <script src="js/ui-enhancements.js"></script>
+  
+  <script>
+    // Add enhanced functionality to the main page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Welcome message for new visitors
+      setTimeout(() => {
+        if (!localStorage.getItem('hasVisited')) {
+          Toast.info('Welcome to AgriBazaar! Your one-stop agricultural marketplace.', 'Welcome! 🌱');
+          localStorage.setItem('hasVisited', 'true');
+        }
+      }, 1000);
+
+      // Enhance navigation buttons
+      const navButtons = document.querySelectorAll('a[href*=".html"]');
+      navButtons.forEach(button => {
+        if (button.classList.contains('btn') || button.parentElement.classList.contains('button-group')) {
+          enhanceButton(button);
+        }
+      });
+
+      // Add loading states for page navigation
+      const navLinks = document.querySelectorAll('a[href*=".html"]');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && !href.startsWith('#') && !href.startsWith('http')) {
+            showPageLoading('Loading page...');
+            
+            // Hide loading after a short delay (page load)
+            setTimeout(() => {
+              hidePageLoading();
+            }, 500);
+          }
+        });
+      });
+    });
   </script>
 </body>
 </html>
