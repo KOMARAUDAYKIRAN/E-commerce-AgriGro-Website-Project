@@ -4,82 +4,173 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agribazaar Sign Up</title>
+  
+  <!-- Enhanced UI Components -->
+  <link rel="stylesheet" href="css/ui-components.css">
+  
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f3f4f6;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       margin: 0;
+      padding: 2rem 1rem;
     }
     .signup-container {
       background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      width: 350px;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+      position: relative;
+      overflow: hidden;
     }
+    
+    .signup-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #4CAF50, #45a049, #66bb6a);
+    }
+    
     .signup-container h2 {
       text-align: center;
+      margin-bottom: 2rem;
+      color: #2d3748;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+    
+    .form-group {
       margin-bottom: 1.5rem;
     }
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #333;
-    }
-    input {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      background: #16a34a;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #15803d;
-    }
-    .message {
+    
+    .auth-links {
       text-align: center;
-      margin-top: 1rem;
-      font-weight: bold;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    
+    .auth-links a {
+      color: #4CAF50;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .auth-links a:hover {
+      color: #45a049;
+      text-decoration: underline;
+    }
+    
+    .logo-section {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .logo-section h1 {
+      color: #4CAF50;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    
+    .logo-section p {
+      color: #718096;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
+<!-- Enhanced UI Components Script -->
+<script src="js/ui-enhancements.js"></script></body>
 <div class="signup-container">
-  <h2>Sign Up</h2>
-  <form id="signupForm">
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" required />
+  <div class="logo-section">
+    <h1>🌱 AgriBazaar</h1>
+    <p>Join the agricultural community</p>
+  </div>
+  
+  <h2>Create Account</h2>
+  
+  <form id="signupForm" data-enhance="true">
+    <div class="form-group">
+      <label for="email" class="form-label required">Email Address</label>
+      <input 
+        type="email" 
+        id="email" 
+        name="email" 
+        class="form-input" 
+        data-validate="required,email" 
+        placeholder="Enter your email address"
+        required 
+      />
+    </div>
 
-    <label for="username">Username</label>
-    <input type="text" id="username" name="username" required />
+    <div class="form-group">
+      <label for="username" class="form-label required">Username</label>
+      <input 
+        type="text" 
+        id="username" 
+        name="username" 
+        class="form-input" 
+        data-validate="required,username" 
+        placeholder="Choose a username"
+        required 
+      />
+    </div>
 
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required />
+    <div class="form-group">
+      <label for="password" class="form-label required">Password</label>
+      <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        class="form-input" 
+        data-validate="required,password" 
+        placeholder="Create a strong password"
+        required 
+      />
+    </div>
 
-    <label for="confirm-password">Confirm Password</label>
-    <input type="password" id="confirm-password" name="confirm-password" required />
+    <div class="form-group">
+      <label for="confirm-password" class="form-label required">Confirm Password</label>
+      <input 
+        type="password" 
+        id="confirm-password" 
+        name="confirm-password" 
+        class="form-input" 
+        placeholder="Confirm your password"
+        required 
+      />
+    </div>
 
-    <button type="submit">Sign Up</button>
+    <button type="submit" class="btn-enhanced btn-primary" id="signupBtn" data-enhance="true">
+      Create Account
+    </button>
   </form>
-  <p id="message" class="message"></p>
+  
+  <div class="auth-links">
+    <p>Already have an account? <a href="login.html">Sign in here</a></p>
+  </div>
 </div>
 
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Setup enhanced form validation
+  setupForm('#signupForm');
+  
+  // Setup password confirmation matching
+  const passwordField = document.getElementById('password');
+  const confirmField = document.getElementById('confirm-password');
+  Validator.setupPasswordConfirm(passwordField, confirmField);
+  
   document.getElementById("signupForm").addEventListener("submit", async (e) => {
       e.preventDefault();
 
@@ -87,20 +178,21 @@
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
       const confirmPassword = document.getElementById("confirm-password").value.trim();
-      const messageEl = document.getElementById("message");
+      const submitBtn = document.getElementById("signupBtn");
 
       // Ensure passwords match
       if (password !== confirmPassword) {
-          messageEl.innerText = "Passwords do not match!";
-          messageEl.style.color = "red";
+          Toast.error("Passwords do not match!", "Validation Error");
           return;
       }
 
       if (!email || !username || !password) {
-          messageEl.innerText = "All fields are required!";
-          messageEl.style.color = "red";
+          Toast.error("All fields are required!", "Missing Information");
           return;
       }
+
+      // Add loading state to button
+      Loading.addToButton(submitBtn);
 
       try {
           const response = await fetch("http://localhost:8083/api/signup", {
@@ -121,6 +213,8 @@
                   errorMessage = "This username is already taken. Please choose a different one.";
               } else if (errorMessage.includes("Invalid credentials")) {
                   errorMessage = "Please ensure all fields are correct.";
+              } else if (errorMessage.includes("Email already exists")) {
+                  errorMessage = "This email is already registered. Try logging in instead.";
               }
 
               throw new Error(errorMessage);
@@ -134,20 +228,22 @@
               localStorage.setItem("userEmail", email);
           }
 
-          messageEl.innerText = "Sign-up successful!";
-          messageEl.style.color = "green";
+          Toast.success("Account created successfully! Redirecting to login...", "Welcome to AgriBazaar!");
 
-          // Redirect to login page after 1 second
+          // Redirect to login page after 2 seconds
           setTimeout(() => {
               window.location.href = "login.html";
-          }, 1000);
+          }, 2000);
 
       } catch (err) {
-          messageEl.innerText = err.message;
-          messageEl.style.color = "red";
+          Toast.error(err.message, "Sign-up Failed");
           console.error("Sign-up error:", err);
+      } finally {
+          // Remove loading state from button
+          Loading.removeFromButton(submitBtn);
       }
   });
+});
 </script>
 </body>
 </html>

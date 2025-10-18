@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - AgriBazaar</title>
+    
+    <!-- External Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Enhanced UI Components -->
+    <link rel="stylesheet" href="css/ui-components.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #2d3748;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .error-content {
+            text-align: center;
+            max-width: 600px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4CAF50, #45a049, #66bb6a);
+        }
+
+        .error-illustration {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            color: #4CAF50;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .error-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .error-subtitle {
+            font-size: 1.1rem;
+            color: #718096;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        .search-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
+        }
+
+        .search-btn {
+            padding: 0.75rem 1.5rem;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            background: #45a049;
+            transform: translateY(-1px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 10px;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+        }
+
+        .btn-secondary:hover {
+            background: #4CAF50;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .helpful-links {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .helpful-links h3 {
+            color: #2d3748;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .link-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .link-item:hover {
+            background: #e8f5e8;
+            border-color: #4CAF50;
+            transform: translateY(-2px);
+        }
+
+        .link-item a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link-item a:hover {
+            color: #45a049;
+        }
+
+        .link-description {
+            font-size: 0.875rem;
+            color: #718096;
+            margin-top: 0.25rem;
+        }
+
+        .decorative-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            opacity: 0.1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape-1 {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape-2 {
+            width: 40px;
+            height: 40px;
+            top: 70%;
+            right: 15%;
+            animation-delay: 2s;
+        }
+
+        .shape-3 {
+            width: 30px;
+            height: 30px;
+            top: 30%;
+            right: 20%;
+            animation-delay: 4s;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .error-content {
+                padding: 2rem 1.5rem;
+                margin: 1rem;
+            }
+
+            .error-code {
+                font-size: 6rem;
+            }
+
+            .error-title {
+                font-size: 2rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .error-code {
+                font-size: 4rem;
+            }
+
+            .error-title {
+                font-size: 1.5rem;
+            }
+
+            .error-subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-content">
+            <div class="decorative-elements">
+                <div class="floating-shape shape-1"></div>
+                <div class="floating-shape shape-2"></div>
+                <div class="floating-shape shape-3"></div>
+            </div>
+
+            <div class="error-illustration">
+                <div class="error-code">404</div>
+                <h1 class="error-title">Oops! Page Not Found</h1>
+                <p class="error-subtitle">
+                    The page you're looking for seems to have wandered off into the fields. 
+                    Don't worry, we'll help you get back on track!
+                </p>
+            </div>
+
+            <div class="search-container">
+                <p style="margin-bottom: 1rem; font-weight: 500; color: #4a5568;">
+                    🔍 Try searching for what you need:
+                </p>
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Search for products, seeds, equipment..." id="searchInput">
+                    <button class="search-btn" onclick="performSearch()">Search</button>
+                </div>
+                <p style="font-size: 0.875rem; color: #718096; margin-top: 0.5rem;">
+                    Or use one of the quick links below to navigate
+                </p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="index.html" class="btn btn-primary">
+                    🏠 Back to Home
+                </a>
+                <a href="product-catalog.html" class="btn btn-secondary">
+                    🛒 Browse Products
+                </a>
+            </div>
+
+            <div class="helpful-links">
+                <h3>Popular Sections</h3>
+                <div class="links-grid">
+                    <div class="link-item">
+                        <a href="product-catalog.html">
+                            🌱 Product Catalog
+                        </a>
+                        <div class="link-description">Browse seeds, fertilizers, and equipment</div>
+                    </div>
+                    <div class="link-item">
+                        <a href="market-prices.html">
+                            📊 Market Prices
+                        </a>
+                        <div class="link-description">Check current agricultural market rates</div>
+                    </div>
+                    <div class="link-item">
+                        <a href="community.html">
+                            👥 Community Forum
+                        </a>
+                        <div class="link-description">Connect with other farmers</div>
+                    </div>
+                    <div class="link-item">
+                        <a href="news.html">
+                            📰 Agriculture News
+                        </a>
+                        <div class="link-description">Latest farming news and updates</div>
+                    </div>
+                    <div class="link-item">
+                        <a href="auction.html">
+                            🏷️ Auctions
+                        </a>
+                        <div class="link-description">Participate in product auctions</div>
+                    </div>
+                    <div class="link-item">
+                        <a href="login.html">
+                            🔐 Account Login
+                        </a>
+                        <div class="link-description">Access your AgriBazaar account</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced UI Components Script -->
+    <script src="js/ui-enhancements.js"></script>
+
+    <script>
+        // Search functionality
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const query = searchInput.value.trim();
+            
+            if (query) {
+                Loading.show('Searching...');
+                
+                // Simulate search (replace with actual search logic)
+                setTimeout(() => {
+                    Loading.hide();
+                    
+                    // For now, redirect to product catalog with search parameter
+                    const searchUrl = `product-catalog.html?search=${encodeURIComponent(query)}`;
+                    
+                    Toast.info(`Redirecting to search results for "${query}"`);
+                    
+                    setTimeout(() => {
+                        window.location.href = searchUrl;
+                    }, 1500);
+                }, 1000);
+            } else {
+                Toast.warning('Please enter a search term');
+                searchInput.focus();
+            }
+        }
+
+        // Handle Enter key in search input
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show welcome message after page loads
+            setTimeout(() => {
+                Toast.info('Use the search box or navigation links to find what you need', 'Need help?');
+            }, 1000);
+
+            // Add click tracking for analytics (placeholder)
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const destination = this.getAttribute('href');
+                    console.log('404 Page - User navigated to:', destination);
+                });
+            });
+
+            // Add some Easter egg for fun
+            let clickCount = 0;
+            const errorCode = document.querySelector('.error-code');
+            errorCode.addEventListener('click', function() {
+                clickCount++;
+                if (clickCount === 5) {
+                    Toast.success('🎉 You found the Easter egg! Keep exploring AgriBazaar!', 'Congratulations!');
+                    this.style.animation = 'bounce 0.5s ease-in-out 3';
+                    clickCount = 0;
+                } else if (clickCount === 1) {
+                    Toast.info('Keep clicking the 404... 👀', 'Curious?');
+                }
+            });
+        });
+
+        // Add a "go back" functionality
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Show a helpful message if user came from a specific referrer
+        document.addEventListener('DOMContentLoaded', function() {
+            const referrer = document.referrer;
+            if (referrer && referrer.includes('agribazaar') || referrer.includes('localhost')) {
+                setTimeout(() => {
+                    Toast.warning('The link you clicked seems to be broken. We\'re working on fixing it!', 'Broken Link Detected');
+                }, 500);
+            }
+        });
+    </script>
+</body>
+</html>
