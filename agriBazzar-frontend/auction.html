@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>AgriBazaar Auctions</title>
+    <!-- Dark Mode CSS -->
+    <link rel="stylesheet" href="css/dark-mode.css">
     <style>
         body {
           font-family: Arial, sans-serif;
@@ -257,6 +259,25 @@
     }
 
     checkWonAuctions();
+</script>
+
+<!-- Enhanced Dark Mode Script -->
+<script src="js/enhanced-dark-mode.js"></script>
+
+<script>
+    // Dark mode integration for auction page
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.watchThemeChanges) {
+            watchThemeChanges((event, themeInfo) => {
+                // Apply dark mode to auction cards and bid sections
+                const auctionCards = document.querySelectorAll('.auction-card');
+                const bidSections = document.querySelectorAll('.bid-section');
+                
+                auctionCards.forEach(card => applyDarkModeToElement(card));
+                bidSections.forEach(section => applyDarkModeToElement(section));
+            });
+        }
+    });
 </script>
 </body>
 </html>

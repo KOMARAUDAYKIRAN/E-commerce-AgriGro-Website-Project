@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Our Products - AgriBazaar</title>
+    
+    <!-- Enhanced Dark Mode System -->
+    <link rel="stylesheet" href="css/dark-mode.css">
     <link rel="stylesheet" href="css/product-catalog.css" />
 </head>
 <body>
@@ -38,5 +41,23 @@
     </footer>
 
     <script src="js/product-catalog.js"></script>
+    
+    <!-- Enhanced Dark Mode Script -->
+    <script src="js/enhanced-dark-mode.js"></script>
+    
+    <script>
+        // Dark mode integration for product catalog
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.watchThemeChanges) {
+                watchThemeChanges((event, themeInfo) => {
+                    // Apply dark mode to dynamically created product cards
+                    const productCards = document.querySelectorAll('.product-card');
+                    productCards.forEach(card => {
+                        applyDarkModeToElement(card);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

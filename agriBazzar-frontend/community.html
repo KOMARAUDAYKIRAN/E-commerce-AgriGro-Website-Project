@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Community Forum</title>
+  
+  <!-- Enhanced Dark Mode System -->
+  <link rel="stylesheet" href="css/dark-mode.css">
   <link rel="stylesheet" href="community.css">
 </head>
 
@@ -46,7 +49,24 @@
         &copy; 2025 AgriBazaar. All rights reserved.
     </footer>
 
-  <script src="darkMode.js"></script>
+  <!-- Enhanced Dark Mode Script -->
+  <script src="js/enhanced-dark-mode.js"></script>
+  
+  <script>
+    // Dark mode integration for community page
+    document.addEventListener('DOMContentLoaded', function() {
+        if (window.watchThemeChanges) {
+            watchThemeChanges((event, themeInfo) => {
+                // Apply dark mode to thread cards and form elements
+                const threadCards = document.querySelectorAll('.thread-card');
+                const newPostSection = document.querySelector('.new-post');
+                
+                threadCards.forEach(card => applyDarkModeToElement(card));
+                if (newPostSection) applyDarkModeToElement(newPostSection);
+            });
+        }
+    });
+  </script>
 </body>
 
 </html>
