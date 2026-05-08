@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Market Prices</title>
+    <!-- Dark Mode CSS -->
+    <link rel="stylesheet" href="css/dark-mode.css">
     <style>
       * {
         margin: 0;
@@ -516,6 +518,24 @@
         window.history.back();
       }
     </script>
-    <script src="darkMode.js"></script>
+    
+    <!-- Enhanced Dark Mode Script -->
+    <script src="js/enhanced-dark-mode.js"></script>
+    
+    <script>
+        // Dark mode integration for market prices page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.watchThemeChanges) {
+                watchThemeChanges((event, themeInfo) => {
+                    // Apply dark mode to price cards and tables
+                    const priceCards = document.querySelectorAll('.price-card, .commodity-card');
+                    const dataTables = document.querySelectorAll('table, .data-table');
+                    
+                    priceCards.forEach(card => applyDarkModeToElement(card));
+                    dataTables.forEach(table => applyDarkModeToElement(table));
+                });
+            }
+        });
+    </script>
   </body>
 </html>

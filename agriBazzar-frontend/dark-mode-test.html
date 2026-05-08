@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Mode Test - AgriBazaar</title>
+    <link rel="stylesheet" href="css/dark-mode.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-section {
+            background: var(--card-bg);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+        
+        .test-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .test-input {
+            background: var(--input-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px;
+            width: 200px;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 5px;
+            font-size: 12px;
+        }
+        
+        .status-success {
+            background: #28a745;
+            color: white;
+        }
+        
+        .status-error {
+            background: #dc3545;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌓 AgriBazaar Dark Mode Test Suite</h1>
+    
+    <div class="test-section">
+        <h2>Theme Controls Test</h2>
+        <button class="test-button" onclick="testToggle()">Toggle Theme</button>
+        <button class="test-button" onclick="setDarkTheme()">Set Dark</button>
+        <button class="test-button" onclick="setLightTheme()">Set Light</button>
+        <button class="test-button" onclick="setAutoTheme()">Set Auto</button>
+        
+        <div id="theme-status" class="status-indicator status-success">Current Theme: Loading...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Component Test</h2>
+        <p>This section tests various UI components in dark mode:</p>
+        
+        <div style="margin: 15px 0;">
+            <input type="text" class="test-input" placeholder="Test input field" />
+            <input type="email" class="test-input" placeholder="email@example.com" />
+        </div>
+        
+        <div style="margin: 15px 0;">
+            <button class="test-button">Primary Button</button>
+            <button class="test-button" style="background: var(--secondary-color);">Secondary</button>
+        </div>
+        
+        <div style="margin: 15px 0;">
+            <select class="test-input">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>System Integration Test</h2>
+        <div id="integration-results">
+            <div class="status-indicator" id="css-status">CSS: Testing...</div>
+            <div class="status-indicator" id="js-status">JavaScript: Testing...</div>
+            <div class="status-indicator" id="storage-status">Storage: Testing...</div>
+            <div class="status-indicator" id="observer-status">Observers: Testing...</div>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Accessibility Test</h2>
+        <p>Test keyboard navigation:</p>
+        <ul>
+            <li>Press <strong>Alt+D</strong> to toggle theme</li>
+            <li>Use <strong>Tab</strong> to navigate buttons</li>
+            <li>Use <strong>Enter</strong> to activate toggle button</li>
+        </ul>
+        <div id="accessibility-status" class="status-indicator">A11y: Testing...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Performance Test</h2>
+        <button class="test-button" onclick="performanceTest()">Run Performance Test</button>
+        <div id="performance-results"></div>
+    </div>
+
+    <!-- Enhanced Dark Mode Script -->
+    <script src="js/enhanced-dark-mode.js"></script>
+    
+    <script>
+        // Test Functions
+        let testResults = {
+            css: false,
+            javascript: false,
+            storage: false,
+            observers: false,
+            accessibility: false
+        };
+        
+        function updateStatus(elementId, success, message) {
+            const element = document.getElementById(elementId);
+            element.className = `status-indicator ${success ? 'status-success' : 'status-error'}`;
+            element.textContent = message;
+        }
+        
+        function testToggle() {
+            if (window.darkModeManager) {
+                window.darkModeManager.toggleTheme();
+                updateThemeStatus();
+            }
+        }
+        
+        function setDarkTheme() {
+            if (window.darkModeManager) {
+                window.darkModeManager.setTheme('dark');
+                updateThemeStatus();
+            }
+        }
+        
+        function setLightTheme() {
+            if (window.darkModeManager) {
+                window.darkModeManager.setTheme('light');
+                updateThemeStatus();
+            }
+        }
+        
+        function setAutoTheme() {
+            if (window.darkModeManager) {
+                window.darkModeManager.setTheme('auto');
+                updateThemeStatus();
+            }
+        }
+        
+        function updateThemeStatus() {
+            const currentTheme = window.darkModeManager ? 
+                window.darkModeManager.getCurrentTheme() : 'Unknown';
+            document.getElementById('theme-status').textContent = `Current Theme: ${currentTheme}`;
+        }
+        
+        function performanceTest() {
+            const iterations = 100;
+            const resultsDiv = document.getElementById('performance-results');
+            
+            const startTime = performance.now();
+            
+            for (let i = 0; i < iterations; i++) {
+                if (window.darkModeManager) {
+                    window.darkModeManager.toggleTheme();
+                }
+            }
+            
+            const endTime = performance.now();
+            const avgTime = (endTime - startTime) / iterations;
+            
+            resultsDiv.innerHTML = `
+                <p><strong>Performance Results:</strong></p>
+                <p>Average toggle time: ${avgTime.toFixed(2)}ms</p>
+                <p>Total time for ${iterations} toggles: ${(endTime - startTime).toFixed(2)}ms</p>
+                <p>Performance: ${avgTime < 5 ? '✅ Excellent' : avgTime < 10 ? '⚠️ Good' : '❌ Needs Optimization'}</p>
+            `;
+        }
+        
+        // Run tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => runTests(), 100);
+        });
+        
+        function runTests() {
+            // Test 1: CSS Variables
+            const rootStyle = getComputedStyle(document.documentElement);
+            const hasBgColor = rootStyle.getPropertyValue('--bg-color').trim() !== '';
+            updateStatus('css-status', hasBgColor, hasBgColor ? 'CSS: ✅ Loaded' : 'CSS: ❌ Failed');
+            testResults.css = hasBgColor;
+            
+            // Test 2: JavaScript
+            const hasJS = typeof window.darkModeManager !== 'undefined';
+            updateStatus('js-status', hasJS, hasJS ? 'JavaScript: ✅ Loaded' : 'JavaScript: ❌ Failed');
+            testResults.javascript = hasJS;
+            
+            // Test 3: Local Storage
+            let hasStorage = false;
+            try {
+                localStorage.setItem('darkModeTest', 'test');
+                hasStorage = localStorage.getItem('darkModeTest') === 'test';
+                localStorage.removeItem('darkModeTest');
+            } catch (e) {
+                hasStorage = false;
+            }
+            updateStatus('storage-status', hasStorage, hasStorage ? 'Storage: ✅ Working' : 'Storage: ❌ Failed');
+            testResults.storage = hasStorage;
+            
+            // Test 4: Observer System
+            let hasObservers = false;
+            if (window.watchThemeChanges) {
+                try {
+                    window.watchThemeChanges(() => {});
+                    hasObservers = true;
+                } catch (e) {
+                    hasObservers = false;
+                }
+            }
+            updateStatus('observer-status', hasObservers, hasObservers ? 'Observers: ✅ Working' : 'Observers: ❌ Failed');
+            testResults.observers = hasObservers;
+            
+            // Test 5: Accessibility
+            const toggleButton = document.getElementById('darkModeToggle');
+            const hasA11y = toggleButton && toggleButton.getAttribute('aria-label');
+            updateStatus('accessibility-status', hasA11y, hasA11y ? 'A11y: ✅ Configured' : 'A11y: ⚠️ Limited');
+            testResults.accessibility = !!hasA11y;
+            
+            // Update theme status
+            updateThemeStatus();
+            
+            // Log results
+            console.log('🧪 Dark Mode Test Results:', testResults);
+            
+            // Show overall status
+            const allPassed = Object.values(testResults).every(result => result);
+            console.log(allPassed ? '✅ All tests passed!' : '⚠️ Some tests failed');
+        }
+        
+        // Listen for theme changes
+        if (window.watchThemeChanges) {
+            watchThemeChanges((event, themeInfo) => {
+                console.log('Theme changed:', themeInfo);
+                updateThemeStatus();
+            });
+        }
+    </script>
+</body>
+</html>
